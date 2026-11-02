@@ -70,12 +70,13 @@ class _ParanoiaScreenState extends State<ParanoiaScreen> with SingleTickerProvid
   bool _revealed = false;
   bool _heads = true;
 
-  late final AnimationController _coin =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
+  late final AnimationController _coin;
 
   @override
   void initState() {
     super.initState();
+    // Created eagerly: a lazy controller would first be built inside dispose().
+    _coin = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
     _question = _queue.removeLast();
   }
 

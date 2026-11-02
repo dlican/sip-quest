@@ -1,0 +1,3983 @@
+{
+  "version": 1,
+  "generated": "2026-11-02",
+  "difficulty_levels": {
+    "easy": "Huge answer pool; everyone can answer instantly",
+    "medium": "Plenty of answers but takes a moment",
+    "hard": "Needs some knowledge; matches and blanks are more likely"
+  },
+  "categories": [
+    {
+      "id": "food",
+      "name": "Food & Drink",
+      "emoji": "🍔"
+    },
+    {
+      "id": "animals",
+      "name": "Animals",
+      "emoji": "🐾"
+    },
+    {
+      "id": "places",
+      "name": "Places & Geography",
+      "emoji": "🌍"
+    },
+    {
+      "id": "pop",
+      "name": "Movies & TV",
+      "emoji": "🎬"
+    },
+    {
+      "id": "music",
+      "name": "Music",
+      "emoji": "🎵"
+    },
+    {
+      "id": "sports",
+      "name": "Sports & Games",
+      "emoji": "🏆"
+    },
+    {
+      "id": "people",
+      "name": "Famous People",
+      "emoji": "⭐"
+    },
+    {
+      "id": "brands",
+      "name": "Brands & Stuff",
+      "emoji": "🛍️"
+    },
+    {
+      "id": "everyday",
+      "name": "Everyday Life",
+      "emoji": "🏠"
+    },
+    {
+      "id": "words",
+      "name": "Words & Language",
+      "emoji": "🔤"
+    },
+    {
+      "id": "science",
+      "name": "Science & Nature",
+      "emoji": "🔬"
+    },
+    {
+      "id": "party",
+      "name": "Party & Nightlife",
+      "emoji": "🍻"
+    },
+    {
+      "id": "random",
+      "name": "Wildcard",
+      "emoji": "🎲"
+    }
+  ],
+  "prompts": [
+    {
+      "id": "food_e01",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a fruit"
+    },
+    {
+      "id": "food_e02",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a vegetable"
+    },
+    {
+      "id": "food_e03",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a pizza topping"
+    },
+    {
+      "id": "food_e04",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a breakfast food"
+    },
+    {
+      "id": "food_e05",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a dessert"
+    },
+    {
+      "id": "food_e06",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a type of cheese"
+    },
+    {
+      "id": "food_e07",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a fast food chain"
+    },
+    {
+      "id": "food_e08",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a candy bar"
+    },
+    {
+      "id": "food_e09",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a cereal brand"
+    },
+    {
+      "id": "food_e10",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a soda brand"
+    },
+    {
+      "id": "food_e11",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name something you put on a hot dog"
+    },
+    {
+      "id": "food_e12",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a type of pasta"
+    },
+    {
+      "id": "food_e13",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a sandwich"
+    },
+    {
+      "id": "food_e14",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name an ice cream flavor"
+    },
+    {
+      "id": "food_e15",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a snack food"
+    },
+    {
+      "id": "food_e16",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name something you eat with a spoon"
+    },
+    {
+      "id": "food_e17",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a food that is yellow"
+    },
+    {
+      "id": "food_e18",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a food that is red"
+    },
+    {
+      "id": "food_e19",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a breakfast cereal mascot"
+    },
+    {
+      "id": "food_e20",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a type of bread"
+    },
+    {
+      "id": "food_e21",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a soup"
+    },
+    {
+      "id": "food_e22",
+      "category": "food",
+      "difficulty": "easy",
+      "text": "Name a condiment"
+    },
+    {
+      "id": "food_m01",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a cocktail"
+    },
+    {
+      "id": "food_m02",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a beer brand"
+    },
+    {
+      "id": "food_m03",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a type of nut"
+    },
+    {
+      "id": "food_m04",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a spice or herb"
+    },
+    {
+      "id": "food_m05",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a type of sushi"
+    },
+    {
+      "id": "food_m06",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a Mexican dish"
+    },
+    {
+      "id": "food_m07",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name an Italian dish"
+    },
+    {
+      "id": "food_m08",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a Chinese dish"
+    },
+    {
+      "id": "food_m09",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a Japanese food"
+    },
+    {
+      "id": "food_m10",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name an Indian dish"
+    },
+    {
+      "id": "food_m11",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a type of potato dish"
+    },
+    {
+      "id": "food_m12",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a food you can eat raw or cooked"
+    },
+    {
+      "id": "food_m13",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a type of seafood"
+    },
+    {
+      "id": "food_m14",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a type of sausage"
+    },
+    {
+      "id": "food_m15",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a fruit with a pit or stone"
+    },
+    {
+      "id": "food_m16",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a chip or crisp flavor"
+    },
+    {
+      "id": "food_m17",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a coffee drink"
+    },
+    {
+      "id": "food_m18",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a type of tea"
+    },
+    {
+      "id": "food_m19",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a food that comes in a can"
+    },
+    {
+      "id": "food_m20",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a cake flavor"
+    },
+    {
+      "id": "food_m21",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a vegetable that grows underground"
+    },
+    {
+      "id": "food_m22",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a type of berry"
+    },
+    {
+      "id": "food_m23",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a liquor or spirit"
+    },
+    {
+      "id": "food_m24",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a breakfast item at a diner"
+    },
+    {
+      "id": "food_m25",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a pie flavor"
+    },
+    {
+      "id": "food_m26",
+      "category": "food",
+      "difficulty": "medium",
+      "text": "Name a type of bean"
+    },
+    {
+      "id": "food_h01",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a wine grape variety"
+    },
+    {
+      "id": "food_h02",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a French dish"
+    },
+    {
+      "id": "food_h03",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a Thai dish"
+    },
+    {
+      "id": "food_h04",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a Korean dish"
+    },
+    {
+      "id": "food_h05",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a Greek dish"
+    },
+    {
+      "id": "food_h06",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a type of mushroom"
+    },
+    {
+      "id": "food_h07",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a tropical fruit"
+    },
+    {
+      "id": "food_h08",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a citrus fruit"
+    },
+    {
+      "id": "food_h09",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a type of squash or gourd"
+    },
+    {
+      "id": "food_h10",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a cocktail that contains gin"
+    },
+    {
+      "id": "food_h11",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a cocktail that contains rum"
+    },
+    {
+      "id": "food_h12",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a brand of whiskey"
+    },
+    {
+      "id": "food_h13",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a dish named after a place"
+    },
+    {
+      "id": "food_h14",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a type of dumpling from any country"
+    },
+    {
+      "id": "food_h15",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a leafy green"
+    },
+    {
+      "id": "food_h16",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a type of flatbread"
+    },
+    {
+      "id": "food_h17",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a famous chef"
+    },
+    {
+      "id": "food_h18",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a kitchen utensil"
+    },
+    {
+      "id": "food_h19",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a type of pepper (the vegetable)"
+    },
+    {
+      "id": "food_h20",
+      "category": "food",
+      "difficulty": "hard",
+      "text": "Name a cheese that isn't from France or Italy"
+    },
+    {
+      "id": "animals_e01",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name an animal at the zoo"
+    },
+    {
+      "id": "animals_e02",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name a farm animal"
+    },
+    {
+      "id": "animals_e03",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name a pet"
+    },
+    {
+      "id": "animals_e04",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name a bird"
+    },
+    {
+      "id": "animals_e05",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name a sea creature"
+    },
+    {
+      "id": "animals_e06",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name a dog breed"
+    },
+    {
+      "id": "animals_e07",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name an insect"
+    },
+    {
+      "id": "animals_e08",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name an animal with stripes"
+    },
+    {
+      "id": "animals_e09",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name an animal that can fly"
+    },
+    {
+      "id": "animals_e10",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name a jungle animal"
+    },
+    {
+      "id": "animals_e11",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name an animal with four legs"
+    },
+    {
+      "id": "animals_e12",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name a baby animal name (like kitten)"
+    },
+    {
+      "id": "animals_e13",
+      "category": "animals",
+      "difficulty": "easy",
+      "text": "Name a cartoon animal"
+    },
+    {
+      "id": "animals_m01",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a cat breed"
+    },
+    {
+      "id": "animals_m02",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a type of shark"
+    },
+    {
+      "id": "animals_m03",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a snake"
+    },
+    {
+      "id": "animals_m04",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a reptile"
+    },
+    {
+      "id": "animals_m05",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name an animal native to Australia"
+    },
+    {
+      "id": "animals_m06",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name an animal native to Africa"
+    },
+    {
+      "id": "animals_m07",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a type of monkey or ape"
+    },
+    {
+      "id": "animals_m08",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a dinosaur"
+    },
+    {
+      "id": "animals_m09",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a type of fish"
+    },
+    {
+      "id": "animals_m10",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a nocturnal animal"
+    },
+    {
+      "id": "animals_m11",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name an animal that hibernates"
+    },
+    {
+      "id": "animals_m12",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a bird that can't fly"
+    },
+    {
+      "id": "animals_m13",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name an animal with a shell"
+    },
+    {
+      "id": "animals_m14",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name an animal with horns or antlers"
+    },
+    {
+      "id": "animals_m15",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a type of bear"
+    },
+    {
+      "id": "animals_m16",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a big cat"
+    },
+    {
+      "id": "animals_m17",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a team mascot that's an animal"
+    },
+    {
+      "id": "animals_m18",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name an animal that lives in the Arctic or Antarctic"
+    },
+    {
+      "id": "animals_m19",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name a mammal that lives in the ocean"
+    },
+    {
+      "id": "animals_m20",
+      "category": "animals",
+      "difficulty": "medium",
+      "text": "Name an animal that eats bugs"
+    },
+    {
+      "id": "animals_h01",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a type of whale"
+    },
+    {
+      "id": "animals_h02",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a dog breed bigger than a Labrador"
+    },
+    {
+      "id": "animals_h03",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a type of owl"
+    },
+    {
+      "id": "animals_h04",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a breed of horse"
+    },
+    {
+      "id": "animals_h05",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name an endangered animal"
+    },
+    {
+      "id": "animals_h06",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name an amphibian"
+    },
+    {
+      "id": "animals_h07",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a type of eagle, hawk or falcon"
+    },
+    {
+      "id": "animals_h08",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a rodent"
+    },
+    {
+      "id": "animals_h09",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a type of crab or crustacean"
+    },
+    {
+      "id": "animals_h10",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a marsupial"
+    },
+    {
+      "id": "animals_h11",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a type of beetle"
+    },
+    {
+      "id": "animals_h12",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a group-of-animals word (like a pride of lions)"
+    },
+    {
+      "id": "animals_h13",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name an animal native to South America"
+    },
+    {
+      "id": "animals_h14",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a type of parrot"
+    },
+    {
+      "id": "animals_h15",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a deer species"
+    },
+    {
+      "id": "animals_h16",
+      "category": "animals",
+      "difficulty": "hard",
+      "text": "Name a venomous animal that isn't a snake"
+    },
+    {
+      "id": "places_e01",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name a country in Europe"
+    },
+    {
+      "id": "places_e02",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name a US state"
+    },
+    {
+      "id": "places_e03",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name a city in the United States"
+    },
+    {
+      "id": "places_e04",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name a country in Asia"
+    },
+    {
+      "id": "places_e05",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name a capital city"
+    },
+    {
+      "id": "places_e06",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name a country in South America"
+    },
+    {
+      "id": "places_e07",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name an ocean or sea"
+    },
+    {
+      "id": "places_e08",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name a city that hosted the Olympics"
+    },
+    {
+      "id": "places_e09",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name a country that speaks Spanish"
+    },
+    {
+      "id": "places_e10",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name a tourist attraction"
+    },
+    {
+      "id": "places_e11",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name an island"
+    },
+    {
+      "id": "places_e12",
+      "category": "places",
+      "difficulty": "easy",
+      "text": "Name a country with a red flag"
+    },
+    {
+      "id": "places_m01",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a country in Africa"
+    },
+    {
+      "id": "places_m02",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a river"
+    },
+    {
+      "id": "places_m03",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a mountain or mountain range"
+    },
+    {
+      "id": "places_m04",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a city in Europe"
+    },
+    {
+      "id": "places_m05",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a desert"
+    },
+    {
+      "id": "places_m06",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a Canadian province or territory"
+    },
+    {
+      "id": "places_m07",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a city in Asia"
+    },
+    {
+      "id": "places_m08",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a country that's landlocked"
+    },
+    {
+      "id": "places_m09",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a city in California"
+    },
+    {
+      "id": "places_m10",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a city in Texas"
+    },
+    {
+      "id": "places_m11",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a country that speaks French"
+    },
+    {
+      "id": "places_m12",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a country with a monarchy"
+    },
+    {
+      "id": "places_m13",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a country that has hosted the World Cup"
+    },
+    {
+      "id": "places_m14",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a national park"
+    },
+    {
+      "id": "places_m15",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a country on the equator"
+    },
+    {
+      "id": "places_m16",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a lake"
+    },
+    {
+      "id": "places_m17",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a famous bridge"
+    },
+    {
+      "id": "places_m18",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a famous building or skyscraper"
+    },
+    {
+      "id": "places_m19",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a beach destination"
+    },
+    {
+      "id": "places_m20",
+      "category": "places",
+      "difficulty": "medium",
+      "text": "Name a Caribbean country or island"
+    },
+    {
+      "id": "places_h01",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a city in Australia"
+    },
+    {
+      "id": "places_h02",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a city in Africa"
+    },
+    {
+      "id": "places_h03",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a country in the Middle East"
+    },
+    {
+      "id": "places_h04",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a city in Canada"
+    },
+    {
+      "id": "places_h05",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a city in South America"
+    },
+    {
+      "id": "places_h06",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a country that no longer exists"
+    },
+    {
+      "id": "places_h07",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a city in Florida"
+    },
+    {
+      "id": "places_h08",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a UK city"
+    },
+    {
+      "id": "places_h09",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a country with a population under 1 million"
+    },
+    {
+      "id": "places_h10",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a US state capital"
+    },
+    {
+      "id": "places_h11",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a country in Central America"
+    },
+    {
+      "id": "places_h12",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a German city"
+    },
+    {
+      "id": "places_h13",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a Japanese city"
+    },
+    {
+      "id": "places_h14",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name an Italian city"
+    },
+    {
+      "id": "places_h15",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a country whose name ends in 'stan'"
+    },
+    {
+      "id": "places_h16",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a country that borders China"
+    },
+    {
+      "id": "places_h17",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a Mexican state or city"
+    },
+    {
+      "id": "places_h18",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a volcano"
+    },
+    {
+      "id": "places_h19",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a Spanish city"
+    },
+    {
+      "id": "places_h20",
+      "category": "places",
+      "difficulty": "hard",
+      "text": "Name a country whose flag has a star on it"
+    },
+    {
+      "id": "pop_e01",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a Disney movie"
+    },
+    {
+      "id": "pop_e02",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a superhero"
+    },
+    {
+      "id": "pop_e03",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a Pixar movie"
+    },
+    {
+      "id": "pop_e04",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a cartoon character"
+    },
+    {
+      "id": "pop_e05",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a TV sitcom"
+    },
+    {
+      "id": "pop_e06",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a movie villain"
+    },
+    {
+      "id": "pop_e07",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a Disney princess"
+    },
+    {
+      "id": "pop_e08",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a reality TV show"
+    },
+    {
+      "id": "pop_e09",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a Harry Potter character"
+    },
+    {
+      "id": "pop_e10",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a movie with a number in the title"
+    },
+    {
+      "id": "pop_e11",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a horror movie"
+    },
+    {
+      "id": "pop_e12",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a Christmas movie"
+    },
+    {
+      "id": "pop_e13",
+      "category": "pop",
+      "difficulty": "easy",
+      "text": "Name a streaming service"
+    },
+    {
+      "id": "pop_m01",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a Marvel movie"
+    },
+    {
+      "id": "pop_m02",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a Star Wars character"
+    },
+    {
+      "id": "pop_m03",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a James Bond actor or movie"
+    },
+    {
+      "id": "pop_m04",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a character from The Simpsons"
+    },
+    {
+      "id": "pop_m05",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a character from Friends"
+    },
+    {
+      "id": "pop_m06",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name an animated TV show"
+    },
+    {
+      "id": "pop_m07",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a movie franchise"
+    },
+    {
+      "id": "pop_m08",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a movie with a sequel"
+    },
+    {
+      "id": "pop_m09",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a Netflix original series"
+    },
+    {
+      "id": "pop_m10",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a talk show host"
+    },
+    {
+      "id": "pop_m11",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a game show"
+    },
+    {
+      "id": "pop_m12",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a Pokémon"
+    },
+    {
+      "id": "pop_m13",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a famous movie director"
+    },
+    {
+      "id": "pop_m14",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a movie set in space"
+    },
+    {
+      "id": "pop_m15",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a romantic comedy"
+    },
+    {
+      "id": "pop_m16",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a Batman villain"
+    },
+    {
+      "id": "pop_m17",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a Shrek character"
+    },
+    {
+      "id": "pop_m18",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name an anime"
+    },
+    {
+      "id": "pop_m19",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a TV show set in a hospital"
+    },
+    {
+      "id": "pop_m20",
+      "category": "pop",
+      "difficulty": "medium",
+      "text": "Name a TV show set in a school"
+    },
+    {
+      "id": "pop_h01",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Best Picture Oscar winner"
+    },
+    {
+      "id": "pop_h02",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a character from The Office"
+    },
+    {
+      "id": "pop_h03",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Studio Ghibli film"
+    },
+    {
+      "id": "pop_h04",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Quentin Tarantino film"
+    },
+    {
+      "id": "pop_h05",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Christopher Nolan film"
+    },
+    {
+      "id": "pop_h06",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Game of Thrones character"
+    },
+    {
+      "id": "pop_h07",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Lord of the Rings character"
+    },
+    {
+      "id": "pop_h08",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Muppet"
+    },
+    {
+      "id": "pop_h09",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Spider-Man villain"
+    },
+    {
+      "id": "pop_h10",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Breaking Bad character"
+    },
+    {
+      "id": "pop_h11",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Stephen King story"
+    },
+    {
+      "id": "pop_h12",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Looney Tunes character"
+    },
+    {
+      "id": "pop_h13",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Star Trek character"
+    },
+    {
+      "id": "pop_h14",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name an actor who has played Batman, Superman or Spider-Man"
+    },
+    {
+      "id": "pop_h15",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a movie released before 1980"
+    },
+    {
+      "id": "pop_h16",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Seinfeld character"
+    },
+    {
+      "id": "pop_h17",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name an X-Men character"
+    },
+    {
+      "id": "pop_h18",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a SpongeBob character"
+    },
+    {
+      "id": "pop_h19",
+      "category": "pop",
+      "difficulty": "hard",
+      "text": "Name a Toy Story character"
+    },
+    {
+      "id": "music_e01",
+      "category": "music",
+      "difficulty": "easy",
+      "text": "Name a musical instrument"
+    },
+    {
+      "id": "music_e02",
+      "category": "music",
+      "difficulty": "easy",
+      "text": "Name a famous singer"
+    },
+    {
+      "id": "music_e03",
+      "category": "music",
+      "difficulty": "easy",
+      "text": "Name a boy band or girl group"
+    },
+    {
+      "id": "music_e04",
+      "category": "music",
+      "difficulty": "easy",
+      "text": "Name a music genre"
+    },
+    {
+      "id": "music_e05",
+      "category": "music",
+      "difficulty": "easy",
+      "text": "Name a Taylor Swift song"
+    },
+    {
+      "id": "music_e06",
+      "category": "music",
+      "difficulty": "easy",
+      "text": "Name a rapper"
+    },
+    {
+      "id": "music_e07",
+      "category": "music",
+      "difficulty": "easy",
+      "text": "Name a Christmas song"
+    },
+    {
+      "id": "music_e08",
+      "category": "music",
+      "difficulty": "easy",
+      "text": "Name a song by The Beatles"
+    },
+    {
+      "id": "music_e09",
+      "category": "music",
+      "difficulty": "easy",
+      "text": "Name a karaoke song"
+    },
+    {
+      "id": "music_e10",
+      "category": "music",
+      "difficulty": "easy",
+      "text": "Name a band"
+    },
+    {
+      "id": "music_m01",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a Michael Jackson song"
+    },
+    {
+      "id": "music_m02",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a Queen song"
+    },
+    {
+      "id": "music_m03",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a Beyoncé song"
+    },
+    {
+      "id": "music_m04",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a one-hit wonder"
+    },
+    {
+      "id": "music_m05",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a rock band"
+    },
+    {
+      "id": "music_m06",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a country singer"
+    },
+    {
+      "id": "music_m07",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a DJ"
+    },
+    {
+      "id": "music_m08",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a musical (stage show)"
+    },
+    {
+      "id": "music_m09",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a song from a Disney movie"
+    },
+    {
+      "id": "music_m10",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a song with a color in the title"
+    },
+    {
+      "id": "music_m11",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a song with a name in the title"
+    },
+    {
+      "id": "music_m12",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a Drake song"
+    },
+    {
+      "id": "music_m13",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a song with a number in the title"
+    },
+    {
+      "id": "music_m14",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a 90s pop star"
+    },
+    {
+      "id": "music_m15",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a K-pop group or artist"
+    },
+    {
+      "id": "music_m16",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a famous guitarist"
+    },
+    {
+      "id": "music_m17",
+      "category": "music",
+      "difficulty": "medium",
+      "text": "Name a song by Eminem"
+    },
+    {
+      "id": "music_h01",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a Super Bowl halftime performer"
+    },
+    {
+      "id": "music_h02",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a Grammy Album of the Year winner"
+    },
+    {
+      "id": "music_h03",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a classical composer"
+    },
+    {
+      "id": "music_h04",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name an ABBA song"
+    },
+    {
+      "id": "music_h05",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a Rolling Stones song"
+    },
+    {
+      "id": "music_h06",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a Madonna song"
+    },
+    {
+      "id": "music_h07",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name an Elvis song"
+    },
+    {
+      "id": "music_h08",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a Nirvana or Foo Fighters song"
+    },
+    {
+      "id": "music_h09",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a heavy metal band"
+    },
+    {
+      "id": "music_h10",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a song with a day of the week in the title"
+    },
+    {
+      "id": "music_h11",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a song with a city in the title"
+    },
+    {
+      "id": "music_h12",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a rapper who goes by 'Lil' something"
+    },
+    {
+      "id": "music_h13",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a member of a famous band"
+    },
+    {
+      "id": "music_h14",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a jazz musician"
+    },
+    {
+      "id": "music_h15",
+      "category": "music",
+      "difficulty": "hard",
+      "text": "Name a woodwind or brass instrument"
+    },
+    {
+      "id": "sports_e01",
+      "category": "sports",
+      "difficulty": "easy",
+      "text": "Name a sport"
+    },
+    {
+      "id": "sports_e02",
+      "category": "sports",
+      "difficulty": "easy",
+      "text": "Name a sport played with a ball"
+    },
+    {
+      "id": "sports_e03",
+      "category": "sports",
+      "difficulty": "easy",
+      "text": "Name a board game"
+    },
+    {
+      "id": "sports_e04",
+      "category": "sports",
+      "difficulty": "easy",
+      "text": "Name a video game"
+    },
+    {
+      "id": "sports_e05",
+      "category": "sports",
+      "difficulty": "easy",
+      "text": "Name a famous athlete"
+    },
+    {
+      "id": "sports_e06",
+      "category": "sports",
+      "difficulty": "easy",
+      "text": "Name a card game"
+    },
+    {
+      "id": "sports_e07",
+      "category": "sports",
+      "difficulty": "easy",
+      "text": "Name an Olympic sport"
+    },
+    {
+      "id": "sports_e08",
+      "category": "sports",
+      "difficulty": "easy",
+      "text": "Name a playground game"
+    },
+    {
+      "id": "sports_e09",
+      "category": "sports",
+      "difficulty": "easy",
+      "text": "Name a party game"
+    },
+    {
+      "id": "sports_e10",
+      "category": "sports",
+      "difficulty": "easy",
+      "text": "Name a piece of gym equipment"
+    },
+    {
+      "id": "sports_m01",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name an NFL team"
+    },
+    {
+      "id": "sports_m02",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name an NBA team"
+    },
+    {
+      "id": "sports_m03",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a soccer club"
+    },
+    {
+      "id": "sports_m04",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a Winter Olympic sport"
+    },
+    {
+      "id": "sports_m05",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a basketball player"
+    },
+    {
+      "id": "sports_m06",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a soccer player"
+    },
+    {
+      "id": "sports_m07",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a tennis player"
+    },
+    {
+      "id": "sports_m08",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a Mario Kart character"
+    },
+    {
+      "id": "sports_m09",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a Nintendo game"
+    },
+    {
+      "id": "sports_m10",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a martial art"
+    },
+    {
+      "id": "sports_m11",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a water sport"
+    },
+    {
+      "id": "sports_m12",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a golfer"
+    },
+    {
+      "id": "sports_m13",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a position in any sport"
+    },
+    {
+      "id": "sports_m14",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name something you'd find in a bowling alley or arcade"
+    },
+    {
+      "id": "sports_m15",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a Monopoly property or piece"
+    },
+    {
+      "id": "sports_m16",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a mobile game"
+    },
+    {
+      "id": "sports_m17",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a Grand Slam or major tournament"
+    },
+    {
+      "id": "sports_m18",
+      "category": "sports",
+      "difficulty": "medium",
+      "text": "Name a quarterback"
+    },
+    {
+      "id": "sports_h01",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name an MLB team"
+    },
+    {
+      "id": "sports_h02",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name an NHL team"
+    },
+    {
+      "id": "sports_h03",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a Formula 1 driver"
+    },
+    {
+      "id": "sports_h04",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a boxer or UFC fighter"
+    },
+    {
+      "id": "sports_h05",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a chess piece or chess term"
+    },
+    {
+      "id": "sports_h06",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a Premier League team"
+    },
+    {
+      "id": "sports_h07",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name an Olympic gold medalist"
+    },
+    {
+      "id": "sports_h08",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a sport played on ice"
+    },
+    {
+      "id": "sports_h09",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a yoga pose"
+    },
+    {
+      "id": "sports_h10",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a wrestler (WWE or similar)"
+    },
+    {
+      "id": "sports_h11",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a video game console"
+    },
+    {
+      "id": "sports_h12",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a Zelda or Mario character"
+    },
+    {
+      "id": "sports_h13",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a skateboarding or snowboarding trick"
+    },
+    {
+      "id": "sports_h14",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a famous racehorse or horse race"
+    },
+    {
+      "id": "sports_h15",
+      "category": "sports",
+      "difficulty": "hard",
+      "text": "Name a sports stadium"
+    },
+    {
+      "id": "people_e01",
+      "category": "people",
+      "difficulty": "easy",
+      "text": "Name a famous actor"
+    },
+    {
+      "id": "people_e02",
+      "category": "people",
+      "difficulty": "easy",
+      "text": "Name a famous actress"
+    },
+    {
+      "id": "people_e03",
+      "category": "people",
+      "difficulty": "easy",
+      "text": "Name a US president"
+    },
+    {
+      "id": "people_e04",
+      "category": "people",
+      "difficulty": "easy",
+      "text": "Name a celebrity couple"
+    },
+    {
+      "id": "people_e05",
+      "category": "people",
+      "difficulty": "easy",
+      "text": "Name a billionaire"
+    },
+    {
+      "id": "people_e06",
+      "category": "people",
+      "difficulty": "easy",
+      "text": "Name a famous scientist"
+    },
+    {
+      "id": "people_e07",
+      "category": "people",
+      "difficulty": "easy",
+      "text": "Name someone famous with the first name John"
+    },
+    {
+      "id": "people_e08",
+      "category": "people",
+      "difficulty": "easy",
+      "text": "Name a famous comedian"
+    },
+    {
+      "id": "people_e09",
+      "category": "people",
+      "difficulty": "easy",
+      "text": "Name a YouTuber or streamer"
+    },
+    {
+      "id": "people_m01",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a member of a royal family"
+    },
+    {
+      "id": "people_m02",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a famous artist or painter"
+    },
+    {
+      "id": "people_m03",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a famous inventor"
+    },
+    {
+      "id": "people_m04",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a famous author"
+    },
+    {
+      "id": "people_m05",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a Kardashian or Jenner"
+    },
+    {
+      "id": "people_m06",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a famous chef or TV cook"
+    },
+    {
+      "id": "people_m07",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a famous person known by one name"
+    },
+    {
+      "id": "people_m08",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a famous duo"
+    },
+    {
+      "id": "people_m09",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a world leader (current or past)"
+    },
+    {
+      "id": "people_m10",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a famous Michael"
+    },
+    {
+      "id": "people_m11",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a famous Chris"
+    },
+    {
+      "id": "people_m12",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a supermodel"
+    },
+    {
+      "id": "people_m13",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a fictional detective"
+    },
+    {
+      "id": "people_m14",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a famous magician"
+    },
+    {
+      "id": "people_m15",
+      "category": "people",
+      "difficulty": "medium",
+      "text": "Name a famous astronaut"
+    },
+    {
+      "id": "people_h01",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a Greek god or goddess"
+    },
+    {
+      "id": "people_h02",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a philosopher"
+    },
+    {
+      "id": "people_h03",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a Roman emperor"
+    },
+    {
+      "id": "people_h04",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a famous explorer"
+    },
+    {
+      "id": "people_h05",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a US First Lady"
+    },
+    {
+      "id": "people_h06",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a Nobel Prize winner"
+    },
+    {
+      "id": "people_h07",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a Shakespeare character"
+    },
+    {
+      "id": "people_h08",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a famous pirate"
+    },
+    {
+      "id": "people_h09",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a saint"
+    },
+    {
+      "id": "people_h10",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a Norse god"
+    },
+    {
+      "id": "people_h11",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a famous person with the first name Elizabeth"
+    },
+    {
+      "id": "people_h12",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a famous Jennifer"
+    },
+    {
+      "id": "people_h13",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a famous Will or William"
+    },
+    {
+      "id": "people_h14",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a Founding Father"
+    },
+    {
+      "id": "people_h15",
+      "category": "people",
+      "difficulty": "hard",
+      "text": "Name a famous person who died before age 30"
+    },
+    {
+      "id": "brands_e01",
+      "category": "brands",
+      "difficulty": "easy",
+      "text": "Name a car brand"
+    },
+    {
+      "id": "brands_e02",
+      "category": "brands",
+      "difficulty": "easy",
+      "text": "Name a clothing brand"
+    },
+    {
+      "id": "brands_e03",
+      "category": "brands",
+      "difficulty": "easy",
+      "text": "Name a phone brand"
+    },
+    {
+      "id": "brands_e04",
+      "category": "brands",
+      "difficulty": "easy",
+      "text": "Name a social media app"
+    },
+    {
+      "id": "brands_e05",
+      "category": "brands",
+      "difficulty": "easy",
+      "text": "Name a store at the mall"
+    },
+    {
+      "id": "brands_e06",
+      "category": "brands",
+      "difficulty": "easy",
+      "text": "Name a shoe brand"
+    },
+    {
+      "id": "brands_e07",
+      "category": "brands",
+      "difficulty": "easy",
+      "text": "Name a website"
+    },
+    {
+      "id": "brands_e08",
+      "category": "brands",
+      "difficulty": "easy",
+      "text": "Name a toy"
+    },
+    {
+      "id": "brands_e09",
+      "category": "brands",
+      "difficulty": "easy",
+      "text": "Name a company logo with an animal in it"
+    },
+    {
+      "id": "brands_e10",
+      "category": "brands",
+      "difficulty": "easy",
+      "text": "Name a restaurant chain"
+    },
+    {
+      "id": "brands_m01",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a luxury brand"
+    },
+    {
+      "id": "brands_m02",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a car model"
+    },
+    {
+      "id": "brands_m03",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a supermarket chain"
+    },
+    {
+      "id": "brands_m04",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name an airline"
+    },
+    {
+      "id": "brands_m05",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a beauty or makeup brand"
+    },
+    {
+      "id": "brands_m06",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a toothpaste or shampoo brand"
+    },
+    {
+      "id": "brands_m07",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a credit card or bank"
+    },
+    {
+      "id": "brands_m08",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a tech company"
+    },
+    {
+      "id": "brands_m09",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a coffee chain"
+    },
+    {
+      "id": "brands_m10",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a brand of chocolate"
+    },
+    {
+      "id": "brands_m11",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a sneaker model"
+    },
+    {
+      "id": "brands_m12",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name an app on your phone right now"
+    },
+    {
+      "id": "brands_m13",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a fragrance or perfume brand"
+    },
+    {
+      "id": "brands_m14",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a hotel chain"
+    },
+    {
+      "id": "brands_m15",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a Lego theme"
+    },
+    {
+      "id": "brands_m16",
+      "category": "brands",
+      "difficulty": "medium",
+      "text": "Name a Barbie product or friend"
+    },
+    {
+      "id": "brands_h01",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a car that is named after an animal"
+    },
+    {
+      "id": "brands_h02",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a watch brand"
+    },
+    {
+      "id": "brands_h03",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a sports car brand"
+    },
+    {
+      "id": "brands_h04",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a beer that isn't American"
+    },
+    {
+      "id": "brands_h05",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a brand with a mascot"
+    },
+    {
+      "id": "brands_h06",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a Japanese company"
+    },
+    {
+      "id": "brands_h07",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a German company"
+    },
+    {
+      "id": "brands_h08",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a fashion designer"
+    },
+    {
+      "id": "brands_h09",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a vodka brand"
+    },
+    {
+      "id": "brands_h10",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a cleaning product brand"
+    },
+    {
+      "id": "brands_h11",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a board game company or video game publisher"
+    },
+    {
+      "id": "brands_h12",
+      "category": "brands",
+      "difficulty": "hard",
+      "text": "Name a pet food brand"
+    },
+    {
+      "id": "everyday_e01",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name something in a kitchen"
+    },
+    {
+      "id": "everyday_e02",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name something in a bathroom"
+    },
+    {
+      "id": "everyday_e03",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name something you take to the beach"
+    },
+    {
+      "id": "everyday_e04",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name a color"
+    },
+    {
+      "id": "everyday_e05",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name a piece of furniture"
+    },
+    {
+      "id": "everyday_e06",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name something in a school"
+    },
+    {
+      "id": "everyday_e07",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name something you find in a purse or wallet"
+    },
+    {
+      "id": "everyday_e08",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name a type of weather"
+    },
+    {
+      "id": "everyday_e09",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name a holiday"
+    },
+    {
+      "id": "everyday_e10",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name an item of clothing"
+    },
+    {
+      "id": "everyday_e11",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name a job"
+    },
+    {
+      "id": "everyday_e12",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name something that's round"
+    },
+    {
+      "id": "everyday_e13",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name something that's cold"
+    },
+    {
+      "id": "everyday_e14",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name something in a garage"
+    },
+    {
+      "id": "everyday_e15",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name a body part"
+    },
+    {
+      "id": "everyday_e16",
+      "category": "everyday",
+      "difficulty": "easy",
+      "text": "Name something you plug in"
+    },
+    {
+      "id": "everyday_m01",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something you'd bring camping"
+    },
+    {
+      "id": "everyday_m02",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something in a hospital"
+    },
+    {
+      "id": "everyday_m03",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something people collect"
+    },
+    {
+      "id": "everyday_m04",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name a hobby"
+    },
+    {
+      "id": "everyday_m05",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name a job that requires a uniform"
+    },
+    {
+      "id": "everyday_m06",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something you find in a hotel room"
+    },
+    {
+      "id": "everyday_m07",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name a type of shoe"
+    },
+    {
+      "id": "everyday_m08",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name a type of hat"
+    },
+    {
+      "id": "everyday_m09",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name a household chore"
+    },
+    {
+      "id": "everyday_m10",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name a tool in a toolbox"
+    },
+    {
+      "id": "everyday_m11",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something with wheels"
+    },
+    {
+      "id": "everyday_m12",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something that has keys"
+    },
+    {
+      "id": "everyday_m13",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something people are afraid of"
+    },
+    {
+      "id": "everyday_m14",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name a reason to call in sick"
+    },
+    {
+      "id": "everyday_m15",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something that's sticky"
+    },
+    {
+      "id": "everyday_m16",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something you do on a first date"
+    },
+    {
+      "id": "everyday_m17",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name a type of dance"
+    },
+    {
+      "id": "everyday_m18",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something that comes in pairs"
+    },
+    {
+      "id": "everyday_m19",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name a flower"
+    },
+    {
+      "id": "everyday_m20",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name a tree"
+    },
+    {
+      "id": "everyday_m21",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something at a wedding"
+    },
+    {
+      "id": "everyday_m22",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name an excuse for being late"
+    },
+    {
+      "id": "everyday_m23",
+      "category": "everyday",
+      "difficulty": "medium",
+      "text": "Name something at a birthday party"
+    },
+    {
+      "id": "everyday_h01",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a phobia"
+    },
+    {
+      "id": "everyday_h02",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a type of fabric"
+    },
+    {
+      "id": "everyday_h03",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a word for money"
+    },
+    {
+      "id": "everyday_h04",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a type of knot or stitch"
+    },
+    {
+      "id": "everyday_h05",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a hairstyle"
+    },
+    {
+      "id": "everyday_h06",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a type of boat or ship"
+    },
+    {
+      "id": "everyday_h07",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a currency"
+    },
+    {
+      "id": "everyday_h08",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a mode of transportation"
+    },
+    {
+      "id": "everyday_h09",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a gemstone"
+    },
+    {
+      "id": "everyday_h10",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a metal"
+    },
+    {
+      "id": "everyday_h11",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name something that has a tail but isn't an animal"
+    },
+    {
+      "id": "everyday_h12",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a job that didn't exist 30 years ago"
+    },
+    {
+      "id": "everyday_h13",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name something with a screen"
+    },
+    {
+      "id": "everyday_h14",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a famous painting"
+    },
+    {
+      "id": "everyday_h15",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a profession that starts with 'P'"
+    },
+    {
+      "id": "everyday_h16",
+      "category": "everyday",
+      "difficulty": "hard",
+      "text": "Name a type of jewelry"
+    },
+    {
+      "id": "words_e01",
+      "category": "words",
+      "difficulty": "easy",
+      "text": "Name a word that rhymes with 'cat'"
+    },
+    {
+      "id": "words_e02",
+      "category": "words",
+      "difficulty": "easy",
+      "text": "Name a word that rhymes with 'day'"
+    },
+    {
+      "id": "words_e03",
+      "category": "words",
+      "difficulty": "easy",
+      "text": "Name a three-letter word"
+    },
+    {
+      "id": "words_e04",
+      "category": "words",
+      "difficulty": "easy",
+      "text": "Name a compound word"
+    },
+    {
+      "id": "words_e05",
+      "category": "words",
+      "difficulty": "easy",
+      "text": "Name a word that rhymes with 'night'"
+    },
+    {
+      "id": "words_e06",
+      "category": "words",
+      "difficulty": "easy",
+      "text": "Name a word that means 'happy'"
+    },
+    {
+      "id": "words_e07",
+      "category": "words",
+      "difficulty": "easy",
+      "text": "Name a word that means 'big'"
+    },
+    {
+      "id": "words_e08",
+      "category": "words",
+      "difficulty": "easy",
+      "text": "Name something that's also a person's name (like Rose)"
+    },
+    {
+      "id": "words_e09",
+      "category": "words",
+      "difficulty": "easy",
+      "text": "Name a word that rhymes with 'bee'"
+    },
+    {
+      "id": "words_m01",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word that rhymes with 'cake'"
+    },
+    {
+      "id": "words_m02",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word that ends in '-ing' that isn't a verb"
+    },
+    {
+      "id": "words_m03",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word with a double letter"
+    },
+    {
+      "id": "words_m04",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word that means 'drunk'"
+    },
+    {
+      "id": "words_m05",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a slang word"
+    },
+    {
+      "id": "words_m06",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word that rhymes with 'blue'"
+    },
+    {
+      "id": "words_m07",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word that means 'small'"
+    },
+    {
+      "id": "words_m08",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word that starts and ends with the same letter"
+    },
+    {
+      "id": "words_m09",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a palindrome"
+    },
+    {
+      "id": "words_m10",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word with 'cat' inside it"
+    },
+    {
+      "id": "words_m11",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word that rhymes with 'bear'"
+    },
+    {
+      "id": "words_m12",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word with no 'e' that's at least six letters"
+    },
+    {
+      "id": "words_m13",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name an onomatopoeia (like boom)"
+    },
+    {
+      "id": "words_m14",
+      "category": "words",
+      "difficulty": "medium",
+      "text": "Name a word that means 'angry'"
+    },
+    {
+      "id": "words_h01",
+      "category": "words",
+      "difficulty": "hard",
+      "text": "Name a word with three of the same letter"
+    },
+    {
+      "id": "words_h02",
+      "category": "words",
+      "difficulty": "hard",
+      "text": "Name a word borrowed from French"
+    },
+    {
+      "id": "words_h03",
+      "category": "words",
+      "difficulty": "hard",
+      "text": "Name a word that ends in 'x'"
+    },
+    {
+      "id": "words_h04",
+      "category": "words",
+      "difficulty": "hard",
+      "text": "Name a word with five or more syllables"
+    },
+    {
+      "id": "words_h05",
+      "category": "words",
+      "difficulty": "hard",
+      "text": "Name a word that has two meanings"
+    },
+    {
+      "id": "words_h06",
+      "category": "words",
+      "difficulty": "hard",
+      "text": "Name a word that starts with 'z'"
+    },
+    {
+      "id": "words_h07",
+      "category": "words",
+      "difficulty": "hard",
+      "text": "Name a word with all five vowels"
+    },
+    {
+      "id": "words_h08",
+      "category": "words",
+      "difficulty": "hard",
+      "text": "Name a word that's spelled the same backwards (5+ letters)"
+    },
+    {
+      "id": "words_h09",
+      "category": "words",
+      "difficulty": "hard",
+      "text": "Name a word with 'ough' in it"
+    },
+    {
+      "id": "science_e01",
+      "category": "science",
+      "difficulty": "easy",
+      "text": "Name a planet"
+    },
+    {
+      "id": "science_e02",
+      "category": "science",
+      "difficulty": "easy",
+      "text": "Name a shape"
+    },
+    {
+      "id": "science_e03",
+      "category": "science",
+      "difficulty": "easy",
+      "text": "Name a body organ"
+    },
+    {
+      "id": "science_e04",
+      "category": "science",
+      "difficulty": "easy",
+      "text": "Name something in outer space"
+    },
+    {
+      "id": "science_e05",
+      "category": "science",
+      "difficulty": "easy",
+      "text": "Name a type of rock or mineral"
+    },
+    {
+      "id": "science_e06",
+      "category": "science",
+      "difficulty": "easy",
+      "text": "Name a natural disaster"
+    },
+    {
+      "id": "science_e07",
+      "category": "science",
+      "difficulty": "easy",
+      "text": "Name a season or month"
+    },
+    {
+      "id": "science_e08",
+      "category": "science",
+      "difficulty": "easy",
+      "text": "Name something that grows"
+    },
+    {
+      "id": "science_m01",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a chemical element"
+    },
+    {
+      "id": "science_m02",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a bone in the human body"
+    },
+    {
+      "id": "science_m03",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a constellation or star"
+    },
+    {
+      "id": "science_m04",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a type of cloud"
+    },
+    {
+      "id": "science_m05",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a muscle"
+    },
+    {
+      "id": "science_m06",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a disease or illness"
+    },
+    {
+      "id": "science_m07",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a unit of measurement"
+    },
+    {
+      "id": "science_m08",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a moon in our solar system"
+    },
+    {
+      "id": "science_m09",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a field of science"
+    },
+    {
+      "id": "science_m10",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a type of energy"
+    },
+    {
+      "id": "science_m11",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a gas"
+    },
+    {
+      "id": "science_m12",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name something that's magnetic"
+    },
+    {
+      "id": "science_m13",
+      "category": "science",
+      "difficulty": "medium",
+      "text": "Name a type of doctor"
+    },
+    {
+      "id": "science_h01",
+      "category": "science",
+      "difficulty": "hard",
+      "text": "Name a noble gas or metal element"
+    },
+    {
+      "id": "science_h02",
+      "category": "science",
+      "difficulty": "hard",
+      "text": "Name a prime number over 10"
+    },
+    {
+      "id": "science_h03",
+      "category": "science",
+      "difficulty": "hard",
+      "text": "Name a famous equation or law of physics"
+    },
+    {
+      "id": "science_h04",
+      "category": "science",
+      "difficulty": "hard",
+      "text": "Name a vitamin or mineral in food"
+    },
+    {
+      "id": "science_h05",
+      "category": "science",
+      "difficulty": "hard",
+      "text": "Name a programming language"
+    },
+    {
+      "id": "science_h06",
+      "category": "science",
+      "difficulty": "hard",
+      "text": "Name a Greek letter"
+    },
+    {
+      "id": "science_h07",
+      "category": "science",
+      "difficulty": "hard",
+      "text": "Name a geometry term"
+    },
+    {
+      "id": "science_h08",
+      "category": "science",
+      "difficulty": "hard",
+      "text": "Name a mathematician"
+    },
+    {
+      "id": "science_h09",
+      "category": "science",
+      "difficulty": "hard",
+      "text": "Name a computer part"
+    },
+    {
+      "id": "science_h10",
+      "category": "science",
+      "difficulty": "hard",
+      "text": "Name a blood type or part of blood"
+    },
+    {
+      "id": "party_e01",
+      "category": "party",
+      "difficulty": "easy",
+      "text": "Name a drinking game"
+    },
+    {
+      "id": "party_e02",
+      "category": "party",
+      "difficulty": "easy",
+      "text": "Name something you'd find at a party"
+    },
+    {
+      "id": "party_e03",
+      "category": "party",
+      "difficulty": "easy",
+      "text": "Name a hangover cure"
+    },
+    {
+      "id": "party_e04",
+      "category": "party",
+      "difficulty": "easy",
+      "text": "Name a bar snack"
+    },
+    {
+      "id": "party_e05",
+      "category": "party",
+      "difficulty": "easy",
+      "text": "Name a reason to throw a party"
+    },
+    {
+      "id": "party_e06",
+      "category": "party",
+      "difficulty": "easy",
+      "text": "Name a shot people take"
+    },
+    {
+      "id": "party_e07",
+      "category": "party",
+      "difficulty": "easy",
+      "text": "Name something you'd do on vacation"
+    },
+    {
+      "id": "party_m01",
+      "category": "party",
+      "difficulty": "medium",
+      "text": "Name a hangover symptom"
+    },
+    {
+      "id": "party_m02",
+      "category": "party",
+      "difficulty": "medium",
+      "text": "Name a party theme"
+    },
+    {
+      "id": "party_m03",
+      "category": "party",
+      "difficulty": "medium",
+      "text": "Name a club or dance move"
+    },
+    {
+      "id": "party_m04",
+      "category": "party",
+      "difficulty": "medium",
+      "text": "Name something you'd regret texting at 2am"
+    },
+    {
+      "id": "party_m05",
+      "category": "party",
+      "difficulty": "medium",
+      "text": "Name something people lose on a night out"
+    },
+    {
+      "id": "party_m06",
+      "category": "party",
+      "difficulty": "medium",
+      "text": "Name a song everyone sings along to at a party"
+    },
+    {
+      "id": "party_m07",
+      "category": "party",
+      "difficulty": "medium",
+      "text": "Name a bachelor or bachelorette party activity"
+    },
+    {
+      "id": "party_m08",
+      "category": "party",
+      "difficulty": "medium",
+      "text": "Name a type of glass or cup"
+    },
+    {
+      "id": "party_m09",
+      "category": "party",
+      "difficulty": "medium",
+      "text": "Name a mixer for alcohol"
+    },
+    {
+      "id": "party_m10",
+      "category": "party",
+      "difficulty": "medium",
+      "text": "Name a party city or destination"
+    },
+    {
+      "id": "party_h01",
+      "category": "party",
+      "difficulty": "hard",
+      "text": "Name a beer style (like IPA)"
+    },
+    {
+      "id": "party_h02",
+      "category": "party",
+      "difficulty": "hard",
+      "text": "Name a tequila or mezcal brand"
+    },
+    {
+      "id": "party_h03",
+      "category": "party",
+      "difficulty": "hard",
+      "text": "Name a famous bar or nightclub"
+    },
+    {
+      "id": "party_h04",
+      "category": "party",
+      "difficulty": "hard",
+      "text": "Name a cocktail with fruit in the name"
+    },
+    {
+      "id": "party_h05",
+      "category": "party",
+      "difficulty": "hard",
+      "text": "Name a wine region"
+    },
+    {
+      "id": "party_h06",
+      "category": "party",
+      "difficulty": "hard",
+      "text": "Name a drink named after a person"
+    },
+    {
+      "id": "party_h07",
+      "category": "party",
+      "difficulty": "hard",
+      "text": "Name a festival"
+    },
+    {
+      "id": "party_h08",
+      "category": "party",
+      "difficulty": "hard",
+      "text": "Name a Vegas casino or hotel"
+    },
+    {
+      "id": "party_h09",
+      "category": "party",
+      "difficulty": "hard",
+      "text": "Name a celebrity known for partying"
+    },
+    {
+      "id": "party_h10",
+      "category": "party",
+      "difficulty": "hard",
+      "text": "Name a brewery"
+    },
+    {
+      "id": "random_e01",
+      "category": "random",
+      "difficulty": "easy",
+      "text": "Name something that's green"
+    },
+    {
+      "id": "random_e02",
+      "category": "random",
+      "difficulty": "easy",
+      "text": "Name something that's soft"
+    },
+    {
+      "id": "random_e03",
+      "category": "random",
+      "difficulty": "easy",
+      "text": "Name something that's loud"
+    },
+    {
+      "id": "random_e04",
+      "category": "random",
+      "difficulty": "easy",
+      "text": "Name something that's sharp"
+    },
+    {
+      "id": "random_e05",
+      "category": "random",
+      "difficulty": "easy",
+      "text": "Name something you can't live without"
+    },
+    {
+      "id": "random_e06",
+      "category": "random",
+      "difficulty": "easy",
+      "text": "Name something that smells good"
+    },
+    {
+      "id": "random_e07",
+      "category": "random",
+      "difficulty": "easy",
+      "text": "Name something that smells bad"
+    },
+    {
+      "id": "random_e08",
+      "category": "random",
+      "difficulty": "easy",
+      "text": "Name something you'd find under a bed"
+    },
+    {
+      "id": "random_e09",
+      "category": "random",
+      "difficulty": "easy",
+      "text": "Name something with buttons"
+    },
+    {
+      "id": "random_e10",
+      "category": "random",
+      "difficulty": "easy",
+      "text": "Name something hot"
+    },
+    {
+      "id": "random_m01",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something that's purple"
+    },
+    {
+      "id": "random_m02",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something that's tiny"
+    },
+    {
+      "id": "random_m03",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something that bounces"
+    },
+    {
+      "id": "random_m04",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something you can fold"
+    },
+    {
+      "id": "random_m05",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something that melts"
+    },
+    {
+      "id": "random_m06",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something you'd save in a fire"
+    },
+    {
+      "id": "random_m07",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something you'd find in a junk drawer"
+    },
+    {
+      "id": "random_m08",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something that's stolen often"
+    },
+    {
+      "id": "random_m09",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something people do on a plane"
+    },
+    {
+      "id": "random_m10",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something you shouldn't say at a funeral"
+    },
+    {
+      "id": "random_m11",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name a famous landmark"
+    },
+    {
+      "id": "random_m12",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something that's square"
+    },
+    {
+      "id": "random_m13",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something you'd find in space but not on Earth"
+    },
+    {
+      "id": "random_m14",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something you lie about"
+    },
+    {
+      "id": "random_m15",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name a superpower"
+    },
+    {
+      "id": "random_m16",
+      "category": "random",
+      "difficulty": "medium",
+      "text": "Name something that's invisible"
+    },
+    {
+      "id": "random_h01",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name something that's both a food and a color"
+    },
+    {
+      "id": "random_h02",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name something that's both a name and a month"
+    },
+    {
+      "id": "random_h03",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name something that's both an animal and a car"
+    },
+    {
+      "id": "random_h04",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name something that's both a brand and a common word"
+    },
+    {
+      "id": "random_h05",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name something that's both a sport and a verb"
+    },
+    {
+      "id": "random_h06",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name something that was invented by accident"
+    },
+    {
+      "id": "random_h07",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name something that's older than 1,000 years"
+    },
+    {
+      "id": "random_h08",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name a thing that has a famous smell"
+    },
+    {
+      "id": "random_h09",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name something that's measured in feet or inches"
+    },
+    {
+      "id": "random_h10",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name a zodiac sign or Chinese zodiac animal"
+    },
+    {
+      "id": "random_h11",
+      "category": "random",
+      "difficulty": "hard",
+      "text": "Name something with a famous slogan"
+    }
+  ],
+  "letter_templates": [
+    {
+      "id": "t_country",
+      "category": "places",
+      "template": "Name a country that starts with {L}",
+      "easy_letters": [
+        "A",
+        "B",
+        "C",
+        "G",
+        "I",
+        "M",
+        "P",
+        "S"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "P",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V"
+      ]
+    },
+    {
+      "id": "t_city",
+      "category": "places",
+      "template": "Name a city that starts with {L}",
+      "easy_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "L",
+        "M",
+        "N",
+        "P",
+        "S",
+        "T"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "R",
+        "S",
+        "T",
+        "V",
+        "W"
+      ]
+    },
+    {
+      "id": "t_animal",
+      "category": "animals",
+      "template": "Name an animal that starts with {L}",
+      "easy_letters": [
+        "B",
+        "C",
+        "D",
+        "G",
+        "L",
+        "M",
+        "P",
+        "S"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "R",
+        "S",
+        "T",
+        "W",
+        "Z"
+      ]
+    },
+    {
+      "id": "t_food",
+      "category": "food",
+      "template": "Name a food that starts with {L}",
+      "easy_letters": [
+        "B",
+        "C",
+        "P",
+        "S"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "R",
+        "S",
+        "T",
+        "W"
+      ]
+    },
+    {
+      "id": "t_fruitveg",
+      "category": "food",
+      "template": "Name a fruit or vegetable that starts with {L}",
+      "easy_letters": [
+        "B",
+        "C",
+        "P"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "G",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "R",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "id": "t_boy",
+      "category": "people",
+      "template": "Name a boy's name that starts with {L}",
+      "easy_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "J",
+        "M",
+        "S"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "R",
+        "S",
+        "T",
+        "W"
+      ]
+    },
+    {
+      "id": "t_girl",
+      "category": "people",
+      "template": "Name a girl's name that starts with {L}",
+      "easy_letters": [
+        "A",
+        "C",
+        "J",
+        "K",
+        "L",
+        "M",
+        "S"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "R",
+        "S",
+        "T",
+        "V"
+      ]
+    },
+    {
+      "id": "t_celeb",
+      "category": "people",
+      "template": "Name a celebrity whose name starts with {L}",
+      "easy_letters": [
+        "B",
+        "C",
+        "J",
+        "K",
+        "M",
+        "S"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "G",
+        "H",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "P",
+        "R",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "id": "t_movie",
+      "category": "pop",
+      "template": "Name a movie that starts with {L}",
+      "easy_letters": [
+        "A",
+        "B",
+        "S",
+        "T"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "L",
+        "M",
+        "N",
+        "P",
+        "R",
+        "S",
+        "T",
+        "W"
+      ]
+    },
+    {
+      "id": "t_band",
+      "category": "music",
+      "template": "Name a band or singer that starts with {L}",
+      "easy_letters": [
+        "B",
+        "M",
+        "S"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "P",
+        "R",
+        "S",
+        "T"
+      ]
+    },
+    {
+      "id": "t_brand",
+      "category": "brands",
+      "template": "Name a brand that starts with {L}",
+      "easy_letters": [
+        "A",
+        "C",
+        "M",
+        "N",
+        "S"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "F",
+        "G",
+        "H",
+        "K",
+        "L",
+        "M",
+        "N",
+        "P",
+        "R",
+        "S",
+        "T",
+        "V"
+      ]
+    },
+    {
+      "id": "t_job",
+      "category": "everyday",
+      "template": "Name a job that starts with {L}",
+      "easy_letters": [
+        "C",
+        "D",
+        "P",
+        "T"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "J",
+        "L",
+        "M",
+        "N",
+        "P",
+        "R",
+        "S",
+        "T",
+        "V"
+      ]
+    },
+    {
+      "id": "t_verb",
+      "category": "words",
+      "template": "Name a verb that starts with {L}",
+      "easy_letters": [
+        "B",
+        "C",
+        "D",
+        "R",
+        "S"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "R",
+        "S",
+        "T",
+        "W"
+      ]
+    },
+    {
+      "id": "t_adj",
+      "category": "words",
+      "template": "Name an adjective that starts with {L}",
+      "easy_letters": [
+        "B",
+        "C",
+        "D",
+        "G",
+        "S"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "R",
+        "S",
+        "T",
+        "W"
+      ]
+    },
+    {
+      "id": "t_house",
+      "category": "everyday",
+      "template": "Name something in your house that starts with {L}",
+      "easy_letters": [
+        "B",
+        "C",
+        "S",
+        "T"
+      ],
+      "all_letters": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "F",
+        "G",
+        "H",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "R",
+        "S",
+        "T",
+        "W"
+      ]
+    },
+    {
+      "id": "t_sport",
+      "category": "sports",
+      "template": "Name a sport or game that starts with {L}",
+      "easy_letters": [
+        "B",
+        "S"
+      ],
+      "all_letters": [
+        "B",
+        "C",
+        "D",
+        "F",
+        "G",
+        "H",
+        "K",
+        "L",
+        "M",
+        "P",
+        "R",
+        "S",
+        "T",
+        "W"
+      ]
+    }
+  ]
+}

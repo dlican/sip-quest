@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../../widgets/sprites.dart';
 import 'truth_or_drink.dart';
 
@@ -20,7 +21,7 @@ class _TruthOrDrinkScreenState extends State<TruthOrDrinkScreen> {
   String? _verdict;
 
   void _resolve(bool answered) {
-    HapticFeedback.mediumImpact();
+    answered ? Fx.correct() : Fx.pass();
     setState(() {
       if (answered) {
         _game.answered();
@@ -38,6 +39,7 @@ class _TruthOrDrinkScreenState extends State<TruthOrDrinkScreen> {
     final t = _turn;
     return PixelScaffold(
       title: 'Truth or Drink',
+      onHelp: () => showHowToPlay(context, 'truth_or_drink'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [

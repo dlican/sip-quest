@@ -5,12 +5,16 @@ import 'package:flutter/services.dart';
 import 'app_state.dart';
 import 'games/registry.dart';
 import 'screens/home_screen.dart';
+import 'services/fx.dart';
 import 'theme/palette.dart';
+import 'widgets/motion.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   final state = AppState();
+  await state.load();
+  Fx.init();
   String? open;
   // Web preview only: ?style=tavern&players=A,B,C&open=kings_cup
   // lets a browser preview jump straight to a styled screen.
@@ -52,8 +56,11 @@ class SipQuestApp extends StatelessWidget {
             fontFamily: 'VT323',
             splashFactory: NoSplash.splashFactory,
             pageTransitionsTheme: const PageTransitionsTheme(builders: {
-              TargetPlatform.android: _PixelPageTransition(),
-              TargetPlatform.iOS: _PixelPageTransition(),
+              TargetPlatform.android: SmoothPageTransition(),
+              TargetPlatform.iOS: SmoothPageTransition(),
+              TargetPlatform.linux: SmoothPageTransition(),
+              TargetPlatform.macOS: SmoothPageTransition(),
+              TargetPlatform.windows: SmoothPageTransition(),
             }),
           ),
           onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => const HomeScreen()),
@@ -66,26 +73,4 @@ class SipQuestApp extends StatelessWidget {
       }),
     );
   }
-}
-
-/// Stepped slide-in so navigation feels 8-bit instead of smooth.
-class _PixelPageTransition extends PageTransitionsBuilder {
-  const _PixelPageTransition();
-
-  @override
-  Widget buildTransitions<T>(PageRoute<T> route, BuildContext context,
-      Animation<double> animation, Animation<double> secondary, Widget child) {
-    final stepped = animation.drive(CurveTween(curve: const _Steps(6)));
-    return SlideTransition(
-      position: Tween(begin: const Offset(1, 0), end: Offset.zero).animate(stepped),
-      child: child,
-    );
-  }
-}
-
-class _Steps extends Curve {
-  const _Steps(this.n);
-  final int n;
-  @override
-  double transformInternal(double t) => (t * n).ceil() / n;
 }

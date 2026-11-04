@@ -1,11 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../../widgets/playing_card.dart';
 import '../../widgets/sprites.dart';
 import '../cards.dart';
@@ -49,9 +50,9 @@ class _RideTheBusScreenState extends State<RideTheBusScreen> {
   void _guess(BusGuess g) {
     final res = _game.guess(g);
     if (res.correct) {
-      HapticFeedback.lightImpact();
+      Fx.correct();
     } else {
-      HapticFeedback.heavyImpact();
+      Fx.lose();
     }
     setState(() => _last = res);
   }
@@ -62,6 +63,7 @@ class _RideTheBusScreenState extends State<RideTheBusScreen> {
     final rider = _riders.current;
     return PixelScaffold(
       title: 'Ride the Bus',
+      onHelp: () => showHowToPlay(context, 'ride_the_bus'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
         child: Column(

@@ -1,11 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../../widgets/playing_card.dart';
 import '../common.dart';
 import 'higher_lower.dart';
@@ -27,11 +28,11 @@ class _HigherLowerScreenState extends State<HigherLowerScreen> {
     final guesser = _turns.current;
     final r = _game.guess(g);
     if (r.outcome == HLOutcome.wrong) {
-      HapticFeedback.heavyImpact();
+      Fx.lose();
       _loser = guesser;
       _turns.advance();
     } else {
-      HapticFeedback.lightImpact();
+      Fx.correct();
     }
     setState(() => _last = r);
   }
@@ -48,6 +49,7 @@ class _HigherLowerScreenState extends State<HigherLowerScreen> {
     };
     return PixelScaffold(
       title: 'Higher or Lower',
+      onHelp: () => showHowToPlay(context, 'higher_lower'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [

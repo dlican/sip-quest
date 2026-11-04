@@ -33,7 +33,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
     final app = context.app;
     final pal = app.palette;
     return PixelScaffold(
-      title: 'Players',
+      title: 'Names',
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -52,7 +52,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
                   child: TextField(
                     controller: _ctrl,
                     focusNode: _focus,
-                    autofocus: app.players.isEmpty,
+                    autofocus: false,
                     textCapitalization: TextCapitalization.words,
                     style: PixelFonts.body(pal.text, size: 28),
                     cursorColor: pal.accent,
@@ -70,7 +70,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
           ),
           const SizedBox(height: 20),
           if (app.players.isEmpty)
-            Text('No one at the table yet.',
+            Text('Optional. Every game works without names.\nAdd them and the phone will call whose turn it is.',
                 textAlign: TextAlign.center, style: PixelFonts.body(pal.textDim)),
           for (var i = 0; i < app.players.length; i++)
             Padding(

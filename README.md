@@ -22,6 +22,22 @@ Fully offline: no backend, no accounts, no network calls.
 
 Add a game: create `lib/games/<name>/`, then register it in `lib/games/registry.dart`.
 
+## One phone, no setup
+
+Every game runs on a single phone passed around or placed in the middle of the
+table. Player names are optional: add them and the phone calls turns, skip them
+and games fall back to "pass it left" / point-on-3 / quick modes.
+
+- **Charades** is heads-up style: landscape, phone on your forehead, 30s rounds,
+  tilt down = got it, tilt up = pass (tap left/right halves as a fallback).
+- **How to play**: the `?` on each menu tile (and in each game) opens an
+  animated pixel-art demo plus the rules (`lib/games/how_to_play.dart`,
+  `lib/widgets/demos.dart`).
+- **Sound and haptics** go through `lib/services/fx.dart`. Settings (gear on the
+  home screen) toggle sound, volume, countdown ticks and haptics; they persist
+  on the phone. Effects are synthesized by `python3 tool/make_sfx.py` into
+  `assets/sfx/` and mix with whatever music is already playing.
+
 ## Visual styles
 Three palettes in `lib/theme/palette.dart`, switchable from the home screen ("Style" button):
 **Neon Arcade**, **Pixel Tavern**, **Pocket Mono**. All pixel art is code (`lib/widgets/sprites.dart`),

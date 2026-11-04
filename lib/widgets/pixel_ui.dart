@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../app_state.dart';
+import '../services/fx.dart';
 import '../theme/palette.dart';
+import 'motion.dart';
 
 const double kShadow = 4;
 
@@ -103,30 +104,70 @@ class _PixelButtonState extends State<PixelButton> {
         onTapUp: enabled
             ? (_) {
                 setState(() => _down = false);
-                HapticFeedback.lightImpact();
+                Fx.tap();
                 widget.onTap!();
               }
             : null,
-        child: Padding(
+        child: AnimatedPadding(
+          duration: const Duration(milliseconds: 70),
+          curve: Curves.easeOut,
           padding: EdgeInsets.only(
               left: offset, top: offset, right: kShadow - offset, bottom: kShadow - offset),
-          child: Container(
+          child: AnimatedContainer(
+            duration: Motion.fast,
+            curve: Curves.easeOut,
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
             decoration: BoxDecoration(
               color: bg,
               border: Border.all(color: pal.cardBlack, width: 3),
-              boxShadow: _down
-                  ? null
-                  : const [
-                      BoxShadow(
-                          color: Color(0xAA000000),
-                          offset: Offset(kShadow, kShadow),
-                          blurRadius: 0)
-                    ],
+              boxShadow: [
+                BoxShadow(
+                    color: const Color(0xAA000000),
+                    offset: _down ? Offset.zero : const Offset(kShadow, kShadow),
+                    blurRadius: 0)
+              ],
             ),
             child: label,
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Shrinks slightly while pressed, then springs back. Wrap any tappable panel.
+class Pressable extends StatefulWidget {
+  const Pressable({super.key, required this.child, required this.onTap, this.sound = true});
+  final Widget child;
+  final VoidCallback? onTap;
+  final bool sound;
+
+  @override
+  State<Pressable> createState() => _PressableState();
+}
+
+class _PressableState extends State<Pressable> {
+  bool _down = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final enabled = widget.onTap != null;
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTapDown: enabled ? (_) => setState(() => _down = true) : null,
+      onTapCancel: enabled ? () => setState(() => _down = false) : null,
+      onTapUp: enabled
+          ? (_) {
+              setState(() => _down = false);
+              if (widget.sound) Fx.tap();
+              widget.onTap!();
+            }
+          : null,
+      child: AnimatedScale(
+        scale: _down ? 0.97 : 1,
+        duration: _down ? const Duration(milliseconds: 80) : Motion.medium,
+        curve: _down ? Curves.easeOut : Motion.pop,
+        child: widget.child,
       ),
     );
   }
@@ -144,7 +185,7 @@ class PixelIconButton extends StatelessWidget {
     final pal = context.pal;
     return Tooltip(
       message: tooltip ?? '',
-      child: GestureDetector(
+      child: Pressable(
         onTap: onTap,
         child: Container(
           width: 44,
@@ -168,12 +209,16 @@ class PixelScaffold extends StatelessWidget {
     required this.body,
     this.actions = const [],
     this.showBack = true,
+    this.onHelp,
   });
 
   final String title;
   final Widget body;
   final List<Widget> actions;
   final bool showBack;
+
+  /// Shows a "?" button that opens the game's how-to-play sheet.
+  final VoidCallback? onHelp;
 
   @override
   Widget build(BuildContext context) {
@@ -203,6 +248,10 @@ class PixelScaffold extends StatelessWidget {
                             style: PixelFonts.title(pal.text, size: 15)),
                       ),
                       for (final a in actions) ...[const SizedBox(width: 8), a],
+                      if (onHelp != null) ...[
+                        const SizedBox(width: 8),
+                        PixelIconButton(icon: Icons.question_mark, tooltip: 'How to play', onTap: onHelp!),
+                      ],
                     ],
                   ),
                 ),
@@ -274,7 +323,8 @@ class PixelBar extends StatelessWidget {
         children: [
           for (var i = 0; i < segments; i++)
             Expanded(
-              child: Container(
+              child: AnimatedContainer(
+                duration: Motion.fast,
                 height: 18,
                 margin: const EdgeInsets.symmetric(horizontal: 1.5),
                 color: i < lit ? (color ?? pal.secondary) : pal.panel,
@@ -309,8 +359,15 @@ class PixelChip extends StatelessWidget {
     final bg = selected ? (selectedColor ?? pal.primary) : pal.panel;
     final fg = selected ? pal.bg : (struck ? pal.textDim : pal.text);
     return GestureDetector(
-      onTap: onTap,
-      child: Container(
+      onTap: onTap == null
+          ? null
+          : () {
+              Fx.select();
+              onTap!();
+            },
+      child: AnimatedContainer(
+        duration: Motion.fast,
+        curve: Curves.easeOut,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
           color: bg,
@@ -320,39 +377,6 @@ class PixelChip extends StatelessWidget {
             style: PixelFonts.body(fg, size: 26).copyWith(
                 decoration: struck ? TextDecoration.lineThrough : null,
                 decorationThickness: 3)),
-      ),
-    );
-  }
-}
-
-/// Ask for at least [min] players; shows a prompt to add them otherwise.
-class NeedPlayers extends StatelessWidget {
-  const NeedPlayers({super.key, required this.min, required this.onAdd});
-  final int min;
-  final VoidCallback onAdd;
-
-  @override
-  Widget build(BuildContext context) {
-    final pal = context.pal;
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: PixelBox(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('NEED $min+ PLAYERS',
-                  textAlign: TextAlign.center,
-                  style: PixelFonts.title(pal.accent, size: 14)),
-              const SizedBox(height: 12),
-              Text('Add everyone at the table so the game can call names.',
-                  textAlign: TextAlign.center,
-                  style: PixelFonts.body(pal.text)),
-              const SizedBox(height: 16),
-              PixelButton(label: 'Add players', onTap: onAdd),
-            ],
-          ),
-        ),
       ),
     );
   }

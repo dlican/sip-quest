@@ -1,11 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../common.dart';
 import 'roulette.dart';
 
@@ -46,7 +47,7 @@ class _RouletteScreenState extends State<RouletteScreen> with SingleTickerProvid
       _spinning = true;
     });
     _c.forward(from: 0).then((_) {
-      HapticFeedback.heavyImpact();
+      Fx.win();
       if (mounted) setState(() => _spinning = false);
     });
   }
@@ -57,6 +58,7 @@ class _RouletteScreenState extends State<RouletteScreen> with SingleTickerProvid
     final result = !_spinning && _spin != null ? _wheel.slices[_spin!.index] : null;
     return PixelScaffold(
       title: 'Pixel Roulette',
+      onHelp: () => showHowToPlay(context, 'roulette'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
         child: Column(
@@ -80,7 +82,7 @@ class _RouletteScreenState extends State<RouletteScreen> with SingleTickerProvid
                         final slice = _wheel.sliceAt(t);
                         if (_spinning && slice != _lastSlice) {
                           _lastSlice = slice;
-                          HapticFeedback.selectionClick();
+                          Fx.spinTick();
                         }
                         // Snap rotation to 2-degree steps for a choppy pixel feel.
                         final angle = ((t * 360) / 2).round() * 2 * pi / 180;

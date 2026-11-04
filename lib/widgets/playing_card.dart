@@ -136,7 +136,7 @@ class FlippingCard extends StatefulWidget {
 
 class _FlippingCardState extends State<FlippingCard> with SingleTickerProviderStateMixin {
   late final AnimationController _c =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 520))..forward();
+      AnimationController(vsync: this, duration: const Duration(milliseconds: 600))..forward();
 
   @override
   void didUpdateWidget(FlippingCard old) {
@@ -157,7 +157,7 @@ class _FlippingCardState extends State<FlippingCard> with SingleTickerProviderSt
       builder: (context, _) {
         final t = Curves.easeOutBack.transform(_c.value).clamp(0.0, 1.1);
         // Rises from the deck (below) while it turns over.
-        final angle = pi * (1 - _c.value.clamp(0.0, 1.0));
+        final angle = pi * (1 - Curves.easeInOutCubic.transform(_c.value.clamp(0.0, 1.0)));
         final showFace = angle < pi / 2;
         final lift = (1 - t) * 120;
         final scale = 0.7 + 0.3 * t;

@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
+import '../../widgets/motion.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../../widgets/sprites.dart';
 import 'question_bank.dart';
 import 'unique_answer_game.dart';
@@ -24,6 +26,10 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
   QuestionDeck? _deck;
   UniqueAnswerGame? _game;
   _Phase _phase = _Phase.setup;
+
+  /// Quick mode (fewer than 3 names): the phone hosts, players track who is out.
+  bool get _quick => context.app.players.length < 3;
+  int _quickRound = 1;
 
   // Setup choices
   String? _host;
@@ -54,8 +60,13 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
 
   void _start() {
     final players = context.app.players;
-    final host = _host ?? players.first;
-    _game = UniqueAnswerGame(host: host, contestants: [...players.where((p) => p != host)]);
+    if (_quick) {
+      _game = null;
+      _quickRound = 1;
+    } else {
+      final host = _host ?? players.first;
+      _game = UniqueAnswerGame(host: host, contestants: [...players.where((p) => p != host)]);
+    }
     _deck = _bank!.deck(categories: _categories, difficulties: _difficulties);
     _lastResult = null;
     _nextPrompt();
@@ -78,11 +89,10 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
     _timer = Timer.periodic(const Duration(milliseconds: 100), (t) {
       final before = _left.ceil();
       setState(() => _left = (_left - 0.1).clamp(0, 999));
-      if (_left.ceil() != before && _left <= 3 && _left > 0) HapticFeedback.selectionClick();
+      if (_left.ceil() != before && _left <= 3 && _left > 0) Fx.tick();
       if (_left <= 0) {
         t.cancel();
-        HapticFeedback.heavyImpact();
-        SystemSound.play(SystemSoundType.alert);
+        Fx.timeUp();
         setState(() => _phase = _Phase.reveal);
       }
     });
@@ -91,6 +101,7 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
   void _lockIn() {
     final g = _game!;
     final hits = Set.of(_matched);
+    hits.isEmpty ? Fx.correct() : Fx.lose();
     final ok = g.eliminate(hits);
     setState(() {
       if (!ok) {
@@ -102,6 +113,7 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
       }
     });
     if (g.isOver) {
+      Fx.win();
       setState(() => _phase = _Phase.winner);
     } else {
       _nextPrompt();
@@ -112,16 +124,22 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
   Widget build(BuildContext context) {
     return PixelScaffold(
       title: 'One of a Kind',
+      onHelp: () => showHowToPlay(context, 'one_of_a_kind'),
       body: _bank == null
           ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-              child: switch (_phase) {
-                _Phase.setup => _setup(context),
-                _Phase.prompt || _Phase.timing => _round(context),
-                _Phase.reveal => _reveal(context),
-                _Phase.winner => _winner(context),
-              },
+              child: PhaseSwitcher(
+                child: KeyedSubtree(
+                  key: ValueKey(_phase == _Phase.timing ? _Phase.prompt : _phase),
+                  child: switch (_phase) {
+                    _Phase.setup => _setup(context),
+                    _Phase.prompt || _Phase.timing => _round(context),
+                    _Phase.reveal => _reveal(context),
+                    _Phase.winner => _winner(context),
+                  },
+                ),
+              ),
             ),
     );
   }
@@ -134,7 +152,7 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
   Widget _setup(BuildContext context) {
     final pal = context.pal;
     final players = context.app.players;
-    final host = _host ?? players.first;
+    final host = _quick ? null : (_host ?? players.first);
     return SingleChildScrollView(
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         PixelBox(
@@ -145,10 +163,15 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
           ),
         ),
         _label('HOST'),
-        Wrap(spacing: 8, runSpacing: 8, children: [
-          for (final p in players)
-            PixelChip(label: p, selected: p == host, onTap: () => setState(() => _host = p)),
-        ]),
+        if (_quick)
+          Text('Whoever holds the phone. Players keep track of who is out. '
+              'Add 3+ names and the phone tracks it for you.',
+              style: PixelFonts.body(pal.textDim, size: 22))
+        else
+          Wrap(spacing: 8, runSpacing: 8, children: [
+            for (final p in players)
+              PixelChip(label: p, selected: p == host, onTap: () => setState(() => _host = p)),
+          ]),
         _label('TIMER'),
         Wrap(spacing: 8, children: [
           for (final s in [10, 15, 20, 30])
@@ -184,7 +207,8 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
   }
 
   Widget _standing(BuildContext context) {
-    final g = _game!;
+    final g = _game;
+    if (g == null) return const SizedBox.shrink();
     return Wrap(spacing: 8, runSpacing: 8, children: [
       for (final p in g.alive) PixelChip(label: p),
       for (final p in g.out) PixelChip(label: p, struck: true),
@@ -193,15 +217,15 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
 
   Widget _round(BuildContext context) {
     final pal = context.pal;
-    final g = _game!;
+    final g = _game;
     final timing = _phase == _Phase.timing;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Row(children: [
-          Text('ROUND ${g.round}', style: PixelFonts.title(pal.accent, size: 11)),
+          Text('ROUND ${g?.round ?? _quickRound}', style: PixelFonts.title(pal.accent, size: 11)),
           const Spacer(),
-          Text('HOST: ${g.host}', style: PixelFonts.body(pal.textDim, size: 22)),
+          if (g != null) Text('HOST: ${g.host}', style: PixelFonts.body(pal.textDim, size: 22)),
         ]),
         if (_lastResult != null) ...[
           const SizedBox(height: 10),
@@ -211,7 +235,7 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
             child: Text(_lastResult!, style: PixelFonts.body(pal.primary, size: 22)),
           ),
         ],
-        if (g.finalTwo) ...[
+        if (g?.finalTwo ?? false) ...[
           const SizedBox(height: 10),
           PixelBox(
             borderColor: pal.accent,
@@ -261,6 +285,7 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
             color: pal.accent,
             onTap: () {
               _timer?.cancel();
+              Fx.flip();
               setState(() => _phase = _Phase.reveal);
             },
           ),
@@ -268,9 +293,49 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
     );
   }
 
+  Widget _quickReveal(BuildContext context) {
+    final pal = context.pal;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text('REVEAL!', textAlign: TextAlign.center, style: PixelFonts.title(pal.primary, size: 26)),
+        const SizedBox(height: 10),
+        Text(_prompt, textAlign: TextAlign.center, style: PixelFonts.body(pal.textDim)),
+        const SizedBox(height: 18),
+        PixelBox(
+          child: Text(
+            'Everyone flips their answer. Matched someone or left it blank? You are out. Drink!\n\n'
+            'Down to two? They also need to dodge the host\'s answer.',
+            style: PixelFonts.body(pal.text, size: 22),
+          ),
+        ),
+        const Spacer(),
+        PixelButton(
+          label: 'Next prompt',
+          expand: true,
+          onTap: () {
+            _quickRound++;
+            _nextPrompt();
+          },
+        ),
+        const SizedBox(height: 10),
+        PixelButton(
+          label: 'We have a winner',
+          expand: true,
+          color: pal.accent,
+          onTap: () {
+            Fx.win();
+            setState(() => _phase = _Phase.winner);
+          },
+        ),
+      ],
+    );
+  }
+
   Widget _reveal(BuildContext context) {
     final pal = context.pal;
-    final g = _game!;
+    final g = _game;
+    if (g == null) return _quickReveal(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -312,17 +377,19 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
 
   Widget _winner(BuildContext context) {
     final pal = context.pal;
-    final g = _game!;
+    final g = _game;
     return Column(
       children: [
         const Spacer(),
         PixelSprite(Sprites.crown, pixel: 9),
         const SizedBox(height: 20),
-        Text(g.winner ?? '', style: PixelFonts.title(pal.accent, size: 24)),
+        Text(g?.winner ?? 'WINNER!', style: PixelFonts.title(pal.accent, size: 24)),
         const SizedBox(height: 10),
-        Text('is one of a kind!', style: PixelFonts.body(pal.text, size: 28)),
+        Text(g == null ? 'Last one standing is one of a kind!' : 'is one of a kind!',
+            textAlign: TextAlign.center, style: PixelFonts.body(pal.text, size: 28)),
         const SizedBox(height: 10),
-        Text('Winner hands out ${g.out.length} sips.', style: PixelFonts.body(pal.textDim)),
+        Text(g == null ? 'Winner hands out a sip per player.' : 'Winner hands out ${g.out.length} sips.',
+            style: PixelFonts.body(pal.textDim)),
         const Spacer(),
         PixelButton(label: 'Play again', expand: true, onTap: () => setState(() => _phase = _Phase.setup)),
       ],

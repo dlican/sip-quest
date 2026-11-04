@@ -1,11 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../../widgets/playing_card.dart';
 import '../cards.dart';
 import 'beat_the_dealer.dart';
@@ -45,16 +46,16 @@ class _BeatTheDealerScreenState extends State<BeatTheDealerScreen> {
       switch (res.outcome) {
         case DealerOutcome.higher:
         case DealerOutcome.lower:
-          HapticFeedback.mediumImpact();
+          Fx.flip();
           _firstGuess = rank;
           _msg = '${res.outcome == DealerOutcome.higher ? 'HIGHER' : 'LOWER'} than ${_ranks[rank - 1]}. One more try.';
           return;
         case DealerOutcome.correctFirst:
         case DealerOutcome.correctSecond:
-          HapticFeedback.heavyImpact();
+          Fx.win();
           _msg = 'Got it! $dealer drinks ${res.dealerDrinks}.';
         case DealerOutcome.miss:
-          HapticFeedback.heavyImpact();
+          Fx.lose();
           _msg = 'Nope. $guesser drinks ${res.drinks}.';
           if (res.dealerPasses) {
             _msg += '\n$dealer survived 3 in a row. Deck passes on!';
@@ -79,6 +80,7 @@ class _BeatTheDealerScreenState extends State<BeatTheDealerScreen> {
     }
     return PixelScaffold(
       title: 'Beat the Dealer',
+      onHelp: () => showHowToPlay(context, 'beat_the_dealer'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [

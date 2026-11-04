@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../common.dart';
 import 'never_have_i_ever.dart';
 
@@ -32,6 +33,7 @@ class _NeverHaveIEverScreenState extends State<NeverHaveIEverScreen> {
     final players = _tracker.players;
     return PixelScaffold(
       title: 'Never Have I Ever',
+      onHelp: () => showHowToPlay(context, 'never_have_i_ever'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -91,7 +93,7 @@ class _NeverHaveIEverScreenState extends State<NeverHaveIEverScreen> {
     final n = _tracker.fingersOf(p);
     return GestureDetector(
       onTap: () {
-        HapticFeedback.lightImpact();
+        Fx.select();
         setState(() => _tracker.fingerDown(p));
       },
       onLongPress: () => setState(() => _tracker.undo(p)),

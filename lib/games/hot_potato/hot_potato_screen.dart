@@ -2,11 +2,12 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../../widgets/sprites.dart';
 import '../common.dart';
 import 'hot_potato.dart';
@@ -49,14 +50,13 @@ class _HotPotatoScreenState extends State<HotPotatoScreen> {
       final e = _elapsed += _step;
       if (_round!.exploded(e)) {
         _timer?.cancel();
-        HapticFeedback.heavyImpact();
-        SystemSound.play(SystemSoundType.alert);
+        Fx.boom();
         setState(() => _phase = _Phase.boom);
         return;
       }
       if (e - _lastTick >= _round!.tickInterval(e)) {
         _lastTick = e;
-        HapticFeedback.selectionClick();
+        Fx.tick();
         setState(() => _flash = !_flash);
       }
     });
@@ -67,6 +67,7 @@ class _HotPotatoScreenState extends State<HotPotatoScreen> {
     final pal = context.pal;
     return PixelScaffold(
       title: 'Hot Potato Bomb',
+      onHelp: () => showHowToPlay(context, 'hot_potato'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [

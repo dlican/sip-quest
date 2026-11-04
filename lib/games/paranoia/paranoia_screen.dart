@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
+import '../../widgets/motion.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../../widgets/sprites.dart';
 
 const paranoiaPrompts = [
@@ -87,7 +89,10 @@ class _ParanoiaScreenState extends State<ParanoiaScreen> with SingleTickerProvid
   }
 
   List<String> get _players => context.app.players;
-  String get _answerer => _players[_turn % _players.length];
+
+  /// Names are optional: with fewer than two, the phone just goes left.
+  bool get _named2 => _players.length >= 2;
+  String? get _answerer => _named2 ? _players[_turn % _players.length] : null;
 
   void _next() {
     if (_queue.isEmpty) _queue.addAll(List.of(paranoiaPrompts)..shuffle(_random));
@@ -101,9 +106,10 @@ class _ParanoiaScreenState extends State<ParanoiaScreen> with SingleTickerProvid
 
   void _flip() {
     _heads = _random.nextBool();
+    Fx.flip();
     setState(() => _phase = _Phase.coin);
     _coin.forward(from: 0).then((_) {
-      HapticFeedback.heavyImpact();
+      Fx.coin();
       if (mounted) {
         setState(() {
           _revealed = _heads;
@@ -115,20 +121,23 @@ class _ParanoiaScreenState extends State<ParanoiaScreen> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    if (_players.length < 3) {
-      return PixelScaffold(title: 'Paranoia', body: NeedPlayers(min: 3, onAdd: () => Navigator.pop(context)));
-    }
     return PixelScaffold(
       title: 'Paranoia',
+      onHelp: () => showHowToPlay(context, 'paranoia'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-        child: switch (_phase) {
-          _Phase.pass => _pass(context),
-          _Phase.secret => _secret(context),
-          _Phase.decide => _decide(context),
-          _Phase.coin => _coinView(context),
-          _Phase.result => _result(context),
-        },
+        child: PhaseSwitcher(
+          child: KeyedSubtree(
+            key: ValueKey('$_phase$_turn'),
+            child: switch (_phase) {
+              _Phase.pass => _pass(context),
+              _Phase.secret => _secret(context),
+              _Phase.decide => _decide(context),
+              _Phase.coin => _coinView(context),
+              _Phase.result => _result(context),
+            },
+          ),
+        ),
       ),
     );
   }
@@ -141,7 +150,8 @@ class _ParanoiaScreenState extends State<ParanoiaScreen> with SingleTickerProvid
       const SizedBox(height: 24),
       Text('PASS THE PHONE TO', style: PixelFonts.title(pal.textDim, size: 11)),
       const SizedBox(height: 10),
-      Text(_answerer, style: PixelFonts.title(pal.accent, size: 24)),
+      Text(_answerer ?? 'THE PERSON\nON YOUR LEFT',
+          textAlign: TextAlign.center, style: PixelFonts.title(pal.accent, size: _answerer == null ? 16 : 24)),
       const SizedBox(height: 10),
       Text('Read the question in secret.\nAnswer with a name, out loud.',
           textAlign: TextAlign.center, style: PixelFonts.body(pal.text)),
@@ -153,14 +163,27 @@ class _ParanoiaScreenState extends State<ParanoiaScreen> with SingleTickerProvid
   Widget _secret(BuildContext context) {
     final pal = context.pal;
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Text('SHH... ONLY $_answerer', style: PixelFonts.title(pal.primary, size: 11)),
+      Text(_answerer == null ? 'SHH... EYES ON YOUR OWN SCREEN' : 'SHH... ONLY $_answerer',
+          style: PixelFonts.title(pal.primary, size: 11)),
       const SizedBox(height: 18),
       PixelBox(
         child: Text(_question, textAlign: TextAlign.center, style: PixelFonts.title(pal.text, size: 16)),
       ),
       const SizedBox(height: 22),
-      Text('Say your answer out loud, then tap them:', style: PixelFonts.body(pal.textDim)),
+      Text(_named2 ? 'Say your answer out loud, then tap them:' : 'Say a name out loud. Nobody else reads this!',
+          style: PixelFonts.body(pal.textDim)),
       const SizedBox(height: 12),
+      if (!_named2) ...[
+        const Spacer(),
+        PixelButton(
+          label: 'I said a name',
+          expand: true,
+          onTap: () => setState(() {
+            _named = null;
+            _phase = _Phase.decide;
+          }),
+        ),
+      ] else
       Expanded(
         child: SingleChildScrollView(
           child: Wrap(spacing: 10, runSpacing: 10, children: [
@@ -183,19 +206,24 @@ class _ParanoiaScreenState extends State<ParanoiaScreen> with SingleTickerProvid
     final pal = context.pal;
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       const Spacer(),
-      Text('THE ANSWER WAS', textAlign: TextAlign.center, style: PixelFonts.title(pal.textDim, size: 11)),
+      Text(_named == null ? 'WHOEVER WAS NAMED' : 'THE ANSWER WAS',
+          textAlign: TextAlign.center, style: PixelFonts.title(pal.textDim, size: 11)),
       const SizedBox(height: 10),
-      Text(_named!, textAlign: TextAlign.center, style: PixelFonts.title(pal.accent, size: 26)),
+      if (_named != null) Text(_named!, textAlign: TextAlign.center, style: PixelFonts.title(pal.accent, size: 26)),
       const SizedBox(height: 18),
-      Text('$_named, want to know the question?', textAlign: TextAlign.center, style: PixelFonts.body(pal.text)),
+      Text(_named == null ? 'Want to know the question?' : '$_named, want to know the question?',
+          textAlign: TextAlign.center, style: PixelFonts.body(pal.text)),
       const Spacer(),
       PixelButton(
         label: 'Drink to find out',
         expand: true,
-        onTap: () => setState(() {
-          _revealed = true;
-          _phase = _Phase.result;
-        }),
+        onTap: () {
+          Fx.pass();
+          setState(() {
+            _revealed = true;
+            _phase = _Phase.result;
+          });
+        },
       ),
       const SizedBox(height: 10),
       PixelButton(label: 'Flip the coin', expand: true, color: pal.accent, onTap: _flip),

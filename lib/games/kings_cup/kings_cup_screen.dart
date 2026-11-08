@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
+import '../../widgets/motion.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../../widgets/playing_card.dart';
 import '../../widgets/sprites.dart';
 import 'kings_cup_game.dart';
@@ -42,14 +44,14 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
     setState(() {
       final c = _game.draw();
       if (c != null) {
-        HapticFeedback.mediumImpact();
-        if (c.rank == 13) HapticFeedback.heavyImpact();
+        c.rank == 13 ? Fx.coin() : Fx.flip();
+        if (_game.status == KingsCupStatus.fourthKing) Fx.boom();
       }
     });
   }
 
   Future<void> _writeRule() async {
-    final rule = await showDialog<String>(
+    final rule = await showPixelDialog<String>(
       context: context,
       builder: (_) => const _TextPrompt(title: 'New house rule', hint: 'e.g. No saying "drink"'),
     );
@@ -57,15 +59,17 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
   }
 
   Future<void> _editRules() async {
-    await Navigator.of(context).push(MaterialPageRoute(
-      builder: (_) => _RulesEditor(
-        rules: _game.rules,
-        onChanged: (rank, rule) => setState(() {
-          _game.rules[rank] = rule;
-          _customRules = Map.of(_game.rules);
-        }),
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => _RulesEditor(
+          rules: _game.rules,
+          onChanged: (rank, rule) => setState(() {
+            _game.rules[rank] = rule;
+            _customRules = Map.of(_game.rules);
+          }),
+        ),
       ),
-    ));
+    );
   }
 
   @override
@@ -74,9 +78,8 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
     final g = _game;
     return PixelScaffold(
       title: "King's Cup",
-      actions: [
-        PixelIconButton(icon: Icons.menu_book, tooltip: 'Edit rules', onTap: _editRules),
-      ],
+      onHelp: () => showHowToPlay(context, 'kings_cup'),
+      actions: [PixelIconButton(icon: Icons.menu_book, tooltip: 'Edit rules', onTap: _editRules)],
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
         child: Column(
@@ -84,8 +87,11 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
             Row(
               children: [
                 for (var i = 0; i < 4; i++) ...[
-                  PixelSprite(i < g.kingsDrawn ? Sprites.crown : Sprites.crownEmpty,
-                      pixel: 3, tint: {'D': pal.textDim.withValues(alpha: 0.35)}),
+                  PixelSprite(
+                    i < g.kingsDrawn ? Sprites.crown : Sprites.crownEmpty,
+                    pixel: 3,
+                    tint: {'D': pal.textDim.withValues(alpha: 0.35)},
+                  ),
                   const SizedBox(width: 6),
                 ],
                 const Spacer(),
@@ -94,28 +100,24 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
                 Text('cards left', style: PixelFonts.body(pal.textDim, size: 22)),
               ],
             ),
-            if (g.hasPlayers) ...[
-              const SizedBox(height: 8),
-              _TurnBanner(game: g),
-            ],
+            if (g.hasPlayers) ...[const SizedBox(height: 8), _TurnBanner(game: g)],
             Expanded(
-              child: LayoutBuilder(builder: (context, box) {
-                final w = min(box.maxWidth * 0.62, box.maxHeight * 0.92 * kCardRatio);
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: g.status == KingsCupStatus.playing ? _draw : null,
-                  child: Center(
-                    child: _shuffling
-                        ? _ShuffleDeck(
-                            width: w * 0.75,
-                            onDone: () => setState(() => _shuffling = false),
-                          )
-                        : g.current == null
-                            ? _DeckPile(width: w * 0.75, count: g.deck.remaining)
-                            : FlippingCard(card: g.current!, width: w),
-                  ),
-                );
-              }),
+              child: LayoutBuilder(
+                builder: (context, box) {
+                  final w = min(box.maxWidth * 0.62, box.maxHeight * 0.92 * kCardRatio);
+                  return GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: g.status == KingsCupStatus.playing ? _draw : null,
+                    child: Center(
+                      child: _shuffling
+                          ? _ShuffleDeck(width: w * 0.75, onDone: () => setState(() => _shuffling = false))
+                          : g.current == null
+                          ? _DeckPile(width: w * 0.75, count: g.deck.remaining)
+                          : FlippingCard(card: g.current!, width: w),
+                    ),
+                  );
+                },
+              ),
             ),
             _RulePanel(game: g, shuffling: _shuffling, onWriteRule: _writeRule),
             const SizedBox(height: 12),
@@ -126,12 +128,7 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
                 onTap: _shuffling ? null : _draw,
               )
             else
-              PixelButton(
-                label: 'New game',
-                expand: true,
-                color: pal.secondary,
-                onTap: () => setState(_newGame),
-              ),
+              PixelButton(label: 'New game', expand: true, color: pal.secondary, onTap: () => setState(_newGame)),
           ],
         ),
       ),
@@ -149,8 +146,10 @@ class _TurnBanner extends StatelessWidget {
     final who = game.status == KingsCupStatus.playing ? game.nextPlayer : game.currentPlayer;
     return Row(
       children: [
-        Text(game.status == KingsCupStatus.playing ? 'UP NEXT ' : 'LAST ',
-            style: PixelFonts.title(pal.textDim, size: 10)),
+        Text(
+          game.status == KingsCupStatus.playing ? 'UP NEXT ' : 'LAST ',
+          style: PixelFonts.title(pal.textDim, size: 10),
+        ),
         Text(who ?? '', style: PixelFonts.body(pal.secondary, size: 26)),
         const Spacer(),
         if (game.questionMaster != null) ...[
@@ -181,8 +180,9 @@ class _RulePanel extends StatelessWidget {
           Text('4TH KING!', style: PixelFonts.title(pal.primary, size: 18)),
           const SizedBox(height: 8),
           Text(
-              '${game.currentPlayer ?? 'Whoever drew it'} drinks the whole King\'s Cup. Game over.',
-              style: PixelFonts.body(pal.text)),
+            '${game.currentPlayer ?? 'Whoever drew it'} drinks the whole King\'s Cup. Game over.',
+            style: PixelFonts.body(pal.text),
+          ),
         ],
       );
     } else if (c == null) {
@@ -199,9 +199,7 @@ class _RulePanel extends StatelessWidget {
             children: [
               Text(c.rankLabel, style: PixelFonts.title(pal.accent, size: 18)),
               const SizedBox(width: 12),
-              Expanded(
-                child: Text(rule.title.toUpperCase(), style: PixelFonts.title(pal.primary, size: 15)),
-              ),
+              Expanded(child: Text(rule.title.toUpperCase(), style: PixelFonts.title(pal.primary, size: 15))),
             ],
           ),
           const SizedBox(height: 8),
@@ -209,8 +207,10 @@ class _RulePanel extends StatelessWidget {
           if (c.rank == 13)
             Padding(
               padding: const EdgeInsets.only(top: 6),
-              child: Text('${4 - game.kingsDrawn} king(s) left in the deck.',
-                  style: PixelFonts.body(pal.accent, size: 22)),
+              child: Text(
+                '${4 - game.kingsDrawn} king(s) left in the deck.',
+                style: PixelFonts.body(pal.accent, size: 22),
+              ),
             ),
           if (c.rank == 11)
             Padding(
@@ -227,17 +227,34 @@ class _RulePanel extends StatelessWidget {
     }
 
     return PixelBox(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          content,
-          if (game.houseRules.isNotEmpty) ...[
-            const SizedBox(height: 10),
-            Text('HOUSE RULES', style: PixelFonts.title(pal.textDim, size: 9)),
-            for (final r in game.houseRules)
-              Text('* $r', style: PixelFonts.body(pal.secondary, size: 22)),
+      child: AnimatedSize(
+        duration: Motion.medium,
+        curve: Motion.enter,
+        alignment: Alignment.topCenter,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AnimatedSwitcher(
+              duration: Motion.medium,
+              switchInCurve: Motion.enter,
+              switchOutCurve: Motion.exit,
+              layoutBuilder: (cur, prev) => Stack(alignment: Alignment.topLeft, children: [...prev, ?cur]),
+              transitionBuilder: (c, a) => FadeTransition(
+                opacity: a,
+                child: SlideTransition(
+                  position: Tween(begin: const Offset(0, 0.15), end: Offset.zero).animate(a),
+                  child: c,
+                ),
+              ),
+              child: KeyedSubtree(key: ValueKey('${game.drawn.length}${game.status}$shuffling'), child: content),
+            ),
+            if (game.houseRules.isNotEmpty) ...[
+              const SizedBox(height: 10),
+              Text('HOUSE RULES', style: PixelFonts.title(pal.textDim, size: 9)),
+              for (final r in game.houseRules) Text('* $r', style: PixelFonts.body(pal.secondary, size: 22)),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
@@ -257,7 +274,11 @@ class _DeckPile extends StatelessWidget {
       child: Stack(
         children: [
           for (var i = 0; i < layers; i++)
-            Positioned(left: i * 3.0, top: (layers - i) * 3.0, child: CardBack(width: width)),
+            Positioned(
+              left: i * 3.0,
+              top: (layers - i) * 3.0,
+              child: CardBack(width: width),
+            ),
         ],
       ),
     );
@@ -277,14 +298,15 @@ class _ShuffleDeck extends StatefulWidget {
 class _ShuffleDeckState extends State<_ShuffleDeck> with SingleTickerProviderStateMixin {
   static const _cycles = 3;
   static const _cards = 10;
-  late final AnimationController _c = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 650 * _cycles),
-  )
-    ..addStatusListener((s) {
-      if (s == AnimationStatus.completed) widget.onDone();
-    })
-    ..forward();
+  late final AnimationController _c =
+      AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 650 * _cycles),
+        )
+        ..addStatusListener((s) {
+          if (s == AnimationStatus.completed) widget.onDone();
+        })
+        ..forward();
 
   @override
   void dispose() {
@@ -302,17 +324,15 @@ class _ShuffleDeckState extends State<_ShuffleDeck> with SingleTickerProviderSta
         animation: _c,
         builder: (context, _) {
           final cycleT = (_c.value * _cycles) % 1.0;
-          final spread = sin(cycleT * pi);
-          // Snap movement to 4px steps for a choppy, pixel feel.
-          double snap(double v) => (v / 4).round() * 4.0;
+          final spread = Curves.easeInOutSine.transform(sin(cycleT * pi));
           return Stack(
             alignment: Alignment.center,
             children: [
               for (var i = 0; i < _cards; i++)
                 Transform.translate(
                   offset: Offset(
-                    snap((i.isEven ? -1 : 1) * spread * w * 0.55),
-                    snap(-i * 2.0 + (i.isEven ? 0 : spread * -10)),
+                    (i.isEven ? -1 : 1) * spread * w * 0.55,
+                    -i * 2.0 + (i.isEven ? 0 : spread * -10),
                   ),
                   child: Transform.rotate(
                     angle: (i.isEven ? -1 : 1) * spread * 0.12,
@@ -396,12 +416,12 @@ class _RulesEditorState extends State<_RulesEditor> {
 
   Future<void> _edit(int rank) async {
     final r = widget.rules[rank]!;
-    final title = await showDialog<String>(
+    final title = await showPixelDialog<String>(
       context: context,
       builder: (_) => _TextPrompt(title: 'Rule name', hint: 'Name', initial: r.title),
     );
     if (title == null || !mounted) return;
-    final desc = await showDialog<String>(
+    final desc = await showPixelDialog<String>(
       context: context,
       builder: (_) => _TextPrompt(title: 'What happens', hint: 'Description', initial: r.description),
     );
@@ -430,18 +450,18 @@ class _RulesEditorState extends State<_RulesEditor> {
                     children: [
                       SizedBox(
                         width: 44,
-                        child: Text(_labels[rank] ?? '$rank',
-                            style: PixelFonts.title(pal.accent, size: 16)),
+                        child: Text(_labels[rank] ?? '$rank', style: PixelFonts.title(pal.accent, size: 16)),
                       ),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.rules[rank]!.title.toUpperCase(),
-                                style: PixelFonts.title(pal.primary, size: 11)),
+                            Text(
+                              widget.rules[rank]!.title.toUpperCase(),
+                              style: PixelFonts.title(pal.primary, size: 11),
+                            ),
                             const SizedBox(height: 4),
-                            Text(widget.rules[rank]!.description,
-                                style: PixelFonts.body(pal.text, size: 22)),
+                            Text(widget.rules[rank]!.description, style: PixelFonts.body(pal.text, size: 22)),
                           ],
                         ),
                       ),

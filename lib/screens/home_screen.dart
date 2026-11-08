@@ -3,28 +3,45 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../app_state.dart';
+import '../games/how_to_play.dart';
 import '../games/registry.dart';
 import '../theme/palette.dart';
+import '../widgets/motion.dart';
 import '../widgets/pixel_ui.dart';
 import '../widgets/sprites.dart';
 import 'players_screen.dart';
+import 'settings_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  void _open(BuildContext context, GameMode g) {
-    final app = context.app;
-    if (app.players.length < g.minPlayers) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => PlayersScreen(
-            reason: '${g.title} needs at least ${g.minPlayers} players.',
-          ),
-        ),
-      );
-      return;
-    }
-    Navigator.of(context).push(MaterialPageRoute(builder: g.builder));
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+  // Tiles slide in one after another when the app opens.
+  late final AnimationController _intro =
+      AnimationController(vsync: this, duration: const Duration(milliseconds: 900))..forward();
+
+  @override
+  void dispose() {
+    _intro.dispose();
+    super.dispose();
+  }
+
+  void _open(GameMode g) => Navigator.of(context).push(MaterialPageRoute(builder: g.builder));
+
+  Widget _stagger(int i, Widget child) {
+    final start = (i * 0.05).clamp(0.0, 0.6);
+    final anim = CurvedAnimation(parent: _intro, curve: Interval(start, start + 0.4, curve: Motion.enter));
+    return FadeTransition(
+      opacity: anim,
+      child: SlideTransition(
+        position: Tween(begin: const Offset(0, 0.25), end: Offset.zero).animate(anim),
+        child: child,
+      ),
+    );
   }
 
   @override
@@ -34,95 +51,93 @@ class HomeScreen extends StatelessWidget {
     return PixelScaffold(
       title: '',
       showBack: false,
+      actions: [
+        PixelIconButton(
+          icon: Icons.settings,
+          tooltip: 'Settings',
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
+        ),
+      ],
       // Not lazy: the list is short and every tile stays findable in tests.
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 8),
-            const Center(child: _BouncingMug()),
-            const SizedBox(height: 14),
-            Center(
-              child: Text(
-                'SIP QUEST',
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          const Center(child: _BouncingMug()),
+          const SizedBox(height: 14),
+          Center(
+            child: Text('SIP QUEST',
                 style: PixelFonts.title(pal.primary, size: 28).copyWith(
-                  shadows: [
-                    Shadow(color: pal.secondary, offset: const Offset(3, 3)),
-                  ],
+                  shadows: [Shadow(color: pal.secondary, offset: const Offset(3, 3))],
+                )),
+          ),
+          const SizedBox(height: 6),
+          Center(
+            child: Text('one phone, the whole party',
+                style: PixelFonts.body(pal.textDim, size: 24)),
+          ),
+          const SizedBox(height: 20),
+          // Same height for both, even when one label wraps to two lines.
+          IntrinsicHeight(
+            child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: PixelButton(
+                  label: app.players.isEmpty ? 'Names (optional)' : 'Names: ${app.players.length}',
+                  size: 10,
+                  expand: true,
+                  color: pal.secondary,
+                  onTap: () => Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => const PlayersScreen())),
                 ),
               ),
-            ),
-            const SizedBox(height: 6),
-            Center(
-              child: Text(
-                'party games, pixel sized',
-                style: PixelFonts.body(pal.textDim, size: 24),
+              const SizedBox(width: 8),
+              Expanded(
+                child: PixelButton(
+                  label: 'Style: ${pal.name}',
+                  size: 10,
+                  expand: true,
+                  color: pal.accent,
+                  onTap: app.cyclePalette,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            // Same height for both, even when one label wraps to two lines.
-            IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: PixelButton(
-                      label: app.players.isEmpty
-                          ? 'Add players'
-                          : 'Players: ${app.players.length}',
-                      size: 11,
-                      expand: true,
-                      color: pal.secondary,
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const PlayersScreen(),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: PixelButton(
-                      label: 'Style: ${pal.name}',
-                      size: 11,
-                      expand: true,
-                      color: pal.accent,
-                      onTap: app.cyclePalette,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            for (final g in gameModes) ...[
-              _GameTile(game: g, onTap: () => _open(context, g)),
-              const SizedBox(height: 14),
             ],
-            const SizedBox(height: 12),
-            Center(
-              child: Text(
-                'Legal drinking age only. Water counts as a drink.',
-                textAlign: TextAlign.center,
-                style: PixelFonts.body(pal.textDim, size: 20),
+          ),
+          ),
+          const SizedBox(height: 20),
+          for (var i = 0; i < gameModes.length; i++) ...[
+            _stagger(
+              i,
+              _GameTile(
+                game: gameModes[i],
+                onTap: () => _open(gameModes[i]),
+                onHelp: () => showHowToPlay(context, gameModes[i].id),
               ),
             ),
+            const SizedBox(height: 14),
           ],
-        ),
+          const SizedBox(height: 12),
+          Center(
+            child: Text('Legal drinking age only. Water counts as a drink.',
+                textAlign: TextAlign.center,
+                style: PixelFonts.body(pal.textDim, size: 20)),
+          ),
+        ]),
       ),
     );
   }
 }
 
 class _GameTile extends StatelessWidget {
-  const _GameTile({required this.game, required this.onTap});
+  const _GameTile({required this.game, required this.onTap, required this.onHelp});
   final GameMode game;
   final VoidCallback onTap;
+  final VoidCallback onHelp;
 
   @override
   Widget build(BuildContext context) {
     final pal = context.pal;
-    return GestureDetector(
+    return Pressable(
       onTap: onTap,
       child: PixelBox(
         child: Row(
@@ -139,24 +154,33 @@ class _GameTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    game.title.toUpperCase(),
-                    style: PixelFonts.title(pal.accent, size: 13),
-                  ),
+                  Text(game.title.toUpperCase(),
+                      style: PixelFonts.title(pal.accent, size: 13)),
                   const SizedBox(height: 6),
-                  Text(
-                    game.tagline,
-                    style: PixelFonts.body(pal.text, size: 22),
-                  ),
-                  if (game.minPlayers > 0)
-                    Text(
-                      '${game.minPlayers}+ players',
-                      style: PixelFonts.body(pal.textDim, size: 20),
-                    ),
+                  Text(game.tagline, style: PixelFonts.body(pal.text, size: 22)),
                 ],
               ),
             ),
-            Text('>', style: PixelFonts.title(pal.secondary, size: 18)),
+            const SizedBox(width: 6),
+            Semantics(
+              button: true,
+              label: 'How to play ${game.title}',
+              child: Pressable(
+                key: Key('help-${game.id}'),
+                onTap: onHelp,
+                sound: false,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: pal.bg,
+                    border: Border.all(color: pal.secondary, width: 3),
+                  ),
+                  child: Text('?', style: PixelFonts.title(pal.secondary, size: 14)),
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -1,11 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../common.dart';
 import 'roulette.dart';
 
@@ -19,8 +20,10 @@ class RouletteScreen extends StatefulWidget {
 class _RouletteScreenState extends State<RouletteScreen> with SingleTickerProviderStateMixin {
   final _wheel = Roulette();
   late final TurnOrder _turns = TurnOrder(context.app.players);
-  late final AnimationController _c =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 3200));
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 3200),
+  );
   double _from = 0, _to = 0;
   RouletteSpin? _spin;
   bool _spinning = false;
@@ -44,7 +47,7 @@ class _RouletteScreenState extends State<RouletteScreen> with SingleTickerProvid
       _spinning = true;
     });
     _c.forward(from: 0).then((_) {
-      HapticFeedback.heavyImpact();
+      Fx.win();
       if (mounted) setState(() => _spinning = false);
     });
   }
@@ -55,72 +58,91 @@ class _RouletteScreenState extends State<RouletteScreen> with SingleTickerProvid
     final result = !_spinning && _spin != null ? _wheel.slices[_spin!.index] : null;
     return PixelScaffold(
       title: 'Pixel Roulette',
+      onHelp: () => showHowToPlay(context, 'roulette'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          if (_turns.current != null)
-            Text('${_turns.current} spins', textAlign: TextAlign.center, style: PixelFonts.body(pal.secondary, size: 26)),
-          Expanded(
-            child: LayoutBuilder(builder: (context, box) {
-              final size = min(box.maxWidth, box.maxHeight) * 0.95;
-              return Center(
-                child: AnimatedBuilder(
-                  animation: _c,
-                  builder: (context, _) {
-                    final t = _turnsNow;
-                    final slice = _wheel.sliceAt(t);
-                    if (_spinning && slice != _lastSlice) {
-                      _lastSlice = slice;
-                      HapticFeedback.selectionClick();
-                    }
-                    // Snap rotation to 2-degree steps for a choppy pixel feel.
-                    final angle = ((t * 360) / 2).round() * 2 * pi / 180;
-                    return SizedBox(
-                      width: size,
-                      height: size,
-                      child: Stack(alignment: Alignment.topCenter, children: [
-                        Transform.rotate(
-                          angle: angle,
-                          child: CustomPaint(
-                            size: Size(size, size),
-                            painter: _WheelPainter(_wheel.slices, pal),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (_turns.current != null)
+              Text(
+                '${_turns.current} spins',
+                textAlign: TextAlign.center,
+                style: PixelFonts.body(pal.secondary, size: 26),
+              ),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, box) {
+                  final size = min(box.maxWidth, box.maxHeight) * 0.95;
+                  return Center(
+                    child: AnimatedBuilder(
+                      animation: _c,
+                      builder: (context, _) {
+                        final t = _turnsNow;
+                        final slice = _wheel.sliceAt(t);
+                        if (_spinning && slice != _lastSlice) {
+                          _lastSlice = slice;
+                          Fx.spinTick();
+                        }
+                        // Snap rotation to 2-degree steps for a choppy pixel feel.
+                        final angle = ((t * 360) / 2).round() * 2 * pi / 180;
+                        return SizedBox(
+                          width: size,
+                          height: size,
+                          child: Stack(
+                            alignment: Alignment.topCenter,
+                            children: [
+                              Transform.rotate(
+                                angle: angle,
+                                child: CustomPaint(
+                                  size: Size(size, size),
+                                  painter: _WheelPainter(_wheel.slices, pal),
+                                ),
+                              ),
+                              CustomPaint(size: const Size(28, 30), painter: _PointerPainter(pal)),
+                            ],
                           ),
-                        ),
-                        CustomPaint(size: const Size(28, 30), painter: _PointerPainter(pal)),
-                      ]),
-                    );
-                  },
-                ),
-              );
-            }),
-          ),
-          ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 110),
-            child: PixelBox(
-              borderColor: result == null ? pal.border : pal.accent,
-              child: result == null
-                  ? Center(
-                      child: Text(_spinning ? 'Round and round...' : 'Spin to find your fate.',
-                          style: PixelFonts.body(pal.text)))
-                  : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text(result.title.toUpperCase(), style: PixelFonts.title(pal.accent, size: 15)),
-                      const SizedBox(height: 6),
-                      Text(result.description, style: PixelFonts.body(pal.text, size: 22)),
-                    ]),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-          const SizedBox(height: 12),
-          PixelButton(
-            label: _spinning ? 'Spinning...' : 'Spin',
-            expand: true,
-            onTap: _spinning
-                ? null
-                : () {
-                    if (_spin != null) _turns.advance();
-                    _go();
-                  },
-          ),
-        ]),
+            ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 110),
+              child: PixelBox(
+                borderColor: result == null ? pal.border : pal.accent,
+                child: result == null
+                    ? Center(
+                        child: Text(
+                          _spinning ? 'Round and round...' : 'Spin to find your fate.',
+                          style: PixelFonts.body(pal.text),
+                        ),
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(result.title.toUpperCase(), style: PixelFonts.title(pal.accent, size: 15)),
+                          const SizedBox(height: 6),
+                          Text(result.description, style: PixelFonts.body(pal.text, size: 22)),
+                        ],
+                      ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            PixelButton(
+              label: _spinning ? 'Spinning...' : 'Spin',
+              expand: true,
+              onTap: _spinning
+                  ? null
+                  : () {
+                      if (_spin != null) _turns.advance();
+                      _go();
+                    },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -151,21 +173,28 @@ class _WheelPainter extends CustomPainter {
       fill.color = colors[i % colors.length];
       canvas.drawArc(rect, start, sweep, true, fill);
       canvas.drawArc(rect, start, sweep, true, line);
-
-      final mid = start + sweep / 2;
+    }
+    // Labels go on after every wedge so no wedge paints over a label.
+    for (var i = 0; i < slices.length; i++) {
+      final mid = -pi / 2 + (i + 0.5) * sweep;
       final tp = TextPainter(
         text: TextSpan(
           text: slices[i].title.toUpperCase(),
-          style: PixelFonts.title(colors[i % colors.length] == pal.panel ? pal.text : pal.cardBlack,
-              size: max(7, r / 22)),
+          style: PixelFonts.title(
+            colors[i % colors.length] == pal.panel ? pal.text : pal.cardBlack,
+            size: max(6, r / 26),
+          ),
         ),
         textDirection: TextDirection.ltr,
-      )..layout(maxWidth: r * 0.7);
+        maxLines: 1,
+      )..layout();
+      final scale = min(1.0, (r * 0.66) / tp.width);
       canvas.save();
       canvas.translate(c.dx, c.dy);
       canvas.rotate(mid);
-      canvas.translate(r * 0.92 - tp.width, -tp.height / 2);
-      tp.paint(canvas, Offset.zero);
+      canvas.scale(scale);
+      // Labels read outward along the radius, ending clear of the pointer.
+      tp.paint(canvas, Offset(r * 0.84 / scale - tp.width, -tp.height / 2));
       canvas.restore();
     }
     canvas.drawCircle(c, r, line..strokeWidth = 6);
@@ -190,11 +219,12 @@ class _PointerPainter extends CustomPainter {
       ..close();
     canvas.drawPath(path, Paint()..color = pal.text);
     canvas.drawPath(
-        path,
-        Paint()
-          ..color = pal.cardBlack
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 3);
+      path,
+      Paint()
+        ..color = pal.cardBlack
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3,
+    );
   }
 
   @override

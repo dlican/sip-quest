@@ -20,7 +20,6 @@ class GameMode {
     required this.title,
     required this.tagline,
     required this.icon,
-    required this.minPlayers,
     required this.builder,
   });
 
@@ -28,7 +27,6 @@ class GameMode {
   final String title;
   final String tagline;
   final Sprite icon;
-  final int minPlayers;
   final WidgetBuilder builder;
 }
 
@@ -38,7 +36,6 @@ final List<GameMode> gameModes = [
     title: "King's Cup",
     tagline: 'Draw a card, obey the rule. Fourth king drinks the cup.',
     icon: Sprites.crown,
-    minPlayers: 0,
     builder: (_) => const KingsCupScreen(),
   ),
   GameMode(
@@ -46,15 +43,13 @@ final List<GameMode> gameModes = [
     title: 'One of a Kind',
     tagline: 'Answer in 15s. Match anyone and you are out.',
     icon: Sprites.question,
-    minPlayers: 3,
     builder: (_) => const UniqueAnswerScreen(),
   ),
   GameMode(
     id: 'charades',
     title: 'Charades',
-    tagline: 'Act it out before the clock runs dry.',
+    tagline: 'Phone on your forehead. Tilt down if you got it.',
     icon: Sprites.mask,
-    minPlayers: 0,
     builder: (_) => const CharadesScreen(),
   ),
   GameMode(
@@ -62,7 +57,6 @@ final List<GameMode> gameModes = [
     title: 'Paranoia',
     tagline: 'A secret question, a name said out loud.',
     icon: Sprites.eye,
-    minPlayers: 3,
     builder: (_) => const ParanoiaScreen(),
   ),
   GameMode(
@@ -70,7 +64,6 @@ final List<GameMode> gameModes = [
     title: 'Horse Racing',
     tagline: 'Bet sips on a suit. Watch the aces race.',
     icon: Sprites.horse,
-    minPlayers: 0,
     builder: (_) => const HorseRacingScreen(),
   ),
   GameMode(
@@ -78,7 +71,6 @@ final List<GameMode> gameModes = [
     title: 'Ride the Bus',
     tagline: 'Four right in a row to get off. Miss and start over.',
     icon: Sprites.bus,
-    minPlayers: 0,
     builder: (_) => const RideTheBusScreen(),
   ),
   GameMode(
@@ -86,7 +78,6 @@ final List<GameMode> gameModes = [
     title: 'Hot Potato Bomb',
     tagline: 'Name one, pass it on. Hidden fuse. Boom.',
     icon: Sprites.bomb,
-    minPlayers: 0,
     builder: (_) => const HotPotatoScreen(),
   ),
   GameMode(
@@ -94,7 +85,6 @@ final List<GameMode> gameModes = [
     title: 'Most Likely To',
     tagline: 'Secret votes. Most votes drinks.',
     icon: Sprites.ballot,
-    minPlayers: 3,
     builder: (_) => const MostLikelyScreen(),
   ),
   GameMode(
@@ -102,7 +92,6 @@ final List<GameMode> gameModes = [
     title: 'Pixel Roulette',
     tagline: 'Spin the wheel of fate.',
     icon: Sprites.wheel,
-    minPlayers: 0,
     builder: (_) => const RouletteScreen(),
   ),
   GameMode(
@@ -110,7 +99,6 @@ final List<GameMode> gameModes = [
     title: 'Truth or Drink',
     tagline: 'Answer honestly, or drink.',
     icon: Sprites.lips,
-    minPlayers: 0,
     builder: (_) => const TruthOrDrinkScreen(),
   ),
 ];

@@ -1,10 +1,13 @@
 // End-to-end smoke test of the basic flows, run on a real phone:
 //   flutter test integration_test/app_flow_test.dart -d <device-id>
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:sip_quest/app_state.dart';
 import 'package:sip_quest/main.dart';
+import 'package:sip_quest/services/fx.dart';
 
 Future<void> wait(WidgetTester tester, Duration d) async {
   final end = DateTime.now().add(d);
@@ -31,6 +34,9 @@ Future<void> back(WidgetTester tester) async {
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  // CI runs this on flutter-tester, which has no audio or sensor plugins.
+  // On a real phone they stay on.
+  Fx.hardware = !Platform.environment.containsKey('FLUTTER_TEST');
 
   testWidgets('basic flow across games', (tester) async {
     await tester.pumpWidget(SipQuestApp(state: AppState()));
@@ -38,7 +44,7 @@ void main() {
     expect(find.text('SIP QUEST'), findsOneWidget);
 
     // Add players.
-    await tap(tester, 'ADD PLAYERS');
+    await tap(tester, 'NAMES (OPTIONAL)');
     for (final name in ['Deez', 'Sam', 'Alex', 'Jo']) {
       await tester.enterText(find.byType(TextField), name);
       await tester.testTextInput.receiveAction(TextInputAction.done);
@@ -46,7 +52,7 @@ void main() {
     }
     expect(find.text('Jo'), findsOneWidget);
     await tap(tester, 'DONE');
-    expect(find.text('PLAYERS: 4'), findsOneWidget);
+    expect(find.text('NAMES: 4'), findsOneWidget);
 
     // Switch style and back to the default.
     for (var i = 0; i < 3; i++) {
@@ -79,6 +85,26 @@ void main() {
     await tap(tester, 'KNOCK OUT 1');
     expect(find.text('ROUND 2'), findsOneWidget);
     await back(tester);
+
+    // Charades: heads-up round in landscape using the tap fallback.
+    await tap(tester, 'CHARADES', scroll: true);
+    await tap(tester, 'START');
+    expect(find.text('PHONE ON YOUR FOREHEAD'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('charades-place')));
+    await wait(tester, const Duration(seconds: 4));
+    await tester.tap(find.byKey(const Key('charades-got')));
+    await wait(tester, const Duration(seconds: 1));
+    expect(find.text('GOT 1'), findsOneWidget);
+    await wait(tester, const Duration(seconds: 31));
+    expect(find.text("TIME'S UP!"), findsOneWidget);
+    await back(tester);
+
+    // How to play from the menu.
+    await tester.ensureVisible(find.byKey(const Key('help-kings_cup')));
+    await tester.tap(find.byKey(const Key('help-kings_cup')));
+    await wait(tester, const Duration(seconds: 2));
+    expect(find.text('HOW TO PLAY'), findsOneWidget);
+    await tap(tester, 'GOT IT', scroll: true);
 
     // Ride the Bus: one guess.
     await tap(tester, 'RIDE THE BUS', scroll: true);

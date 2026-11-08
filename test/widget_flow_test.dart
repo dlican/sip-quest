@@ -29,7 +29,10 @@ Future<void> pumpApp(
 
 Future<void> tapText(WidgetTester tester, String text) async {
   await tester.tap(find.text(text).first);
+  // Start, finish, then unmount any outgoing phase transition.
+  await tester.pump();
   await tester.pump(const Duration(milliseconds: 700));
+  await tester.pump();
 }
 
 /// Unmount so periodic timers are cancelled before the test ends.
@@ -87,7 +90,7 @@ void main() {
 
   testWidgets('players screen adds and removes names', (tester) async {
     await pumpApp(tester, names: []);
-    await tapText(tester, 'ADD PLAYERS');
+    await tapText(tester, 'NAMES (OPTIONAL)');
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextField), 'Priya');
     await tester.testTextInput.receiveAction(TextInputAction.done);
@@ -141,6 +144,8 @@ void main() {
     expect(find.text('ROUND 1'), findsOneWidget);
     await tapText(tester, 'GO! 15S');
     await tester.pump(const Duration(seconds: 16));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
     expect(find.text('REVEAL!'), findsOneWidget);
     await tapText(tester, 'Sam');
     await tapText(tester, 'KNOCK OUT 1');
@@ -150,15 +155,22 @@ void main() {
     await unmount(tester);
   });
 
-  testWidgets('Charades: round ends with a summary', (tester) async {
+  testWidgets('Charades: heads-up round with tap fallback ends with a summary', (tester) async {
     await pumpApp(tester, open: 'charades');
     await tapText(tester, 'START');
-    await tapText(tester, "I'M READY");
-    await tapText(tester, 'GOT IT!');
-    await tapText(tester, 'PASS');
-    await tester.pump(const Duration(seconds: 61));
+    expect(find.text('PHONE ON YOUR FOREHEAD'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('charades-place')));
+    await tester.pump(const Duration(seconds: 4)); // 3-2-1
+    await tester.tap(find.byKey(const Key('charades-got')));
+    await tester.pump(const Duration(seconds: 1));
+    await tester.tap(find.byKey(const Key('charades-pass')));
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.text('GOT 1'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 30));
+    await tester.pump(const Duration(seconds: 1));
     expect(find.text("TIME'S UP!"), findsOneWidget);
     expect(find.text('Deez got 1'), findsOneWidget);
+    expect(find.text('Deez drinks 1 for passing.'), findsOneWidget);
     await unmount(tester);
   });
 
@@ -226,6 +238,7 @@ void main() {
 
   testWidgets('Most Likely To: everyone votes then results', (tester) async {
     await pumpApp(tester, open: 'most_likely');
+    await tapText(tester, 'SECRET VOTE INSTEAD');
     for (var i = 0; i < players.length; i++) {
       await tapText(tester, 'VOTE IN SECRET');
       await tapText(tester, 'Sam');
@@ -250,6 +263,132 @@ void main() {
     expect(find.text('Sam chose to drink!'), findsOneWidget);
     await tapText(tester, 'NEXT');
     expect(find.text('Sam asks Alex:'), findsOneWidget);
+    await unmount(tester);
+  });
+
+  testWidgets('Most Likely To: point-on-3 countdown works with no names', (tester) async {
+    await pumpApp(tester, open: 'most_likely', names: []);
+    expect(find.text('SECRET VOTE INSTEAD'), findsNothing);
+    await tapText(tester, 'COUNT DOWN');
+    await tester.pump(const Duration(seconds: 3));
+    expect(find.text('POINT!'), findsOneWidget);
+    await tapText(tester, 'NEXT QUESTION');
+    expect(find.text('COUNT DOWN'), findsOneWidget);
+    await unmount(tester);
+  });
+
+  testWidgets('Paranoia: plays with no names', (tester) async {
+    await pumpApp(tester, open: 'paranoia', names: []);
+    expect(find.textContaining('ON YOUR LEFT'), findsOneWidget);
+    await tapText(tester, 'SHOW ME');
+    await tapText(tester, 'I SAID A NAME');
+    expect(find.text('WHOEVER WAS NAMED'), findsOneWidget);
+    await tapText(tester, 'DRINK TO FIND OUT');
+    expect(find.text('THE QUESTION WAS'), findsOneWidget);
+    await unmount(tester);
+  });
+
+  testWidgets('One of a Kind: quick mode with no names', (tester) async {
+    rootBundle.clear();
+    await pumpApp(tester, open: 'one_of_a_kind', names: []);
+    for (var i = 0; i < 50 && find.text('HOST').evaluate().isEmpty; i++) {
+      await tester.runAsync(() => Future.delayed(const Duration(milliseconds: 50)));
+      await tester.pump();
+    }
+    await tester.scrollUntilVisible(find.text('START'), 300);
+    await tapText(tester, 'START');
+    await tapText(tester, 'GO! 15S');
+    await tester.pump(const Duration(seconds: 16));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.text('REVEAL!'), findsOneWidget);
+    await tapText(tester, 'NEXT PROMPT');
+    expect(find.text('ROUND 2'), findsOneWidget);
+    await unmount(tester);
+  });
+
+  testWidgets('every game opens with no names', (tester) async {
+    for (final g in gameModes) {
+      await pumpApp(tester, open: g.id, names: []);
+      await tester.pump(const Duration(seconds: 3));
+      expect(tester.takeException(), isNull, reason: g.title);
+      await unmount(tester);
+    }
+  });
+
+  for (final g in gameModes) {
+    testWidgets('${g.title}: how-to-play sheet opens from the menu and closes', (tester) async {
+      await pumpApp(tester);
+      final help = find.byKey(Key('help-${g.id}'));
+      await tester.scrollUntilVisible(help, 200);
+      await tester.tap(help);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 600));
+      expect(find.text('HOW TO PLAY'), findsOneWidget);
+      // Let the demo loop run a full cycle.
+      await tester.pump(const Duration(seconds: 5));
+      expect(tester.takeException(), isNull);
+      await tester.ensureVisible(find.text('GOT IT'));
+      await tester.tap(find.text('GOT IT'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 600));
+      expect(find.text('HOW TO PLAY'), findsNothing);
+      await unmount(tester);
+    });
+  }
+
+  testWidgets('in-game ? opens how to play', (tester) async {
+    await pumpApp(tester, open: 'kings_cup');
+    await tester.tap(find.byIcon(Icons.question_mark));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(find.text('HOW TO PLAY'), findsOneWidget);
+    await unmount(tester);
+  });
+
+  testWidgets('settings toggles sound, haptics and volume', (tester) async {
+    final state = AppState();
+    tester.view.physicalSize = const Size(1080, 2340);
+    tester.view.devicePixelRatio = 2.75;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(SipQuestApp(state: state));
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.tap(find.byIcon(Icons.settings));
+    await tester.pumpAndSettle();
+    expect(find.text('Volume'), findsOneWidget);
+    await tester.tap(find.text('Sound effects'));
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(state.sound, isFalse);
+    expect(find.text('Volume'), findsNothing);
+    await tester.tap(find.text('Haptics'));
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(state.haptics, isFalse);
+    await tester.tap(find.text('Sound effects'));
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.tap(find.text('80%'));
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(find.text('Volume'), findsOneWidget);
+  });
+
+  testWidgets("King's Cup: write-a-rule dialog animates open and closed", (tester) async {
+    await pumpApp(tester, open: 'kings_cup');
+    await tester.pump(const Duration(seconds: 3));
+    await tester.tap(find.byIcon(Icons.menu_book));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('WATERFALL'));
+    await tester.pump(const Duration(milliseconds: 100));
+    // Mid-transition: dialog is on its way in.
+    expect(find.text('RULE NAME'), findsOneWidget);
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.enterText(find.byType(TextField).last, 'Splash');
+    await tester.tap(find.text('SAVE').last);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.enterText(find.byType(TextField).last, 'Everyone drinks');
+    await tester.tap(find.text('SAVE').last);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(find.text('SPLASH'), findsOneWidget);
     await unmount(tester);
   });
 }

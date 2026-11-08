@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../app_state.dart';
+import '../../services/fx.dart';
 import '../../theme/palette.dart';
+import '../../widgets/motion.dart';
 import '../../widgets/pixel_ui.dart';
+import '../how_to_play.dart';
 import '../../widgets/playing_card.dart';
 import '../../widgets/sprites.dart';
 import '../cards.dart';
@@ -84,8 +87,8 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
 
   void _step() {
     final events = _race.step();
-    HapticFeedback.selectionClick();
-    if (events.any((e) => e.checkpoint)) HapticFeedback.mediumImpact();
+    Fx.flip();
+    if (events.any((e) => e.checkpoint)) Fx.pass();
     setState(() {
       if (events.isNotEmpty) {
         _log = events
@@ -100,7 +103,7 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
     if (_race.isOver) {
       _auto?.cancel();
       _auto = null;
-      HapticFeedback.heavyImpact();
+      Fx.win();
       Future.delayed(const Duration(milliseconds: 1400), () {
         if (!mounted) return;
         _setLandscape(false);
@@ -127,13 +130,19 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
   Widget build(BuildContext context) {
     return PixelScaffold(
       title: 'Horse Racing',
+      onHelp: () => showHowToPlay(context, 'horse_racing'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-        child: switch (_phase) {
-          _Phase.bets => _betsView(context),
-          _Phase.race => _raceView(context),
-          _Phase.results => _resultsView(context),
-        },
+        child: PhaseSwitcher(
+          child: KeyedSubtree(
+            key: ValueKey(_phase),
+            child: switch (_phase) {
+              _Phase.bets => _betsView(context),
+              _Phase.race => _raceView(context),
+              _Phase.results => _resultsView(context),
+            },
+          ),
+        ),
       ),
     );
   }

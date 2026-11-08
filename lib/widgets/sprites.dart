@@ -301,4 +301,44 @@ class Sprites {
     '.A..P..A...',
     'A...A...A..',
   ]);
+
+  /// A party guest for how-to-play demos. Tint 'A' to tell people apart.
+  static const head = Sprite([
+    '..TTTTT..',
+    '.TAAAAAT.',
+    'TAAAAAAAT',
+    'TAKAAAKAT',
+    'TAAAAAAAT',
+    'TAAKKKAAT',
+    '.TAAAAAT.',
+    '..TTTTT..',
+  ]);
+
+  static const check = Sprite([
+    '......S',
+    '.....SS',
+    'S...SS.',
+    'SS.SS..',
+    '.SSS...',
+    '..S....',
+  ]);
+
+  static const cross = Sprite([
+    'PP...PP',
+    '.PP.PP.',
+    '..PPP..',
+    '.PP.PP.',
+    'PP...PP',
+  ]);
+
+  static const gear = Sprite([
+    '...TT...',
+    '.T.TT.T.',
+    '..TTTT..',
+    'TTT..TTT',
+    'TTT..TTT',
+    '..TTTT..',
+    '.T.TT.T.',
+    '...TT...',
+  ]);
 }

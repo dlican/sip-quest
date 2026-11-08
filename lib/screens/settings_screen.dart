@@ -5,6 +5,7 @@ import '../services/fx.dart';
 import '../theme/palette.dart';
 import '../widgets/motion.dart';
 import '../widgets/pixel_ui.dart';
+import 'help_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -69,6 +70,14 @@ class SettingsScreen extends StatelessWidget {
               app.setHaptics(v);
               if (v) Fx.flip();
             },
+          ),
+          _Section('HELP'),
+          PixelButton(
+            label: 'How to play',
+            size: 11,
+            expand: true,
+            color: pal.secondary,
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const HelpScreen())),
           ),
           _Section('LOOK'),
           PixelButton(label: 'Style: ${pal.name}', size: 11, expand: true, color: pal.accent, onTap: app.cyclePalette),

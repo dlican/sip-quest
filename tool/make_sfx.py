@@ -86,4 +86,10 @@ save('boom', mix(noise(0.7, vol=0.8, lp=0.25, release=0.35), tone([120], 0.5, sl
 save('coin', tone([B4 * 2, 1318.5], 0.06, duty=0.5, vol=0.22, release=1.0))
 save('spin', tone([1500], 0.012, duty=0.5, vol=0.15, release=0.2))
 save('start', tone([C5, G5, C6], 0.07, duty=0.5, vol=0.25, release=1.0))
+# Riffle: a burst of short card clicks, then a soft settle.
+riffle = []
+for k in range(14):
+    riffle += noise(0.018, vol=0.45 - k * 0.015, lp=0.95, release=0.25) + [0.0] * int(RATE * 0.012)
+save('shuffle', riffle + noise(0.08, vol=0.2, lp=0.4))
+save('deal', mix(noise(0.14, vol=0.3, lp=0.7, release=1.2), tone([500], 0.1, slide=[1300], wave_fn=tri, vol=0.08)))
 print('wrote', sorted(os.listdir(OUT)))

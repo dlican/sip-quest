@@ -256,18 +256,6 @@ class Sprites {
     '...KKKK...',
   ]);
 
-  static const ballot = Sprite([
-    '...TTTTT...',
-    '...TWWWT...',
-    '...TWSWT...',
-    'TTTTWWWTTTT',
-    'TPPPPPPPPPT',
-    'TPPKKKKKPPT',
-    'TPPPPPPPPPT',
-    'TPPPPPPPPPT',
-    'TTTTTTTTTTT',
-  ]);
-
   static const wheel = Sprite([
     '....TTT....',
     '..TTPPATT..',
@@ -280,16 +268,6 @@ class Sprites {
     '.TAAAPPPPT.',
     '..TTAPPTT..',
     '....TTT....',
-  ]);
-
-  static const lips = Sprite([
-    '..PP...PP..',
-    '.PPPP.PPPP.',
-    'PPPPPPPPPPP',
-    'PTTTTTTTTTP',
-    'PPPPPPPPPPP',
-    '.PPPPPPPPP.',
-    '...PPPPP...',
   ]);
 
   static const boom = Sprite([

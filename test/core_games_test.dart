@@ -76,4 +76,20 @@ void main() {
     expect(betAmount(0, 4), '4 shots');
     expect(betAmount(0, 0), 'nothing');
   });
+
+  test("King's Cup: 10 crowns the Thumb Master and Q the Question Queen until the next one", () {
+    final g = KingsCupGame(players: ['A', 'B', 'C'], random: Random(8));
+    String? thumb;
+    String? queen;
+    while (g.status == KingsCupStatus.playing) {
+      final c = g.draw()!;
+      if (c.rank == 10) thumb = g.currentPlayer;
+      if (c.rank == 12) queen = g.currentPlayer;
+      expect(g.thumbMaster, thumb);
+      expect(g.questionMaster, queen);
+    }
+    expect(defaultKingsRules[1]!.title, 'Hot Seat');
+    expect(defaultKingsRules[10]!.title, 'Thumb Master');
+    expect(defaultKingsRules[12]!.title, 'Question Queen');
+  });
 }

@@ -6,6 +6,7 @@ import '../app_state.dart';
 import '../games/how_to_play.dart';
 import '../games/registry.dart';
 import '../theme/palette.dart';
+import '../widgets/game_icon.dart';
 import '../widgets/motion.dart';
 import '../widgets/pixel_ui.dart';
 import '../widgets/sprites.dart';
@@ -147,7 +148,7 @@ class _GameTile extends StatelessWidget {
               height: 72,
               color: pal.bg,
               alignment: Alignment.center,
-              child: PixelSprite(game.icon, pixel: 5),
+              child: AnimatedGameIcon(gameId: game.id, sprite: game.icon),
             ),
             const SizedBox(width: 14),
             Expanded(

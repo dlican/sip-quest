@@ -22,9 +22,7 @@ Fully offline: no backend, no accounts, no network calls.
 
 <table>
 <tr><td align="center"><img src="docs/media/screens/kings-cup.png" width="180" alt="King's Cup"><br><sub>King's Cup</sub></td><td align="center"><img src="docs/media/screens/one-of-a-kind.png" width="180" alt="One of a Kind"><br><sub>One of a Kind</sub></td><td align="center"><img src="docs/media/screens/charades.png" width="180" alt="Charades"><br><sub>Charades</sub></td><td align="center"><img src="docs/media/screens/paranoia.png" width="180" alt="Paranoia"><br><sub>Paranoia</sub></td></tr>
-<tr><td align="center"><img src="docs/media/screens/horse-racing.png" width="180" alt="Horse Racing"><br><sub>Horse Racing</sub></td><td align="center"><img src="docs/media/screens/ride-the-bus.png" width="180" alt="Ride the Bus"><br><sub>Ride the Bus</sub></td><td align="center"><img src="docs/media/screens/hot-potato.png" width="180" alt="Hot Potato Bomb"><br><sub>Hot Potato Bomb</sub></td><td align="center"><img src="docs/media/screens/most-likely.png" width="180" alt="Most Likely To"><br><sub>Most Likely To</sub></td></tr>
-<tr><td align="center"><img src="docs/media/screens/higher-lower.png" width="180" alt="Higher or Lower"><br><sub>Higher or Lower</sub></td><td align="center"><img src="docs/media/screens/never-have-i-ever.png" width="180" alt="Never Have I Ever"><br><sub>Never Have I Ever</sub></td><td align="center"><img src="docs/media/screens/roulette.png" width="180" alt="Pixel Roulette"><br><sub>Pixel Roulette</sub></td><td align="center"><img src="docs/media/screens/beat-the-dealer.png" width="180" alt="Beat the Dealer"><br><sub>Beat the Dealer</sub></td></tr>
-<tr><td align="center"><img src="docs/media/screens/truth-or-drink.png" width="180" alt="Truth or Drink"><br><sub>Truth or Drink</sub></td></tr>
+<tr><td align="center"><img src="docs/media/screens/horse-racing.png" width="180" alt="Horse Racing"><br><sub>Horse Racing</sub></td><td align="center"><img src="docs/media/screens/ride-the-bus.png" width="180" alt="Ride the Bus"><br><sub>Ride the Bus</sub></td><td align="center"><img src="docs/media/screens/hot-potato.png" width="180" alt="Hot Potato Bomb"><br><sub>Hot Potato Bomb</sub></td><td align="center"><img src="docs/media/screens/roulette.png" width="180" alt="Pixel Roulette"><br><sub>Pixel Roulette</sub></td></tr>
 </table>
 
 Media is captured from the web build at phone size (390 x 844); see "Updating the media" below.
@@ -32,19 +30,14 @@ Media is captured from the web build at phone size (390 x 844); see "Updating th
 ## Games
 | Mode | Folder | Notes |
 |---|---|---|
-| King's Cup | `lib/games/kings_cup/` | Riffle shuffle, 3D card flip, king meter, editable card rules, house rules from Jacks, Question Master tracking |
+| King's Cup | `lib/games/kings_cup/` | Riffle shuffle, 3D card flip, king meter, editable card rules, reshuffle + deal animation on every draw, house rules from Jacks, Question Queen and Thumb Master tracking |
 | One of a Kind | `lib/games/unique_answer/` | Host + timer (10/15/20/30s), category and difficulty filters, elimination, final-two "don't match the host" rule |
 | Charades | `lib/games/charades/` | 5 word decks, 45/60/90s rounds, Got it / Pass, actor rotation |
 | Paranoia | `lib/games/paranoia/` | Pass-the-phone secret question, pick a name, drink / coin flip / mystery |
 | Horse Racing | `lib/games/horse_racing/` | Per-player bets, 7 checkpoint side cards, auto-run, payout summary |
 | Ride the Bus | `lib/games/ride_the_bus/` | Red/black, higher/lower, inside/outside, suit; miss = drink and restart |
 | Hot Potato Bomb | `lib/games/hot_potato/` | Hidden 10 to 45s fuse, ticking speeds up, 44 categories |
-| Most Likely To | `lib/games/most_likely/` | Pass-the-phone secret votes, bar chart results, ties all drink |
-| Higher or Lower | `lib/games/higher_lower/` | Streak counter; a miss costs sips equal to the streak |
-| Never Have I Ever | `lib/games/never_have_i_ever/` | Mild and spicy decks, 5-finger tracker per player |
 | Pixel Roulette | `lib/games/roulette/` | Spinning wheel of 10 punishments and dares |
-| Beat the Dealer | `lib/games/beat_the_dealer/` | Two guesses per card, higher/lower hint, dealer passes after 3 misses |
-| Truth or Drink | `lib/games/truth_or_drink/` | Seat-order asker/answerer, answer or drink |
 
 Add a game: create `lib/games/<name>/`, then register it in `lib/games/registry.dart`.
 

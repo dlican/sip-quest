@@ -26,6 +26,7 @@ const Map<String, HowTo> howToPlay = {
       'Put the phone in the middle of the table, next to an empty cup.',
       'Take turns tapping to draw a card. Each card has a rule.',
       'Every King: pour some of your drink into the cup.',
+      'A 10 makes you Thumb Master and a Queen makes you Question Queen, until the next one is drawn.',
       'Tap the book icon to change any card rule for your table.',
     ],
     sips: 'Whoever draws the 4th King drinks the cup.',
@@ -90,30 +91,11 @@ const Map<String, HowTo> howToPlay = {
     ],
     sips: 'Holding the phone when it explodes? Drink.',
   ),
-  'most_likely': HowTo(
-    demo: mostLikelyDemo,
-    steps: [
-      'Read the question out loud.',
-      'Tap Count down. On "point!", everyone points at someone.',
-      'With names added you can vote in secret instead.',
-    ],
-    sips: 'One sip for every finger pointing at you.',
-  ),
   'roulette': HowTo(
     demo: rouletteDemo,
     period: Duration(milliseconds: 3400),
     steps: ['Pass the phone around. On your turn, spin the wheel.', 'Do what it lands on.'],
     sips: 'The wheel decides who drinks.',
-  ),
-  'truth_or_drink': HowTo(
-    demo: truthOrDrinkDemo,
-    period: Duration(milliseconds: 3600),
-    steps: [
-      'Read the question to the person on your left.',
-      'They answer honestly, or drink instead.',
-      'Then they ask the next person.',
-    ],
-    sips: 'Dodge the truth, take the drink.',
   ),
 };
 

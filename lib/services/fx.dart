@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// The chiptune sound effects in assets/sfx (made by tool/make_sfx.py).
-enum Sfx { tap, select, open, close, flip, correct, pass, tick, alarm, win, lose, boom, coin, spin, start }
+enum Sfx { tap, select, open, close, flip, correct, pass, tick, alarm, win, lose, boom, coin, spin, start, shuffle, deal }
 
 /// Sound + haptic feedback in one place, so every game feels the same and the
 /// settings screen can switch either off.
@@ -69,7 +69,13 @@ class Fx {
       init();
       return;
     }
-    unawaited(pool.start(volume: _volume).then((_) {}, onError: (_) {}));
+    // Low-latency players never report completion, so stop each one once its
+    // clip is surely over. Otherwise it stays "playing" and its position
+    // updater keeps the app rendering frames forever.
+    unawaited(pool.start(volume: _volume).then(
+      (stop) => Future.delayed(const Duration(seconds: 2), stop),
+      onError: (_) {},
+    ));
   }
 
   static void _buzz(Future<void> Function() f) {
@@ -160,5 +166,15 @@ class Fx {
   static void start() {
     play(Sfx.start);
     _buzz(HapticFeedback.mediumImpact);
+  }
+
+  static void shuffle() {
+    play(Sfx.shuffle);
+    _pattern([HapticFeedback.selectionClick, HapticFeedback.selectionClick, HapticFeedback.selectionClick], gapMs: 90);
+  }
+
+  static void deal() {
+    play(Sfx.deal);
+    _buzz(HapticFeedback.lightImpact);
   }
 }

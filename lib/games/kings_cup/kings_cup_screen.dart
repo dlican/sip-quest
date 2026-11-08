@@ -10,6 +10,7 @@ import '../../widgets/pixel_ui.dart';
 import '../how_to_play.dart';
 import '../../widgets/playing_card.dart';
 import '../../widgets/sprites.dart';
+import '../cards.dart';
 import 'kings_cup_game.dart';
 
 class KingsCupScreen extends StatefulWidget {
@@ -25,6 +26,12 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
   bool _shuffling = true;
   bool _started = false;
 
+  /// Each Draw re-runs a quick riffle, then deals the card off the deck.
+  /// The game state moves on immediately; this only drives the visuals.
+  bool _reshuffling = false;
+  bool _dealing = false;
+  int _drawId = 0;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -37,17 +44,39 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
   void _newGame() {
     _game = KingsCupGame(players: context.app.players, rules: _customRules);
     _shuffling = true;
+    _reshuffling = false;
+    _dealing = false;
+    Fx.shuffle();
   }
 
+  /// Tapping again mid-animation draws the next card straight away.
   void _draw() {
     if (_shuffling) return;
     setState(() {
       final c = _game.draw();
-      if (c != null) {
-        c.rank == 13 ? Fx.coin() : Fx.flip();
-        if (_game.status == KingsCupStatus.fourthKing) Fx.boom();
-      }
+      if (c == null) return;
+      _drawId++;
+      _reshuffling = true;
+      _dealing = false;
+      Fx.shuffle();
     });
+  }
+
+  void _reshuffled(int id) {
+    if (id != _drawId || !mounted) return;
+    setState(() {
+      _reshuffling = false;
+      _dealing = true;
+    });
+    Fx.deal();
+  }
+
+  void _dealt(int id) {
+    if (id != _drawId || !mounted) return;
+    setState(() => _dealing = false);
+    final c = _game.current!;
+    c.rank == 13 ? Fx.coin() : Fx.flip();
+    if (_game.status == KingsCupStatus.fourthKing) Fx.boom();
   }
 
   Future<void> _writeRule() async {
@@ -110,16 +139,40 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
                     onTap: g.status == KingsCupStatus.playing ? _draw : null,
                     child: Center(
                       child: _shuffling
-                          ? _ShuffleDeck(width: w * 0.75, onDone: () => setState(() => _shuffling = false))
+                          ? _ShuffleDeck(
+                              width: w * 0.75,
+                              onDone: () {
+                                setState(() => _shuffling = false);
+                                Fx.select();
+                              },
+                            )
+                          : _reshuffling
+                          ? _ShuffleDeck(
+                              key: ValueKey('shuffle$_drawId'),
+                              width: w * 0.75,
+                              cycles: 1,
+                              onDone: () => _reshuffled(_drawId),
+                            )
+                          : _dealing
+                          ? _DealCard(
+                              key: ValueKey('deal$_drawId'),
+                              card: g.current!,
+                              width: w,
+                              onDone: () => _dealt(_drawId),
+                            )
                           : g.current == null
                           ? _DeckPile(width: w * 0.75, count: g.deck.remaining)
-                          : FlippingCard(card: g.current!, width: w),
+                          : CardFace(card: g.current!, width: w),
                     ),
                   );
                 },
               ),
             ),
-            _RulePanel(game: g, shuffling: _shuffling, onWriteRule: _writeRule),
+            _RulePanel(
+              game: g,
+              shuffling: _shuffling || _reshuffling || _dealing,
+              onWriteRule: _writeRule,
+            ),
             const SizedBox(height: 12),
             if (g.status == KingsCupStatus.playing)
               PixelButton(
@@ -153,8 +206,13 @@ class _TurnBanner extends StatelessWidget {
         Text(who ?? '', style: PixelFonts.body(pal.secondary, size: 26)),
         const Spacer(),
         if (game.questionMaster != null) ...[
-          Text('Q.M. ', style: PixelFonts.title(pal.textDim, size: 10)),
+          Text('Q.Q. ', style: PixelFonts.title(pal.textDim, size: 10)),
           Text(game.questionMaster!, style: PixelFonts.body(pal.accent, size: 26)),
+        ],
+        if (game.thumbMaster != null) ...[
+          const SizedBox(width: 10),
+          Text('THUMB ', style: PixelFonts.title(pal.textDim, size: 10)),
+          Text(game.thumbMaster!, style: PixelFonts.body(pal.primary, size: 26)),
         ],
       ],
     );
@@ -173,7 +231,9 @@ class _RulePanel extends StatelessWidget {
     final c = game.current;
 
     late final Widget content;
-    if (game.status == KingsCupStatus.fourthKing) {
+    if (shuffling && c != null) {
+      content = Text('Shuffling... dealing a card.', style: PixelFonts.body(pal.textDim));
+    } else if (game.status == KingsCupStatus.fourthKing) {
       content = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -287,21 +347,22 @@ class _DeckPile extends StatelessWidget {
 
 /// Riffle shuffle: two halves fan out and interleave, three times.
 class _ShuffleDeck extends StatefulWidget {
-  const _ShuffleDeck({required this.width, required this.onDone});
+  const _ShuffleDeck({super.key, required this.width, required this.onDone, this.cycles = 3});
   final double width;
   final VoidCallback onDone;
+  final int cycles;
 
   @override
   State<_ShuffleDeck> createState() => _ShuffleDeckState();
 }
 
 class _ShuffleDeckState extends State<_ShuffleDeck> with SingleTickerProviderStateMixin {
-  static const _cycles = 3;
   static const _cards = 10;
+  late final int _cycles = widget.cycles;
   late final AnimationController _c =
       AnimationController(
           vsync: this,
-          duration: const Duration(milliseconds: 650 * _cycles),
+          duration: Duration(milliseconds: (_cycles == 1 ? 520 : 650) * _cycles),
         )
         ..addStatusListener((s) {
           if (s == AnimationStatus.completed) widget.onDone();
@@ -339,6 +400,88 @@ class _ShuffleDeckState extends State<_ShuffleDeck> with SingleTickerProviderSta
                     child: CardBack(width: w),
                   ),
                 ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// The top card slides off the deck, swings to the middle and turns over.
+class _DealCard extends StatefulWidget {
+  const _DealCard({super.key, required this.card, required this.width, required this.onDone});
+  final PlayingCard card;
+  final double width;
+  final VoidCallback onDone;
+
+  @override
+  State<_DealCard> createState() => _DealCardState();
+}
+
+class _DealCardState extends State<_DealCard> with SingleTickerProviderStateMixin {
+  late final AnimationController _c =
+      AnimationController(vsync: this, duration: const Duration(milliseconds: 620))
+        ..addStatusListener((s) {
+          if (s == AnimationStatus.completed) widget.onDone();
+        })
+        ..forward();
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final w = widget.width;
+    final h = w / kCardRatio;
+    final pile = w * 0.75;
+    return SizedBox(
+      width: w,
+      height: h,
+      child: AnimatedBuilder(
+        animation: _c,
+        builder: (context, _) {
+          final v = _c.value;
+          // 0-0.55: slide along an arc from the deck. 0.45-1: turn over.
+          final travel = Curves.easeOutCubic.transform((v / 0.55).clamp(0.0, 1.0));
+          final turn = Curves.easeInOutCubic.transform(((v - 0.45) / 0.55).clamp(0.0, 1.0));
+          final from = Offset(-w * 0.62, h * 0.32);
+          final pos = Offset.lerp(from, Offset.zero, travel)! + Offset(0, -h * 0.12 * sin(travel * pi));
+          final angle = pi * (1 - turn);
+          final m = Matrix4.identity()
+            ..setEntry(3, 2, 0.0015)
+            ..rotateY(angle);
+          return Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              // The deck it came from, fading away as the card lands.
+              Transform.translate(
+                offset: from + Offset(0, (h - pile / kCardRatio) / 2),
+                child: Opacity(
+                  opacity: (1 - turn).clamp(0.0, 1.0),
+                  child: Transform.rotate(angle: -0.08, child: CardBack(width: pile)),
+                ),
+              ),
+              Transform.translate(
+                offset: pos,
+                child: Transform.rotate(
+                  angle: -0.35 * (1 - travel),
+                  child: Transform.scale(
+                    scale: 0.75 + 0.25 * travel,
+                    child: Transform(
+                      alignment: Alignment.center,
+                      transform: m,
+                      child: angle < pi / 2
+                          ? CardFace(card: widget.card, width: w)
+                          : CardBack(width: w),
+                    ),
+                  ),
+                ),
+              ),
             ],
           );
         },

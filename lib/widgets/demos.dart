@@ -394,57 +394,6 @@ Widget mostLikelyDemo(BuildContext context, double t) {
   );
 }
 
-Widget higherLowerDemo(BuildContext context, double t) {
-  final pal = context.pal;
-  return Stack(
-    children: [
-      at(30, 24, const CardFace(card: PlayingCard(7, Suit.spades), width: 70)),
-      at(122, 40, PixelSprite(Sprites.arrows, pixel: 4)),
-      at(108, 90, fade(seg(t, 0.1, 0.2), DemoCaption('HIGHER?', color: pal.text))),
-      at(178, 24, flipCard(seg(t, 0.35, 0.55), const PlayingCard(10, Suit.hearts), 70)),
-      at(200, 128, popScale(seg(t, 0.58, 0.64), PixelSprite(Sprites.check, pixel: 3))),
-      at(0, 146, SizedBox(width: 280, child: fade(seg(t, 0.6, 0.66), DemoCaption('STREAK +1', color: pal.accent)))),
-    ],
-  );
-}
-
-Widget nhieDemo(BuildContext context, double t) {
-  final pal = context.pal;
-  final down = seg(t, 0.42, 0.52);
-  final down2 = seg(t, 0.7, 0.8);
-  return Stack(
-    children: [
-      at(0, 6, SizedBox(width: 280, child: Center(child: DemoBubble('NEVER HAVE I EVER... SURFED', size: 16)))),
-      for (var i = 0; i < 5; i++)
-        at(
-          98 + i * 18.0,
-          50 + (i == 4 ? 30 * down : (i == 3 ? 30 * down2 : 0)),
-          Container(
-            width: 14,
-            height: i == 0 ? 34 : 46,
-            decoration: BoxDecoration(
-              color: pal.cardFace,
-              border: Border.all(color: pal.cardBlack, width: 2),
-            ),
-          ),
-        ),
-      at(
-        92,
-        92,
-        Container(
-          width: 96,
-          height: 44,
-          decoration: BoxDecoration(
-            color: pal.cardFace,
-            border: Border.all(color: pal.cardBlack, width: 3),
-          ),
-        ),
-      ),
-      at(196, 70, fade(down, DemoCaption('DONE IT?\nFINGER\nDOWN', color: pal.primary))),
-    ],
-  );
-}
-
 Widget rouletteDemo(BuildContext context, double t) {
   final pal = context.pal;
   final spin = seg(t, 0.0, 0.7, Curves.easeOutCubic);
@@ -454,25 +403,6 @@ Widget rouletteDemo(BuildContext context, double t) {
       at(131, 8, Text('v', style: PixelFonts.title(pal.text, size: 14))),
       at(20, 60, fade(seg(t, 0.72, 0.8), popScale(seg(t, 0.72, 0.8), DemoBubble('DRINK 2', color: pal.primary)))),
       at(200, 60, fade(seg(t, 0.72, 0.8), popScale(seg(t, 0.72, 0.8), const DemoBubble('LEFT')))),
-    ],
-  );
-}
-
-Widget beatTheDealerDemo(BuildContext context, double t) {
-  final pal = context.pal;
-  return Stack(
-    children: [
-      at(20, 50, PixelSprite(Sprites.dealer, pixel: 5)),
-      at(120, 34, flipCard(seg(t, 0.62, 0.78), const PlayingCard(11, Suit.clubs), 60)),
-      at(206, 30, popScale(seg(t, 0.12, 0.2), const DemoBubble('7?'))),
-      at(4, 20, popScale(seg(t, 0.3, 0.38), DemoBubble('HIGHER', color: pal.accent))),
-      at(206, 64, popScale(seg(t, 0.46, 0.54), const DemoBubble('J?'))),
-      at(140, 126, popScale(seg(t, 0.8, 0.86), PixelSprite(Sprites.check, pixel: 3))),
-      at(
-        0,
-        146,
-        SizedBox(width: 280, child: fade(seg(t, 0.8, 0.86), DemoCaption('DEALER DRINKS', color: pal.secondary))),
-      ),
     ],
   );
 }

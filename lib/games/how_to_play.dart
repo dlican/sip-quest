@@ -65,11 +65,11 @@ const Map<String, HowTo> howToPlay = {
     demo: horseRacingDemo,
     period: Duration(milliseconds: 3400),
     steps: [
-      'Everyone calls out a suit and how many sips they bet on it.',
-      'Tap Start race. Each card drawn moves that suit\'s ace forward.',
-      'Checkpoint cards can knock a horse back.',
+      'Everyone picks a suit and bets sips and shots on it.',
+      'Turn the phone sideways. Each card drawn moves that suit\'s ace forward.',
+      'Once every horse passes a sideways setback card, it flips and that suit moves back.',
     ],
-    sips: 'Winners hand out double their bet. Everyone else drinks theirs.',
+    sips: 'Winners hand out double their sips and shots. Everyone else drinks theirs.',
   ),
   'ride_the_bus': HowTo(
     demo: rideTheBusDemo,
@@ -99,39 +99,11 @@ const Map<String, HowTo> howToPlay = {
     ],
     sips: 'One sip for every finger pointing at you.',
   ),
-  'higher_lower': HowTo(
-    demo: higherLowerDemo,
-    period: Duration(milliseconds: 3200),
-    steps: [
-      'Guess if the next card is higher or lower. Aces are high.',
-      'Right guesses build the streak. Pass the phone after each guess.',
-    ],
-    sips: 'Break the streak and drink one sip per card in it.',
-  ),
-  'never_have_i_ever': HowTo(
-    demo: nhieDemo,
-    steps: [
-      'Everyone holds up five fingers.',
-      'Read the statement. If you have done it, put a finger down and drink.',
-      'Added names? Tap a name to track their fingers.',
-    ],
-    sips: 'Last hand up wins.',
-  ),
   'roulette': HowTo(
     demo: rouletteDemo,
     period: Duration(milliseconds: 3400),
     steps: ['Pass the phone around. On your turn, spin the wheel.', 'Do what it lands on.'],
     sips: 'The wheel decides who drinks.',
-  ),
-  'beat_the_dealer': HowTo(
-    demo: beatTheDealerDemo,
-    steps: [
-      'The dealer holds the phone and peeks at the hidden card.',
-      'The guesser names a rank. The dealer says higher or lower.',
-      'One more guess. Then the card is revealed.',
-      'Three misses in a row and the dealer role passes on.',
-    ],
-    sips: 'Right first try: dealer drinks 4 (2 on the second). Miss: drink the difference.',
   ),
   'truth_or_drink': HowTo(
     demo: truthOrDrinkDemo,

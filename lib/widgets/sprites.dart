@@ -268,30 +268,6 @@ class Sprites {
     'TTTTTTTTTTT',
   ]);
 
-  static const arrows = Sprite([
-    '...S.....',
-    '..SSS....',
-    '.SSSSS...',
-    '...S.....',
-    '...S..P..',
-    '......P..',
-    '....PPPPP',
-    '.....PPP.',
-    '......P..',
-  ]);
-
-  static const hand = Sprite([
-    '...T.T.T..',
-    '..TATATAT.',
-    '..TATATAT.',
-    '.TTATATAT.',
-    'TATAAAAAT.',
-    'TAAAAAAAT.',
-    '.TAAAAAAT.',
-    '..TAAAAT..',
-    '...TTTT...',
-  ]);
-
   static const wheel = Sprite([
     '....TTT....',
     '..TTPPATT..',
@@ -304,18 +280,6 @@ class Sprites {
     '.TAAAPPPPT.',
     '..TTAPPTT..',
     '....TTT....',
-  ]);
-
-  static const dealer = Sprite([
-    '..KKKKKKK..',
-    '..KKKKKKK..',
-    '..KKKKKKK..',
-    'KKKKKKKKKKK',
-    '..WWWWWWW..',
-    '..WKWWWKW..',
-    '..WWWWWWW..',
-    '..WWKKKWW..',
-    '...WWWWW...',
   ]);
 
   static const lips = Sprite([

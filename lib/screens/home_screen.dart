@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../app_state.dart';
@@ -60,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Center(child: _Bobbing(child: PixelSprite(Sprites.mug, pixel: 7))),
+          const Center(child: _BouncingMug()),
           const SizedBox(height: 14),
           Center(
             child: Text('SIP QUEST',
@@ -74,7 +76,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 style: PixelFonts.body(pal.textDim, size: 24)),
           ),
           const SizedBox(height: 20),
-          Row(
+          // Same height for both, even when one label wraps to two lines.
+          IntrinsicHeight(
+            child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
                 child: PixelButton(
@@ -98,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               ),
             ],
           ),
+          ),
           const SizedBox(height: 20),
           for (var i = 0; i < gameModes.length; i++) ...[
             _stagger(
@@ -120,33 +126,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       ),
     );
   }
-}
-
-/// Gentle idle bob for the logo mug.
-class _Bobbing extends StatefulWidget {
-  const _Bobbing({required this.child});
-  final Widget child;
-
-  @override
-  State<_Bobbing> createState() => _BobbingState();
-}
-
-class _BobbingState extends State<_Bobbing> with SingleTickerProviderStateMixin {
-  late final AnimationController _c =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 1600))..repeat(reverse: true);
-
-  @override
-  void dispose() {
-    _c.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => SlideTransition(
-        position: Tween(begin: const Offset(0, -0.04), end: const Offset(0, 0.04))
-            .animate(CurvedAnimation(parent: _c, curve: Curves.easeInOutSine)),
-        child: widget.child,
-      );
 }
 
 class _GameTile extends StatelessWidget {
@@ -204,6 +183,87 @@ class _GameTile extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// The title mug: bobs and tips like it is being raised for a toast, with
+/// foam bubbles drifting up. Motion snaps to the sprite's pixel grid so it
+/// stays crisp and retro.
+class _BouncingMug extends StatefulWidget {
+  const _BouncingMug();
+
+  @override
+  State<_BouncingMug> createState() => _BouncingMugState();
+}
+
+class _BouncingMugState extends State<_BouncingMug>
+    with SingleTickerProviderStateMixin {
+  static const double _px = 7;
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1800),
+  )..repeat();
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  double _snap(double v, double step) => (v / step).roundToDouble() * step;
+
+  @override
+  Widget build(BuildContext context) {
+    final pal = context.pal;
+    const mug = Sprites.mug;
+    final w = mug.width * _px;
+    final h = mug.height * _px;
+    const headroom = 5 * _px;
+    return SizedBox(
+      width: w + 2 * _px,
+      height: h + headroom + _px,
+      child: AnimatedBuilder(
+        animation: _c,
+        builder: (context, _) {
+          final t = _c.value * 2 * math.pi;
+          final bob = _snap(math.sin(t) * 1.5 * _px, _px / 2);
+          final tilt = _snap(math.sin(t + math.pi / 2) * 0.09, 0.03);
+          return Stack(
+            clipBehavior: Clip.none,
+            children: [
+              // Bubbles rise from the beer at staggered phases.
+              for (var i = 0; i < 3; i++) _bubble(pal.text, i, bob, headroom),
+              Positioned(
+                left: _px,
+                top: headroom + bob,
+                child: Transform.rotate(
+                  angle: tilt,
+                  alignment: Alignment.bottomCenter,
+                  child: PixelSprite(mug, pixel: _px),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _bubble(Color color, int i, double bob, double headroom) {
+    final phase = (_c.value + i / 3) % 1.0;
+    final rise = _snap(phase * (headroom + 2 * _px), _px / 2);
+    final size = i == 1 ? _px : _px * 0.7;
+    final x =
+        _px * (2.5 + i * 2.2) +
+        _snap(math.sin(phase * 2 * math.pi) * _px * 0.5, _px / 2);
+    return Positioned(
+      left: x,
+      top: headroom + 2 * _px + bob - rise,
+      child: Opacity(
+        opacity: phase < 0.6 ? 1.0 : ((1 - phase) / 0.4).clamp(0.0, 1.0),
+        child: Container(width: size, height: size, color: color),
       ),
     );
   }

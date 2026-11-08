@@ -62,7 +62,7 @@ final List<GameMode> gameModes = [
   GameMode(
     id: 'horse_racing',
     title: 'Horse Racing',
-    tagline: 'Bet sips on a suit. Watch the aces race.',
+    tagline: 'Bet sips and shots on a suit. Watch the aces race.',
     icon: Sprites.horse,
     builder: (_) => const HorseRacingScreen(),
   ),

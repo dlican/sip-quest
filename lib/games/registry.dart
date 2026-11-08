@@ -1,12 +1,9 @@
 import 'package:flutter/widgets.dart';
 
 import '../widgets/sprites.dart';
-import 'beat_the_dealer/beat_the_dealer_screen.dart';
 import 'charades/charades_screen.dart';
-import 'higher_lower/higher_lower_screen.dart';
 import 'hot_potato/hot_potato_screen.dart';
 import 'most_likely/most_likely_screen.dart';
-import 'never_have_i_ever/never_have_i_ever_screen.dart';
 import 'ride_the_bus/ride_the_bus_screen.dart';
 import 'roulette/roulette_screen.dart';
 import 'truth_or_drink/truth_or_drink_screen.dart';
@@ -101,36 +98,12 @@ final List<GameMode> gameModes = [
     builder: (_) => const MostLikelyScreen(),
   ),
   GameMode(
-    id: 'higher_lower',
-    title: 'Higher or Lower',
-    tagline: 'Build the streak. Break it, drink it.',
-    icon: Sprites.arrows,
-    minPlayers: 0,
-    builder: (_) => const HigherLowerScreen(),
-  ),
-  GameMode(
-    id: 'never_have_i_ever',
-    title: 'Never Have I Ever',
-    tagline: 'Mild or spicy. Five fingers each.',
-    icon: Sprites.hand,
-    minPlayers: 0,
-    builder: (_) => const NeverHaveIEverScreen(),
-  ),
-  GameMode(
     id: 'roulette',
     title: 'Pixel Roulette',
     tagline: 'Spin the wheel of fate.',
     icon: Sprites.wheel,
     minPlayers: 0,
     builder: (_) => const RouletteScreen(),
-  ),
-  GameMode(
-    id: 'beat_the_dealer',
-    title: 'Beat the Dealer',
-    tagline: 'Two guesses to name the card.',
-    icon: Sprites.dealer,
-    minPlayers: 0,
-    builder: (_) => const BeatTheDealerScreen(),
   ),
   GameMode(
     id: 'truth_or_drink',

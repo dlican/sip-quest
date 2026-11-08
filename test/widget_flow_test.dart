@@ -8,8 +8,13 @@ import 'package:sip_quest/theme/palette.dart';
 
 const players = ['Deez', 'Sam', 'Alex', 'Jo'];
 
-Future<void> pumpApp(WidgetTester tester,
-    {String? open, List<String> names = players, SipPalette? style, Size size = const Size(1080, 2340)}) async {
+Future<void> pumpApp(
+  WidgetTester tester, {
+  String? open,
+  List<String> names = players,
+  SipPalette? style,
+  Size size = const Size(1080, 2340),
+}) async {
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 2.75;
   addTearDown(tester.view.reset);
@@ -61,10 +66,19 @@ void main() {
   // Small Android phone (about 360 x 640 dp) with 6 long-ish names.
   for (final g in gameModes) {
     testWidgets('${g.title} fits a small phone', (tester) async {
-      await pumpApp(tester,
-          open: g.id,
-          size: const Size(990, 1760),
-          names: ['Alexandra', 'Benjamin', 'Christopher', 'Danielle', 'Elizabeth', 'Fitz']);
+      await pumpApp(
+        tester,
+        open: g.id,
+        size: const Size(990, 1760),
+        names: [
+          'Alexandra',
+          'Benjamin',
+          'Christopher',
+          'Danielle',
+          'Elizabeth',
+          'Fitz',
+        ],
+      );
       await tester.pump(const Duration(seconds: 3));
       expect(tester.takeException(), isNull);
       await unmount(tester);
@@ -84,7 +98,9 @@ void main() {
     expect(find.text('Priya'), findsNothing);
   });
 
-  testWidgets("King's Cup: shuffle, draw, rule shown, turns rotate", (tester) async {
+  testWidgets("King's Cup: shuffle, draw, rule shown, turns rotate", (
+    tester,
+  ) async {
     await pumpApp(tester, open: 'kings_cup');
     expect(find.text('SHUFFLING...'), findsOneWidget);
     await tester.pump(const Duration(seconds: 3));
@@ -107,13 +123,17 @@ void main() {
     await unmount(tester);
   });
 
-  testWidgets('One of a Kind: timer runs out, reveal, knock out, next round', (tester) async {
+  testWidgets('One of a Kind: timer runs out, reveal, knock out, next round', (
+    tester,
+  ) async {
     // Earlier tests cached the asset future inside their own fake-async zone.
     rootBundle.clear();
     await pumpApp(tester, open: 'one_of_a_kind');
     // The prompt bank loads from assets asynchronously.
     for (var i = 0; i < 50 && find.text('HOST').evaluate().isEmpty; i++) {
-      await tester.runAsync(() => Future.delayed(const Duration(milliseconds: 50)));
+      await tester.runAsync(
+        () => Future.delayed(const Duration(milliseconds: 50)),
+      );
       await tester.pump();
     }
     await tester.scrollUntilVisible(find.text('START'), 300);
@@ -163,6 +183,28 @@ void main() {
     await unmount(tester);
   });
 
+  testWidgets(
+    'Horse Racing: bets take sips and shots, race lays out in landscape',
+    (tester) async {
+      await pumpApp(tester, open: 'horse_racing');
+      expect(find.text('2 sips'), findsNWidgets(players.length));
+      await tester.tap(find.text('+').at(1)); // first player's shots
+      await tester.pump();
+      expect(find.text('1 shot'), findsOneWidget);
+      await tapText(tester, 'START RACE');
+      // Phone turned sideways.
+      tester.view.physicalSize = const Size(2400, 1080);
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(tester.takeException(), isNull);
+      expect(find.text('FLIP CARD'), findsOneWidget);
+      await tapText(tester, 'AUTO');
+      await tester.pump(const Duration(seconds: 60));
+      await tester.pump(const Duration(seconds: 2));
+      expect(find.text('NEW RACE'), findsOneWidget);
+      await unmount(tester);
+    },
+  );
+
   testWidgets('Ride the Bus: guesses advance or reset', (tester) async {
     await pumpApp(tester, open: 'ride_the_bus');
     await tapText(tester, 'RED');
@@ -192,44 +234,12 @@ void main() {
     await unmount(tester);
   });
 
-  testWidgets('Higher or Lower: guess updates streak text', (tester) async {
-    await pumpApp(tester, open: 'higher_lower');
-    await tapText(tester, 'HIGHER');
-    expect(find.textContaining(RegExp(r'Streak|drinks|Same rank')), findsOneWidget);
-    await unmount(tester);
-  });
-
-  testWidgets('Never Have I Ever: tapping a name drops a finger', (tester) async {
-    await pumpApp(tester, open: 'never_have_i_ever');
-    for (var i = 0; i < 5; i++) {
-      await tapText(tester, 'Sam');
-    }
-    for (final p in ['Deez', 'Alex']) {
-      for (var i = 0; i < 5; i++) {
-        await tapText(tester, p);
-      }
-    }
-    expect(find.text('LAST HAND UP: Jo'), findsOneWidget);
-    await tapText(tester, 'NEXT');
-    await unmount(tester);
-  });
-
   testWidgets('Pixel Roulette: spin shows a result', (tester) async {
     await pumpApp(tester, open: 'roulette');
     await tapText(tester, 'SPIN');
     await tester.pump(const Duration(seconds: 4));
     expect(find.text('Spin to find your fate.'), findsNothing);
     expect(find.text('SPIN'), findsOneWidget);
-    await unmount(tester);
-  });
-
-  testWidgets('Beat the Dealer: two guesses resolve a card', (tester) async {
-    await pumpApp(tester, open: 'beat_the_dealer');
-    await tapText(tester, '7');
-    if (find.text('NEXT CARD').evaluate().isEmpty) {
-      await tapText(tester, find.textContaining('HIGHER').evaluate().isNotEmpty ? 'K' : 'A');
-    }
-    expect(find.text('NEXT CARD'), findsOneWidget);
     await unmount(tester);
   });
 

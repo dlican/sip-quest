@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sip_quest/games/cards.dart';
 import 'package:sip_quest/games/horse_racing/horse_race.dart';
+import 'package:sip_quest/games/horse_racing/horse_racing_screen.dart';
 import 'package:sip_quest/games/kings_cup/kings_cup_game.dart';
 import 'package:sip_quest/games/unique_answer/question_bank.dart';
 import 'package:sip_quest/games/unique_answer/unique_answer_game.dart';
@@ -44,7 +45,9 @@ void main() {
   });
 
   test('bundled question bank parses and yields prompts', () {
-    final j = jsonDecode(File('assets/data/unique_answer_prompts.json').readAsStringSync());
+    final j = jsonDecode(
+      File('assets/data/unique_answer_prompts.json').readAsStringSync(),
+    );
     final bank = QuestionBank.fromJson(j as Map<String, dynamic>);
     expect(bank.questions.length, greaterThan(100));
     final deck = bank.deck(difficulties: {Difficulty.easy}, random: Random(2));
@@ -65,5 +68,12 @@ void main() {
       }
       expect(r.winner, isNotNull);
     }
+  });
+
+  test('horse race bets read as sips and shots', () {
+    expect(betAmount(2, 0), '2 sips');
+    expect(betAmount(1, 1), '1 sip + 1 shot');
+    expect(betAmount(0, 4), '4 shots');
+    expect(betAmount(0, 0), 'nothing');
   });
 }

@@ -7,7 +7,8 @@ import 'package:flutter/services.dart';
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   Future<void> load(String family, String path) async {
     final bytes = File(path).readAsBytesSync();
-    final loader = FontLoader(family)..addFont(Future.value(ByteData.sublistView(bytes)));
+    final loader = FontLoader(family)
+      ..addFont(Future.value(ByteData.sublistView(bytes)));
     await loader.load();
   }
 

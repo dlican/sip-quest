@@ -4,10 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sip_quest/games/cards.dart';
 import 'package:sip_quest/games/common.dart';
 import 'package:sip_quest/games/hot_potato/hot_potato.dart';
-import 'package:sip_quest/games/most_likely/most_likely.dart';
 import 'package:sip_quest/games/ride_the_bus/ride_the_bus.dart';
 import 'package:sip_quest/games/roulette/roulette.dart';
-import 'package:sip_quest/games/truth_or_drink/truth_or_drink.dart';
 
 PlayingCard c(int rank, [Suit suit = Suit.spades]) => PlayingCard(rank, suit);
 
@@ -125,23 +123,6 @@ void main() {
     });
   });
 
-  group('Most Likely To', () {
-    test('tallies votes and reports ties', () {
-      final v = VoteRound(['A', 'B', 'C', 'D']);
-      expect(v.nextVoter, 'A');
-      v.cast('A', 'B');
-      v.cast('B', 'C');
-      v.cast('C', 'B');
-      expect(v.complete, isFalse);
-      v.cast('D', 'C');
-      expect(v.complete, isTrue);
-      expect(v.tally, {'A': 0, 'B': 2, 'C': 2, 'D': 0});
-      expect(v.winners, ['B', 'C']);
-      expect(() => v.cast('A', 'C'), throwsStateError);
-      expect(() => v.cast('Z', 'C'), throwsArgumentError);
-    });
-  });
-
   group('Roulette', () {
     test('spin lands centred on the chosen slice', () {
       final r = Roulette(random: Random(3));
@@ -153,24 +134,4 @@ void main() {
     });
   });
 
-  group('Truth or Drink', () {
-    test('asker asks the next seat and rotates', () {
-      final g = TruthOrDrink(['A', 'B', 'C'], random: Random(1));
-      final t1 = g.deal();
-      expect([t1.asker, t1.answerer], ['A', 'B']);
-      g.drank();
-      final t2 = g.deal();
-      expect([t2.asker, t2.answerer], ['B', 'C']);
-      g.answered();
-      final t3 = g.deal();
-      expect([t3.asker, t3.answerer], ['C', 'A']);
-      expect(g.drinks, {'B': 1});
-      expect(g.answers, {'C': 1});
-    });
-    test('works with no players', () {
-      final t = TruthOrDrink([]).deal();
-      expect(t.asker, isNull);
-      expect(t.question, isNotEmpty);
-    });
-  });
 }

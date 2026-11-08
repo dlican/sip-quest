@@ -122,7 +122,7 @@ void main() {
     await tester.pump(const Duration(seconds: 3));
     await tester.tap(find.byIcon(Icons.menu_book));
     await tester.pumpAndSettle();
-    expect(find.text('WATERFALL'), findsOneWidget);
+    expect(find.text('HOT SEAT'), findsOneWidget);
     await unmount(tester);
   });
 
@@ -236,44 +236,12 @@ void main() {
     await unmount(tester);
   });
 
-  testWidgets('Most Likely To: everyone votes then results', (tester) async {
-    await pumpApp(tester, open: 'most_likely');
-    await tapText(tester, 'SECRET VOTE INSTEAD');
-    for (var i = 0; i < players.length; i++) {
-      await tapText(tester, 'VOTE IN SECRET');
-      await tapText(tester, 'Sam');
-    }
-    expect(find.text('Sam drinks 4!'), findsOneWidget);
-    await unmount(tester);
-  });
-
   testWidgets('Pixel Roulette: spin shows a result', (tester) async {
     await pumpApp(tester, open: 'roulette');
     await tapText(tester, 'SPIN');
     await tester.pump(const Duration(seconds: 4));
     expect(find.text('Spin to find your fate.'), findsNothing);
     expect(find.text('SPIN'), findsOneWidget);
-    await unmount(tester);
-  });
-
-  testWidgets('Truth or Drink: drink then next', (tester) async {
-    await pumpApp(tester, open: 'truth_or_drink');
-    expect(find.text('Deez asks Sam:'), findsOneWidget);
-    await tapText(tester, 'DRINK');
-    expect(find.text('Sam chose to drink!'), findsOneWidget);
-    await tapText(tester, 'NEXT');
-    expect(find.text('Sam asks Alex:'), findsOneWidget);
-    await unmount(tester);
-  });
-
-  testWidgets('Most Likely To: point-on-3 countdown works with no names', (tester) async {
-    await pumpApp(tester, open: 'most_likely', names: []);
-    expect(find.text('SECRET VOTE INSTEAD'), findsNothing);
-    await tapText(tester, 'COUNT DOWN');
-    await tester.pump(const Duration(seconds: 3));
-    expect(find.text('POINT!'), findsOneWidget);
-    await tapText(tester, 'NEXT QUESTION');
-    expect(find.text('COUNT DOWN'), findsOneWidget);
     await unmount(tester);
   });
 
@@ -375,7 +343,7 @@ void main() {
     await tester.pump(const Duration(seconds: 3));
     await tester.tap(find.byIcon(Icons.menu_book));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('WATERFALL'));
+    await tester.tap(find.text('HOT SEAT'));
     await tester.pump(const Duration(milliseconds: 100));
     // Mid-transition: dialog is on its way in.
     expect(find.text('RULE NAME'), findsOneWidget);
@@ -389,6 +357,38 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('SPLASH'), findsOneWidget);
+    await unmount(tester);
+  });
+
+  testWidgets("King's Cup: Draw reshuffles, deals the card, then shows its rule", (tester) async {
+    await pumpApp(tester, open: 'kings_cup');
+    await tester.pump(const Duration(seconds: 3));
+    await tapText(tester, 'DRAW FIRST CARD');
+    // Mid-animation the rule is held back.
+    expect(find.text('Shuffling... dealing a card.'), findsOneWidget);
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
+    expect(find.text('Shuffling... dealing a card.'), findsNothing);
+    expect(tester.takeException(), isNull);
+    await unmount(tester);
+  });
+
+  testWidgets('settings opens the help page with every game', (tester) async {
+    await pumpApp(tester);
+    await tester.tap(find.byIcon(Icons.settings));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('HOW TO PLAY'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(find.text('THE BASICS'), findsOneWidget);
+    for (final g in gameModes) {
+      await tester.scrollUntilVisible(find.text(g.title.toUpperCase()), 200);
+    }
+    await tester.tap(find.text(gameModes.last.title.toUpperCase()));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(find.text('HOW TO PLAY'), findsWidgets);
     await unmount(tester);
   });
 }

@@ -112,12 +112,6 @@ void main() {
     expect(find.textContaining(RegExp(r'NICE|WRONG')), findsOneWidget);
     await back(tester);
 
-    // Truth or Drink: one turn.
-    await tap(tester, 'TRUTH OR DRINK', scroll: true);
-    await tap(tester, 'ANSWER');
-    expect(find.text('Truth told. Respect.'), findsOneWidget);
-    await back(tester);
-
     // Pixel Roulette: one spin.
     await tap(tester, 'PIXEL ROULETTE', scroll: true);
     await tap(tester, 'SPIN');
@@ -126,5 +120,7 @@ void main() {
     await back(tester);
 
     expect(find.text('SIP QUEST'), findsWidgets);
+    // Let the last sound effects finish so no audio frame callbacks outlive the test.
+    await wait(tester, const Duration(seconds: 3));
   });
 }

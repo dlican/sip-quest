@@ -3,10 +3,8 @@ import 'package:flutter/widgets.dart';
 import '../widgets/sprites.dart';
 import 'charades/charades_screen.dart';
 import 'hot_potato/hot_potato_screen.dart';
-import 'most_likely/most_likely_screen.dart';
 import 'ride_the_bus/ride_the_bus_screen.dart';
 import 'roulette/roulette_screen.dart';
-import 'truth_or_drink/truth_or_drink_screen.dart';
 import 'horse_racing/horse_racing_screen.dart';
 import 'kings_cup/kings_cup_screen.dart';
 import 'paranoia/paranoia_screen.dart';
@@ -81,24 +79,10 @@ final List<GameMode> gameModes = [
     builder: (_) => const HotPotatoScreen(),
   ),
   GameMode(
-    id: 'most_likely',
-    title: 'Most Likely To',
-    tagline: 'Secret votes. Most votes drinks.',
-    icon: Sprites.ballot,
-    builder: (_) => const MostLikelyScreen(),
-  ),
-  GameMode(
     id: 'roulette',
     title: 'Pixel Roulette',
     tagline: 'Spin the wheel of fate.',
     icon: Sprites.wheel,
     builder: (_) => const RouletteScreen(),
-  ),
-  GameMode(
-    id: 'truth_or_drink',
-    title: 'Truth or Drink',
-    tagline: 'Answer honestly, or drink.',
-    icon: Sprites.lips,
-    builder: (_) => const TruthOrDrinkScreen(),
   ),
 ];

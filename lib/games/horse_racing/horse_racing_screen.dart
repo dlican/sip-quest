@@ -194,7 +194,10 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
     final pal = context.pal;
     Widget tap(String label, Color c, int next) => GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => setState(() => set(next.clamp(0, maxValue))),
+      onTap: () {
+        Fx.select();
+        setState(() => set(next.clamp(0, maxValue)));
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         child: Text(label, style: PixelFonts.title(c, size: 16)),
@@ -247,7 +250,10 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
                 for (final s in Suit.values)
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => setState(() => bet.suit = s),
+                      onTap: () {
+                        Fx.select();
+                        setState(() => bet.suit = s);
+                      },
                       child: Container(
                         height: 40,
                         margin: const EdgeInsets.only(right: 6),

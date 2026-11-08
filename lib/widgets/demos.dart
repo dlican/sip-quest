@@ -354,46 +354,6 @@ Widget hotPotatoDemo(BuildContext context, double t) {
   );
 }
 
-Widget mostLikelyDemo(BuildContext context, double t) {
-  final pal = context.pal;
-  final c = _crowd(pal);
-  const xs = [30.0, 124.0, 218.0];
-  final count = t < 0.2
-      ? ''
-      : t < 0.32
-      ? '3'
-      : t < 0.44
-      ? '2'
-      : t < 0.56
-      ? '1'
-      : 'POINT!';
-  final point = seg(t, 0.56, 0.62);
-  return Stack(
-    children: [
-      at(
-        0,
-        4,
-        SizedBox(
-          width: 280,
-          child: Center(child: DemoBubble('MOST LIKELY TO SING?', color: pal.accent, size: 16)),
-        ),
-      ),
-      for (var i = 0; i < 3; i++) at(xs[i], 100, DemoPerson(color: c[i])),
-      at(
-        0,
-        36,
-        SizedBox(
-          width: 280,
-          child: Center(child: Text(count, style: PixelFonts.title(pal.primary, size: 14))),
-        ),
-      ),
-      at(66, 112, fade(point, Text('>>', style: PixelFonts.title(pal.text, size: 12)))),
-      at(184, 112, fade(point, Text('<<', style: PixelFonts.title(pal.text, size: 12)))),
-      at(160, 66, popScale(seg(t, 0.7, 0.78), PixelSprite(Sprites.mug, pixel: 3))),
-    ],
-  );
-}
-
 Widget rouletteDemo(BuildContext context, double t) {
   final pal = context.pal;
   final spin = seg(t, 0.0, 0.7, Curves.easeOutCubic);
@@ -403,47 +363,6 @@ Widget rouletteDemo(BuildContext context, double t) {
       at(131, 8, Text('v', style: PixelFonts.title(pal.text, size: 14))),
       at(20, 60, fade(seg(t, 0.72, 0.8), popScale(seg(t, 0.72, 0.8), DemoBubble('DRINK 2', color: pal.primary)))),
       at(200, 60, fade(seg(t, 0.72, 0.8), popScale(seg(t, 0.72, 0.8), const DemoBubble('LEFT')))),
-    ],
-  );
-}
-
-Widget truthOrDrinkDemo(BuildContext context, double t) {
-  final pal = context.pal;
-  final drink = seg(t, 0.45, 0.6) - seg(t, 0.8, 0.9);
-  return Stack(
-    children: [
-      at(
-        20,
-        10,
-        Container(
-          width: 150,
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: pal.panel,
-            border: Border.all(color: pal.border, width: 3),
-          ),
-          child: Text('TRUTH: WORST DATE EVER?', style: PixelFonts.title(pal.text, size: 8).copyWith(height: 1.5)),
-        ),
-      ),
-      at(
-        20,
-        96,
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          color: t < 0.35 ? pal.secondary : pal.panel,
-          child: Text('ANSWER', style: PixelFonts.title(pal.bg, size: 8)),
-        ),
-      ),
-      at(
-        100,
-        96,
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          color: t >= 0.35 ? pal.primary : pal.panel,
-          child: Text('DRINK', style: PixelFonts.title(pal.bg, size: 8)),
-        ),
-      ),
-      at(200, 40, Transform.rotate(angle: -0.9 * drink, child: PixelSprite(Sprites.mug, pixel: 5))),
     ],
   );
 }

@@ -91,3 +91,15 @@ viewport. Run `flutter build web --release`, serve `build/web`, open game screen
 directly with `?style=neon&players=Deez,Sam,Alex,Jo,Priya&open=<game id>` (ids are in
 `lib/games/registry.dart`), and record with any browser tool. The GIFs are 10 fps,
 300 px wide.
+
+## Releasing to Google Play
+- Release builds are signed with the upload key named in `android/key.properties`
+  (git-ignored, never commit it or the `.jks`). Without that file, release builds fall
+  back to debug keys, which Play rejects.
+- Bump `version:` in `pubspec.yaml` (the `+N` build number must go up every upload),
+  then run `flutter build appbundle --release` and upload
+  `build/app/outputs/bundle/release/app-release.aab`.
+- Store icon and feature graphic live in `docs/store/` and are regenerated with
+  `python tool/make_store_assets.py`.
+- Privacy policy: `docs/privacy.html`, served by GitHub Pages at
+  https://dlican.github.io/sip-quest/privacy.html once Pages is on for `main` `/docs`.

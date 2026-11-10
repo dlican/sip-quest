@@ -13,22 +13,22 @@ class KingsRule {
 
 /// The common house rules. Players can edit these in-game.
 const Map<int, KingsRule> defaultKingsRules = {
-  1: KingsRule('Waterfall',
-      'Everyone starts drinking. You can only stop when the person before you stops. The drawer goes first and can stop whenever.'),
-  2: KingsRule('You', 'Pick someone to take a drink.'),
-  3: KingsRule('Me', 'You take a drink.'),
-  4: KingsRule('Floor', 'Last person to touch the floor drinks.'),
-  5: KingsRule('Guys', 'All the guys drink.'),
-  6: KingsRule('Ladies', 'All the ladies drink.'),
-  7: KingsRule('Heaven', 'Last person to point to the sky drinks.'),
-  8: KingsRule('Mate', 'Pick a mate. Every time you drink, they drink too, until the next 8.'),
-  9: KingsRule('Rhyme', 'Say a word. Go around rhyming. First to repeat or freeze drinks.'),
-  10: KingsRule('Categories', 'Pick a category. Go around naming things in it. First to blank drinks.'),
-  11: KingsRule('Make a Rule', 'Invent a rule everyone must follow. Break it, drink.'),
+  1: KingsRule('Clap Chain',
+      'Everyone starts clapping. You can only stop when the person before you stops. The drawer goes first and can stop whenever.'),
+  2: KingsRule('You', 'Pick someone to take a penalty.'),
+  3: KingsRule('Me', 'You take a penalty.'),
+  4: KingsRule('Floor', 'Last person to touch the floor takes a penalty.'),
+  5: KingsRule('Guys', 'All the guys take a penalty.'),
+  6: KingsRule('Ladies', 'All the ladies take a penalty.'),
+  7: KingsRule('Heaven', 'Last person to point to the sky takes a penalty.'),
+  8: KingsRule('Mate', 'Pick a mate. Every time you take a penalty, they do too, until the next 8.'),
+  9: KingsRule('Rhyme', 'Say a word. Go around rhyming. First to repeat or freeze takes a penalty.'),
+  10: KingsRule('Categories', 'Pick a category. Go around naming things in it. First to blank takes a penalty.'),
+  11: KingsRule('Make a Rule', 'Invent a rule everyone must follow. Break it, take a penalty.'),
   12: KingsRule('Question Master',
-      'Anyone who answers a question you ask drinks, until the next Queen.'),
-  13: KingsRule("King's Cup",
-      'Pour some of your drink into the cup. Whoever draws the 4th King drinks the whole cup.'),
+      'Anyone who answers a question you ask takes a penalty, until the next Queen.'),
+  13: KingsRule("King's Pot",
+      'Add a penalty to the pot. Whoever draws the 4th King takes the whole pot.'),
 };
 
 enum KingsCupStatus { playing, fourthKing, deckEmpty }

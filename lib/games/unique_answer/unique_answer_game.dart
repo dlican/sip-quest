@@ -1,7 +1,7 @@
 /// Rules for "One of a Kind":
 /// The host reads a prompt. Everyone else secretly writes an answer within the
 /// time limit, then all reveal. Anyone whose answer matches another player's is
-/// out (and drinks). With two players left, they are also out if they match
+/// out (and takes a penalty). With two players left, they are also out if they match
 /// the host's own answer. Last one standing wins.
 class UniqueAnswerGame {
   UniqueAnswerGame({required this.host, required List<String> contestants})

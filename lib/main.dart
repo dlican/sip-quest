@@ -28,11 +28,11 @@ Future<void> main() async {
     }
     open = q['open'];
   }
-  runApp(SipQuestApp(state: state, open: open));
+  runApp(PartyPartyApp(state: state, open: open));
 }
 
-class SipQuestApp extends StatelessWidget {
-  const SipQuestApp({super.key, required this.state, this.open});
+class PartyPartyApp extends StatelessWidget {
+  const PartyPartyApp({super.key, required this.state, this.open});
   final AppState state;
   final String? open;
 
@@ -43,7 +43,7 @@ class SipQuestApp extends StatelessWidget {
       child: Builder(builder: (context) {
         final pal = context.pal;
         return MaterialApp(
-          title: 'Sip Quest',
+          title: 'Party Party',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             brightness: Brightness.dark,

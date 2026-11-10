@@ -62,10 +62,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          const Center(child: _BouncingMug()),
+          const Center(child: _BouncingDie()),
           const SizedBox(height: 14),
           Center(
-            child: Text('SIP QUEST',
+            child: Text('PARTY PARTY',
                 style: PixelFonts.title(pal.primary, size: 28).copyWith(
                   shadows: [Shadow(color: pal.secondary, offset: const Offset(3, 3))],
                 )),
@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           ],
           const SizedBox(height: 12),
           Center(
-            child: Text('Legal drinking age only. Water counts as a drink.',
+            child: Text('Your table picks the penalty: a dare, a push-up, a silly hat.',
                 textAlign: TextAlign.center,
                 style: PixelFonts.body(pal.textDim, size: 20)),
           ),
@@ -188,17 +188,17 @@ class _GameTile extends StatelessWidget {
   }
 }
 
-/// The title mug: bobs and tips like it is being raised for a toast, with
-/// foam bubbles drifting up. Motion snaps to the sprite's pixel grid so it
+/// The title die: bobs and tips like it is about to be rolled, with
+/// sparkles drifting up. Motion snaps to the sprite's pixel grid so it
 /// stays crisp and retro.
-class _BouncingMug extends StatefulWidget {
-  const _BouncingMug();
+class _BouncingDie extends StatefulWidget {
+  const _BouncingDie();
 
   @override
-  State<_BouncingMug> createState() => _BouncingMugState();
+  State<_BouncingDie> createState() => _BouncingDieState();
 }
 
-class _BouncingMugState extends State<_BouncingMug>
+class _BouncingDieState extends State<_BouncingDie>
     with SingleTickerProviderStateMixin {
   static const double _px = 7;
   late final AnimationController _c = AnimationController(
@@ -217,9 +217,9 @@ class _BouncingMugState extends State<_BouncingMug>
   @override
   Widget build(BuildContext context) {
     final pal = context.pal;
-    const mug = Sprites.mug;
-    final w = mug.width * _px;
-    final h = mug.height * _px;
+    const die = Sprites.die;
+    final w = die.width * _px;
+    final h = die.height * _px;
     const headroom = 5 * _px;
     return SizedBox(
       width: w + 2 * _px,
@@ -233,7 +233,7 @@ class _BouncingMugState extends State<_BouncingMug>
           return Stack(
             clipBehavior: Clip.none,
             children: [
-              // Bubbles rise from the beer at staggered phases.
+              // Sparkles rise from the die at staggered phases.
               for (var i = 0; i < 3; i++) _bubble(pal.text, i, bob, headroom),
               Positioned(
                 left: _px,
@@ -241,7 +241,7 @@ class _BouncingMugState extends State<_BouncingMug>
                 child: Transform.rotate(
                   angle: tilt,
                   alignment: Alignment.bottomCenter,
-                  child: PixelSprite(mug, pixel: _px),
+                  child: PixelSprite(die, pixel: _px),
                 ),
               ),
             ],

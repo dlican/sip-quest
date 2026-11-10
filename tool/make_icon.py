@@ -1,4 +1,4 @@
-"""Generates the Sip Quest launcher icons from a hand-drawn pixel mug.
+"""Generates the Party Party launcher icons from a hand-drawn pixel die.
 
 Run from the repo root:  python tool/make_icon.py   (needs Pillow)
 """
@@ -9,35 +9,34 @@ from PIL import Image, ImageDraw
 BG = (13, 2, 33)          # Neon Arcade background
 GLOW = (255, 42, 109)     # Neon pink
 COLORS = {
-    'W': (255, 248, 231),  # foam
-    'Y': (249, 200, 14),   # beer
-    'O': (214, 140, 10),   # bubbles in the beer
-    'H': (255, 230, 120),  # glass highlight
-    'K': (150, 140, 200),  # glass edge
-    'C': (5, 217, 232),    # cyan handle
+    'W': (255, 248, 231),  # die face
+    'P': (255, 42, 109),   # neon pink pips
+    'K': (150, 140, 200),  # face edge
+    'C': (5, 217, 232),    # cyan side
 }
-MUG = [
-    "...W..WW..W....",
-    "..WWWWWWWWWW...",
-    ".WWWWWWWWWWWW..",
-    ".KWWWWWWWWWWK..",
-    ".KHYYYYYYYYYKCC",
-    ".KHYYOYYYYYYK.C",
-    ".KHYYYYYYOYYK.C",
-    ".KHYYYYYYYYYK.C",
-    ".KHYOYYYYYYYK.C",
-    ".KHYYYYYOYYYKCC",
-    ".KHYYYYYYYYYK..",
-    ".KYYYYYYYYYYK..",
-    "..KKKKKKKKKK...",
+DIE = [
+    ".KKKKKKKKKK...",
+    "KWWWWWWWWWWK..",
+    "KWPPWWWWPPWKC.",
+    "KWPPWWWWPPWKCC",
+    "KWWWWWWWWWWKCC",
+    "KWWWWPPWWWWKCC",
+    "KWWWWPPWWWWKCC",
+    "KWWWWWWWWWWKCC",
+    "KWPPWWWWPPWKCC",
+    "KWPPWWWWPPWKCC",
+    "KWWWWWWWWWWKCC",
+    ".KKKKKKKKKKCCC",
+    "..CCCCCCCCCCCC",
+    "...CCCCCCCCCC.",
 ]
 
 
-def mug_layer(grid, scale_px, offset):
-    """Draws the mug onto a transparent grid-sized image (1 cell = 1 px)."""
+def die_layer(grid, scale_px, offset):
+    """Draws the die onto a transparent grid-sized image (1 cell = 1 px)."""
     img = Image.new('RGBA', (grid, grid), (0, 0, 0, 0))
     ox, oy = offset
-    for y, row in enumerate(MUG):
+    for y, row in enumerate(DIE):
         for x, ch in enumerate(row):
             if ch in COLORS:
                 img.putpixel((ox + x, oy + y), COLORS[ch] + (255,))
@@ -45,12 +44,12 @@ def mug_layer(grid, scale_px, offset):
 
 
 def centered(grid):
-    w, h = len(MUG[0]), len(MUG)
-    return mug_layer(grid, 1, ((grid - w) // 2, (grid - h) // 2))
+    w, h = len(DIE[0]), len(DIE)
+    return die_layer(grid, 1, ((grid - w) // 2, (grid - h) // 2))
 
 
 def full_icon(size, rounded=True):
-    """Legacy/iOS/web icon: dark tile with a neon border and the mug."""
+    """Legacy/iOS/web icon: dark tile with a neon border and the die."""
     grid = 21
     tile = Image.new('RGBA', (grid, grid), (0, 0, 0, 0))
     d = ImageDraw.Draw(tile)
@@ -70,7 +69,7 @@ def full_icon(size, rounded=True):
 
 
 def foreground(size):
-    """Adaptive icon foreground: mug inside the 66/108 safe zone."""
+    """Adaptive icon foreground: die inside the 66/108 safe zone."""
     grid = 27
     return centered(grid).resize((size, size), Image.NEAREST)
 

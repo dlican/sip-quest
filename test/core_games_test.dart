@@ -20,7 +20,7 @@ void main() {
     expect(seen.length, 52);
   });
 
-  test("king's cup ends on 4th king and rotates players", () {
+  test("four kings ends on 4th king and rotates players", () {
     final g = KingsCupGame(players: ['A', 'B', 'C'], random: Random(3));
     var draws = 0;
     while (g.status == KingsCupStatus.playing) {
@@ -70,10 +70,10 @@ void main() {
     }
   });
 
-  test('horse race bets read as sips and shots', () {
-    expect(betAmount(2, 0), '2 sips');
-    expect(betAmount(1, 1), '1 sip + 1 shot');
-    expect(betAmount(0, 4), '4 shots');
+  test('horse race bets read as penalties and dares', () {
+    expect(betAmount(2, 0), '2 penalties');
+    expect(betAmount(1, 1), '1 penalty + 1 dare');
+    expect(betAmount(0, 4), '4 dares');
     expect(betAmount(0, 0), 'nothing');
   });
 }

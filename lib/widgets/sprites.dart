@@ -97,17 +97,21 @@ class Sprites {
     '.DDDDDDDDD.',
   ]);
 
-  static const mug = Sprite([
-    '.TTTTTTT...',
-    'TTTTTTTTT..',
-    'TAAAAAAAT..',
-    'TAAAAAAATTT',
-    'TATAAAAAT.T',
-    'TATAAAAAT.T',
-    'TATAAAAATTT',
-    'TAAAAAAAT..',
-    'TAAAAAAAT..',
-    '.TTTTTTT...',
+  static const die = Sprite([
+    '.KKKKKKKKKK...',
+    'KWWWWWWWWWWK..',
+    'KWPPWWWWPPWKS.',
+    'KWPPWWWWPPWKSS',
+    'KWWWWWWWWWWKSS',
+    'KWWWWPPWWWWKSS',
+    'KWWWWPPWWWWKSS',
+    'KWWWWWWWWWWKSS',
+    'KWPPWWWWPPWKSS',
+    'KWPPWWWWPPWKSS',
+    'KWWWWWWWWWWKSS',
+    '.KKKKKKKKKKSSS',
+    '..SSSSSSSSSSSS',
+    '...SSSSSSSSSS.',
   ]);
 
   static const question = Sprite([

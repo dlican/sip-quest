@@ -14,7 +14,7 @@ class BusResult {
   final bool finished;
 }
 
-/// Get four right in a row to get off the bus. Any wrong answer costs a drink
+/// Get four right in a row to get off the bus. Any wrong answer costs a penalty
 /// and sends you back to the first question. Ties (same rank, or landing on a
 /// boundary for inside/outside) count as wrong. Aces are high.
 class RideTheBus {
@@ -27,7 +27,7 @@ class RideTheBus {
 
   /// Cards dealt in the current attempt (0 to 4).
   final List<PlayingCard> row = [];
-  int drinks = 0;
+  int penalties = 0;
   int attempts = 1;
   bool finished = false;
 
@@ -71,7 +71,7 @@ class RideTheBus {
     final card = _draw();
     final ok = judge(stage, g, card, row);
     if (!ok) {
-      drinks++;
+      penalties++;
       attempts++;
       row.clear();
       return BusResult(card, false);

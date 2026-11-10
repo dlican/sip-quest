@@ -9,13 +9,13 @@ import 'registry.dart';
 
 /// How a game is played: an animated pixel demo plus a few short steps.
 class HowTo {
-  const HowTo({required this.demo, required this.steps, required this.sips, this.period = const Duration(seconds: 4)});
+  const HowTo({required this.demo, required this.steps, required this.penalty, this.period = const Duration(seconds: 4)});
   final DemoBuilder demo;
   final Duration period;
   final List<String> steps;
 
-  /// The drinking rule in one line.
-  final String sips;
+  /// The penalty rule in one line.
+  final String penalty;
 }
 
 const Map<String, HowTo> howToPlay = {
@@ -23,12 +23,12 @@ const Map<String, HowTo> howToPlay = {
     demo: kingsCupDemo,
     period: Duration(milliseconds: 3600),
     steps: [
-      'Put the phone in the middle of the table, next to an empty cup.',
+      'Put the phone in the middle of the table.',
       'Take turns tapping to draw a card. Each card has a rule.',
-      'Every King: pour some of your drink into the cup.',
+      'Every King: the drawer adds a penalty to the pot.',
       'Tap the book icon to change any card rule for your table.',
     ],
-    sips: 'Whoever draws the 4th King drinks the cup.',
+    penalty: 'Whoever draws the 4th King takes the whole pot.',
   ),
   'one_of_a_kind': HowTo(
     demo: oneOfAKindDemo,
@@ -38,7 +38,7 @@ const Map<String, HowTo> howToPlay = {
       'Reveal together. Anyone who matched someone else is out.',
       'Last two standing must also dodge the host\'s answer.',
     ],
-    sips: 'Knocked out? Drink. Winner hands out sips.',
+    penalty: 'Knocked out? Take a penalty. Winner hands out penalties.',
   ),
   'charades': HowTo(
     demo: charadesDemo,
@@ -49,27 +49,27 @@ const Map<String, HowTo> howToPlay = {
       'Got it? Tilt the phone down. Want to pass? Tilt it up.',
       'You have 30 seconds. Then hand the phone to the next player.',
     ],
-    sips: 'Drink once per pass. Get 5+ and hand out that many sips.',
+    penalty: 'One penalty per pass. Get 5+ and hand out that many penalties.',
   ),
   'paranoia': HowTo(
     demo: paranoiaDemo,
     steps: [
       'Pass the phone to the person on your left.',
       'They read the question in secret, then say a name out loud.',
-      'The named person can drink to hear the question, or flip a coin.',
+      'The named person can take a penalty to hear the question, or flip a coin.',
       'Heads, the question is read out. Tails, it stays a secret.',
     ],
-    sips: 'Drinking is the price of knowing.',
+    penalty: 'A penalty is the price of knowing.',
   ),
   'horse_racing': HowTo(
     demo: horseRacingDemo,
     period: Duration(milliseconds: 3400),
     steps: [
-      'Everyone picks a suit and bets sips and shots on it.',
+      'Everyone picks a suit and bets penalties and dares on it.',
       'Turn the phone sideways. Each card drawn moves that suit\'s ace forward.',
       'Once every horse passes a sideways setback card, it flips and that suit moves back.',
     ],
-    sips: 'Winners hand out double their sips and shots. Everyone else drinks theirs.',
+    penalty: 'Winners hand out double their bet. Everyone else takes theirs.',
   ),
   'ride_the_bus': HowTo(
     demo: rideTheBusDemo,
@@ -78,7 +78,7 @@ const Map<String, HowTo> howToPlay = {
       'Miss any guess and you start over from the first card.',
       'Pass the phone to the next rider when you get off.',
     ],
-    sips: 'Every wrong guess is a drink.',
+    penalty: 'Every wrong guess is a penalty.',
   ),
   'hot_potato': HowTo(
     demo: hotPotatoDemo,
@@ -88,7 +88,7 @@ const Map<String, HowTo> howToPlay = {
       'Name something in it, then pass the phone to your left.',
       'The ticking speeds up. Nobody knows when it blows.',
     ],
-    sips: 'Holding the phone when it explodes? Drink.',
+    penalty: 'Holding the phone when it explodes? Penalty.',
   ),
   'most_likely': HowTo(
     demo: mostLikelyDemo,
@@ -97,23 +97,23 @@ const Map<String, HowTo> howToPlay = {
       'Tap Count down. On "point!", everyone points at someone.',
       'With names added you can vote in secret instead.',
     ],
-    sips: 'One sip for every finger pointing at you.',
+    penalty: 'One penalty for every finger pointing at you.',
   ),
   'roulette': HowTo(
     demo: rouletteDemo,
     period: Duration(milliseconds: 3400),
     steps: ['Pass the phone around. On your turn, spin the wheel.', 'Do what it lands on.'],
-    sips: 'The wheel decides who drinks.',
+    penalty: 'The wheel decides your fate.',
   ),
   'truth_or_drink': HowTo(
     demo: truthOrDrinkDemo,
     period: Duration(milliseconds: 3600),
     steps: [
       'Read the question to the person on your left.',
-      'They answer honestly, or drink instead.',
+      'They answer honestly, or take a penalty instead.',
       'Then they ask the next person.',
     ],
-    sips: 'Dodge the truth, take the drink.',
+    penalty: 'Dodge the truth, take the penalty.',
   ),
 };
 
@@ -183,7 +183,7 @@ class HowToSheet extends StatelessWidget {
                     borderColor: pal.primary,
                     padding: const EdgeInsets.all(10),
                     shadow: false,
-                    child: Text(how.sips, style: PixelFonts.body(pal.primary, size: 23)),
+                    child: Text(how.penalty, style: PixelFonts.body(pal.primary, size: 23)),
                   ),
                   const SizedBox(height: 16),
                   PixelButton(label: 'Got it', expand: true, onTap: () => Navigator.of(context).pop()),

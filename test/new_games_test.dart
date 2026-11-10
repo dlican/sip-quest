@@ -90,7 +90,7 @@ void main() {
       );
     });
     test(
-      'wrong answer resets the row and costs a drink; eventually finishes',
+      'wrong answer resets the row and costs a penalty; eventually finishes',
       () {
         final g = RideTheBus(random: Random(5));
         var guard = 0;
@@ -104,7 +104,7 @@ void main() {
           }
         }
         expect(g.finished, isTrue);
-        expect(g.attempts, g.drinks + 1);
+        expect(g.attempts, g.penalties + 1);
         expect(() => g.guess(BusGuess.red), throwsStateError);
       },
     );
@@ -153,18 +153,18 @@ void main() {
     });
   });
 
-  group('Truth or Drink', () {
+  group('Truth or Penalty', () {
     test('asker asks the next seat and rotates', () {
       final g = TruthOrDrink(['A', 'B', 'C'], random: Random(1));
       final t1 = g.deal();
       expect([t1.asker, t1.answerer], ['A', 'B']);
-      g.drank();
+      g.penalized();
       final t2 = g.deal();
       expect([t2.asker, t2.answerer], ['B', 'C']);
       g.answered();
       final t3 = g.deal();
       expect([t3.asker, t3.answerer], ['C', 'A']);
-      expect(g.drinks, {'B': 1});
+      expect(g.penalties, {'B': 1});
       expect(g.answers, {'C': 1});
     });
     test('works with no players', () {

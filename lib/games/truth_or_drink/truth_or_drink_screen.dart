@@ -27,8 +27,8 @@ class _TruthOrDrinkScreenState extends State<TruthOrDrinkScreen> {
         _game.answered();
         _verdict = 'Truth told. Respect.';
       } else {
-        _game.drank();
-        _verdict = '${_turn.answerer ?? 'They'} chose to drink!';
+        _game.penalized();
+        _verdict = '${_turn.answerer ?? 'They'} took the penalty!';
       }
     });
   }
@@ -38,7 +38,7 @@ class _TruthOrDrinkScreenState extends State<TruthOrDrinkScreen> {
     final pal = context.pal;
     final t = _turn;
     return PixelScaffold(
-      title: 'Truth or Drink',
+      title: 'Truth or Penalty',
       onHelp: () => showHowToPlay(context, 'truth_or_drink'),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
@@ -59,9 +59,9 @@ class _TruthOrDrinkScreenState extends State<TruthOrDrinkScreen> {
               ],
             ]),
           ),
-          if (_game.drinks.isNotEmpty)
+          if (_game.penalties.isNotEmpty)
             Text(
-              'Drinks so far: ${_game.drinks.entries.map((e) => '${e.key} ${e.value}').join(', ')}',
+              'Penalties so far: ${_game.penalties.entries.map((e) => '${e.key} ${e.value}').join(', ')}',
               textAlign: TextAlign.center,
               style: PixelFonts.body(pal.textDim, size: 20),
             ),
@@ -69,7 +69,7 @@ class _TruthOrDrinkScreenState extends State<TruthOrDrinkScreen> {
           if (_verdict == null)
             Row(children: [
               Expanded(
-                child: PixelButton(label: 'Drink', expand: true, color: pal.primary, onTap: () => _resolve(false)),
+                child: PixelButton(label: 'Penalty', expand: true, color: pal.primary, onTap: () => _resolve(false)),
               ),
               const SizedBox(width: 10),
               Expanded(

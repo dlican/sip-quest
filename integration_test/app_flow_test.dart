@@ -39,9 +39,9 @@ void main() {
   Fx.hardware = !Platform.environment.containsKey('FLUTTER_TEST');
 
   testWidgets('basic flow across games', (tester) async {
-    await tester.pumpWidget(SipQuestApp(state: AppState()));
+    await tester.pumpWidget(PartyPartyApp(state: AppState()));
     await wait(tester, const Duration(seconds: 1));
-    expect(find.text('SIP QUEST'), findsOneWidget);
+    expect(find.text('PARTY PARTY'), findsOneWidget);
 
     // Add players.
     await tap(tester, 'NAMES (OPTIONAL)');
@@ -61,8 +61,8 @@ void main() {
     }
     expect(find.text('STYLE: NEON ARCADE'), findsOneWidget);
 
-    // King's Cup: shuffle, draw a few.
-    await tap(tester, "KING'S CUP", scroll: true);
+    // Four Kings: shuffle, draw a few.
+    await tap(tester, 'FOUR KINGS', scroll: true);
     await wait(tester, const Duration(seconds: 3));
     await tap(tester, 'DRAW FIRST CARD');
     for (var i = 0; i < 4; i++) {
@@ -112,8 +112,8 @@ void main() {
     expect(find.textContaining(RegExp(r'NICE|WRONG')), findsOneWidget);
     await back(tester);
 
-    // Truth or Drink: one turn.
-    await tap(tester, 'TRUTH OR DRINK', scroll: true);
+    // Truth or Penalty: one turn.
+    await tap(tester, 'TRUTH OR PENALTY', scroll: true);
     await tap(tester, 'ANSWER');
     expect(find.text('Truth told. Respect.'), findsOneWidget);
     await back(tester);
@@ -125,6 +125,6 @@ void main() {
     expect(find.text('Spin to find your fate.'), findsNothing);
     await back(tester);
 
-    expect(find.text('SIP QUEST'), findsWidgets);
+    expect(find.text('PARTY PARTY'), findsWidgets);
   });
 }

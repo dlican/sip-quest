@@ -175,7 +175,7 @@ class _MostLikelyScreenState extends State<MostLikelyScreen> {
         ),
         const SizedBox(height: 20),
         Text(
-          'One sip for every finger pointing at you.',
+          'One penalty for every finger pointing at you.',
           textAlign: TextAlign.center,
           style: PixelFonts.body(pal.text),
         ),
@@ -227,7 +227,7 @@ class _MostLikelyScreenState extends State<MostLikelyScreen> {
       children: [
         const SizedBox(height: 8),
         Text(
-          '${_round.winners.join(' & ')} drink${_round.winners.length == 1 ? 's' : ''} $top!',
+          '${_round.winners.join(' & ')} take${_round.winners.length == 1 ? 's' : ''} $top!',
           textAlign: TextAlign.center,
           style: PixelFonts.title(pal.primary, size: 15),
         ),

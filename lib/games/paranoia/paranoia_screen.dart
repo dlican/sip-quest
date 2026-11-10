@@ -48,7 +48,7 @@ const paranoiaPrompts = [
   'Who is most likely to forget everyone\'s birthday?',
   'Who here would you least want to see angry?',
   'Who has the most chaotic dating life?',
-  'Who would be the funniest drunk text?',
+  'Who sends the funniest late-night texts?',
   'Who here would win a reality TV show?',
   'Who is most likely to adopt five cats?',
 ];
@@ -215,7 +215,7 @@ class _ParanoiaScreenState extends State<ParanoiaScreen> with SingleTickerProvid
           textAlign: TextAlign.center, style: PixelFonts.body(pal.text)),
       const Spacer(),
       PixelButton(
-        label: 'Drink to find out',
+        label: 'Take a penalty to find out',
         expand: true,
         onTap: () {
           Fx.pass();

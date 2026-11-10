@@ -7,16 +7,16 @@ class RouletteSlice {
 }
 
 const rouletteSlices = [
-  RouletteSlice('Take 2', 'Take two sips.'),
-  RouletteSlice('Give 3', 'Hand out three sips however you like.'),
-  RouletteSlice('Social', 'Everybody drinks!'),
-  RouletteSlice('Waterfall', 'Everyone drinks; you stop first, then each person in turn.'),
+  RouletteSlice('Take 2', 'Take two penalties.'),
+  RouletteSlice('Give 3', 'Hand out three penalties however you like.'),
+  RouletteSlice('Social', 'Everybody takes a penalty!'),
+  RouletteSlice('Clap Chain', 'Everyone claps; you stop first, then each person in turn.'),
   RouletteSlice('Swap Seats', 'Swap seats with the person across from you.'),
-  RouletteSlice('Accent', 'Talk in an accent until your next turn. Slip up, drink.'),
+  RouletteSlice('Accent', 'Talk in an accent until your next turn. Slip up, penalty.'),
   RouletteSlice('Safe', 'Nothing happens. Lucky you.'),
-  RouletteSlice('Left Drinks', 'The person on your left drinks twice.'),
-  RouletteSlice('Thumb Master', 'Whenever you put your thumb on the table, last to copy drinks.'),
-  RouletteSlice('Finish It', 'Finish your drink. Or take 5 if it is full.'),
+  RouletteSlice('Left Pays', 'The person on your left takes two penalties.'),
+  RouletteSlice('Thumb Master', 'Whenever you put your thumb on the table, last to copy takes a penalty.'),
+  RouletteSlice('Double Down', 'Take a double penalty.'),
 ];
 
 /// Picks a slice and the wheel angle that lands on it.

@@ -53,7 +53,7 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
   Future<void> _writeRule() async {
     final rule = await showPixelDialog<String>(
       context: context,
-      builder: (_) => const _TextPrompt(title: 'New house rule', hint: 'e.g. No saying "drink"'),
+      builder: (_) => const _TextPrompt(title: 'New house rule', hint: 'e.g. No saying "you"'),
     );
     if (rule != null) setState(() => _game.addHouseRule(rule));
   }
@@ -77,7 +77,7 @@ class _KingsCupScreenState extends State<KingsCupScreen> {
     final pal = context.pal;
     final g = _game;
     return PixelScaffold(
-      title: "King's Cup",
+      title: 'Four Kings',
       onHelp: () => showHowToPlay(context, 'kings_cup'),
       actions: [PixelIconButton(icon: Icons.menu_book, tooltip: 'Edit rules', onTap: _editRules)],
       body: Padding(
@@ -180,14 +180,14 @@ class _RulePanel extends StatelessWidget {
           Text('4TH KING!', style: PixelFonts.title(pal.primary, size: 18)),
           const SizedBox(height: 8),
           Text(
-            '${game.currentPlayer ?? 'Whoever drew it'} drinks the whole King\'s Cup. Game over.',
+            '${game.currentPlayer ?? 'Whoever drew it'} takes the whole pot. Game over.',
             style: PixelFonts.body(pal.text),
           ),
         ],
       );
     } else if (c == null) {
       content = Text(
-        shuffling ? 'Shuffling the deck...' : 'Place a cup in the middle. Spread the cards around it. Tap to draw.',
+        shuffling ? 'Shuffling the deck...' : 'Phone in the middle of the table. Tap to draw.',
         style: PixelFonts.body(pal.text),
       );
     } else {

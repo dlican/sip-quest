@@ -26,13 +26,13 @@ const mostLikelyPrompts = [
   'Who is most likely to befriend a stranger at the bar?',
   'Who is most likely to go skydiving?',
   'Who is most likely to stalk an ex online?',
-  'Who is most likely to say "one more drink" five times?',
+  'Who is most likely to say "one more episode" five times?',
   'Who is most likely to get married in Vegas?',
   'Who is most likely to be a secret agent?',
 ];
 
 /// One round of secret voting. Each player votes once for anyone (including
-/// themselves). The most-voted players drink, one sip per vote.
+/// themselves). The most-voted players take one penalty per vote.
 class VoteRound {
   VoteRound(List<String> players) : players = List.unmodifiable(players);
 

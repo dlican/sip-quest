@@ -105,11 +105,11 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
     final ok = g.eliminate(hits);
     setState(() {
       if (!ok) {
-        _lastResult = 'Everyone matched! Everyone drinks, nobody is out.';
+        _lastResult = 'Everyone matched! Everyone takes a penalty, nobody is out.';
       } else if (hits.isEmpty) {
-        _lastResult = 'All unique! The host drinks.';
+        _lastResult = 'All unique! The host takes a penalty.';
       } else {
-        _lastResult = '${hits.join(', ')} ${hits.length == 1 ? 'is' : 'are'} out. Drink!';
+        _lastResult = '${hits.join(', ')} ${hits.length == 1 ? 'is' : 'are'} out. Penalty!';
       }
     });
     if (g.isOver) {
@@ -304,7 +304,7 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
         const SizedBox(height: 18),
         PixelBox(
           child: Text(
-            'Everyone flips their answer. Matched someone or left it blank? You are out. Drink!\n\n'
+            'Everyone flips their answer. Matched someone or left it blank? You are out. Penalty!\n\n'
             'Down to two? They also need to dodge the host\'s answer.',
             style: PixelFonts.body(pal.text, size: 22),
           ),
@@ -388,7 +388,7 @@ class _UniqueAnswerScreenState extends State<UniqueAnswerScreen> {
         Text(g == null ? 'Last one standing is one of a kind!' : 'is one of a kind!',
             textAlign: TextAlign.center, style: PixelFonts.body(pal.text, size: 28)),
         const SizedBox(height: 10),
-        Text(g == null ? 'Winner hands out a sip per player.' : 'Winner hands out ${g.out.length} sips.',
+        Text(g == null ? 'Winner hands out a penalty per player.' : 'Winner hands out ${g.out.length} penalties.',
             style: PixelFonts.body(pal.textDim)),
         const Spacer(),
         PixelButton(label: 'Play again', expand: true, onTap: () => setState(() => _phase = _Phase.setup)),

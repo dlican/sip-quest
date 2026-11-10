@@ -18,15 +18,18 @@ import 'horse_race.dart';
 class _Bet {
   _Bet(this.suit);
   Suit suit;
-  int sips = 2;
-  int shots = 0;
+  int penalties = 2;
+  int dares = 0;
 }
 
-/// "3 sips + 1 shot", or "nothing" for an empty bet.
-String betAmount(int sips, int shots) {
+String penaltyCount(int n) => '$n penalt${n == 1 ? 'y' : 'ies'}';
+String dareCount(int n) => '$n dare${n == 1 ? '' : 's'}';
+
+/// "3 penalties + 1 dare", or "nothing" for an empty bet.
+String betAmount(int penalties, int dares) {
   final parts = [
-    if (sips > 0) '$sips sip${sips == 1 ? '' : 's'}',
-    if (shots > 0) '$shots shot${shots == 1 ? '' : 's'}',
+    if (penalties > 0) penaltyCount(penalties),
+    if (dares > 0) dareCount(dares),
   ];
   return parts.isEmpty ? 'nothing' : parts.join(' + ');
 }
@@ -158,7 +161,7 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
       children: [
         PixelBox(
           child: Text(
-            'Pick a horse and bet sips and shots. If your horse wins, hand out double. If not, drink your bet.',
+            'Pick a horse and bet penalties and dares. If your horse wins, hand out double. If not, take your bet.',
             style: PixelFonts.body(pal.text, size: 22),
           ),
         ),
@@ -185,7 +188,7 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
   }
 
   Widget _stepper(
-    String unit,
+    String Function(int) label,
     int value,
     Color color,
     void Function(int) set,
@@ -205,11 +208,14 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
       children: [
         tap('-', pal.primary, value - 1),
         SizedBox(
-          width: 84,
-          child: Text(
-            '$value $unit${value == 1 ? '' : 's'}',
-            textAlign: TextAlign.center,
-            style: PixelFonts.title(color, size: 11),
+          width: 96,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label(value),
+              maxLines: 1,
+              style: PixelFonts.title(color, size: 11),
+            ),
           ),
         ),
         tap('+', pal.secondary, value + 1),
@@ -231,12 +237,18 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
               spacing: 8,
               runSpacing: 2,
               children: [
-                _stepper('sip', bet.sips, pal.accent, (v) => bet.sips = v, 10),
                 _stepper(
-                  'shot',
-                  bet.shots,
+                  penaltyCount,
+                  bet.penalties,
+                  pal.accent,
+                  (v) => bet.penalties = v,
+                  10,
+                ),
+                _stepper(
+                  dareCount,
+                  bet.dares,
                   pal.primary,
-                  (v) => bet.shots = v,
+                  (v) => bet.dares = v,
                   5,
                 ),
               ],
@@ -549,8 +561,8 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
                       padding: const EdgeInsets.all(10),
                       child: Text(
                         bet.suit == w
-                            ? '$p hands out ${betAmount(bet.sips * 2, bet.shots * 2)}'
-                            : '$p drinks ${betAmount(bet.sips, bet.shots)}',
+                            ? '$p hands out ${betAmount(bet.penalties * 2, bet.dares * 2)}'
+                            : '$p takes ${betAmount(bet.penalties, bet.dares)}',
                         style: PixelFonts.body(
                           bet.suit == w ? pal.secondary : pal.text,
                           size: 26,
@@ -560,7 +572,7 @@ class _HorseRacingScreenState extends State<HorseRacingScreen> {
                   ),
               if (players.isEmpty)
                 Text(
-                  'Winners hand out double their sips and shots. Everyone else drinks theirs.',
+                  'Winners hand out double their bet. Everyone else takes theirs.',
                   textAlign: TextAlign.center,
                   style: PixelFonts.body(pal.text),
                 ),

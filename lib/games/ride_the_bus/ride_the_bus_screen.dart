@@ -74,7 +74,7 @@ class _RideTheBusScreenState extends State<RideTheBusScreen> {
                 if (rider != null) Text(rider, style: PixelFonts.body(pal.secondary, size: 26)),
                 const Spacer(),
                 Text('TRY ${_game.attempts}  ', style: PixelFonts.title(pal.textDim, size: 10)),
-                Text('SIPS ${_game.drinks}', style: PixelFonts.title(pal.primary, size: 10)),
+                Text('PENALTIES ${_game.penalties}', style: PixelFonts.title(pal.primary, size: 10)),
               ],
             ),
             const SizedBox(height: 12),
@@ -101,7 +101,7 @@ class _RideTheBusScreenState extends State<RideTheBusScreen> {
                 builder: (context, box) => Center(
                   child: _last == null
                       ? Text(
-                          'Four right in a row gets you off the bus.\nMiss one: drink, and start over.',
+                          'Four right in a row gets you off the bus.\nMiss one: penalty, and start over.',
                           textAlign: TextAlign.center,
                           style: PixelFonts.body(pal.text),
                         )
@@ -133,7 +133,7 @@ class _RideTheBusScreenState extends State<RideTheBusScreen> {
             ),
             if (_game.finished) ...[
               Text(
-                'Done in ${_game.attempts} ${_game.attempts == 1 ? 'try' : 'tries'}, ${_game.drinks} sips.',
+                'Done in ${_game.attempts} ${_game.attempts == 1 ? 'try' : 'tries'}, ${_game.penalties} penalties.',
                 textAlign: TextAlign.center,
                 style: PixelFonts.body(pal.accent),
               ),

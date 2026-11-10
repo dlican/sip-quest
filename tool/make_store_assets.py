@@ -1,13 +1,13 @@
 """Generates the Google Play store icon (512x512) and feature graphic (1024x500).
 
 Run from the repo root:  python tool/make_store_assets.py   (needs Pillow)
-Output goes to docs/store/. Uses the same pixel mug as tool/make_icon.py.
+Output goes to docs/store/. Uses the same pixel die as tool/make_icon.py.
 """
 import os
 import random
 from PIL import Image, ImageDraw
 
-from make_icon import BG, COLORS, GLOW, MUG
+from make_icon import BG, COLORS, GLOW, DIE
 
 CYAN = (5, 217, 232)
 PURPLE = (60, 20, 110)
@@ -52,8 +52,8 @@ def draw_text(d, text, x, y, cell, color):
         x += 6 * cell
 
 
-def draw_mug(d, x, y, cell):
-    for ry, row in enumerate(MUG):
+def draw_die(d, x, y, cell):
+    for ry, row in enumerate(DIE):
         for rx, ch in enumerate(row):
             if ch in COLORS:
                 d.rectangle([x + rx * cell, y + ry * cell,
@@ -76,9 +76,9 @@ def play_icon():
     size, cell = 512, 24
     img = Image.new('RGB', (size, size), BG)
     d = ImageDraw.Draw(img)
-    mw, mh = len(MUG[0]) * cell, len(MUG) * cell
+    mw, mh = len(DIE[0]) * cell, len(DIE) * cell
     mx, my = (size - mw) // 2, (size - mh) // 2
-    draw_mug(d, mx, my, cell)
+    draw_die(d, mx, my, cell)
     return img
 
 
@@ -94,9 +94,9 @@ def feature_graphic():
     d.rectangle([f, 2 * f, 2 * f - 1, h - 2 * f - 1], fill=GLOW)
     d.rectangle([w - 2 * f, 2 * f, w - f - 1, h - 2 * f - 1], fill=GLOW)
 
-    mug_cell = 16
-    mw, mh = len(MUG[0]) * mug_cell, len(MUG) * mug_cell
-    title, title_cell = "SIP QUEST", 10
+    die_cell = 14
+    mw, mh = len(DIE[0]) * die_cell, len(DIE) * die_cell
+    title, title_cell = "PARTY PARTY", 8
     tag, tag_cell = "PIXEL PARTY GAMES", 5
     gap = 56
     total = mw + gap + text_width(title, title_cell)
@@ -111,7 +111,7 @@ def feature_graphic():
     sparkles(d, w, h, 8, 70, 7, avoid + [(0, 0, w, 3 * f), (0, h - 3 * f, w, h),
                                       (0, 0, 3 * f, h), (w - 3 * f, 0, w, h)])
 
-    draw_mug(d, mx, my, mug_cell)
+    draw_die(d, mx, my, die_cell)
     # Cyan drop shadow, then pink title.
     draw_text(d, title, tx + title_cell // 2 + 2, ty + title_cell // 2 + 2, title_cell, CYAN)
     draw_text(d, title, tx, ty, title_cell, GLOW)

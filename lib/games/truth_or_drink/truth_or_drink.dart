@@ -13,7 +13,7 @@ const truthOrDrinkQuestions = [
   'What would you do with a million dollars tomorrow?',
   'What is your most irrational fear?',
   'Which person here would you trade lives with?',
-  'What is the worst thing you have ever said while drunk?',
+  'What is the worst thing you have ever said while half asleep?',
   'What is one thing you would change about your last relationship?',
   'Who here do you think has the best style?',
   'What is the most childish thing you still do?',
@@ -43,7 +43,7 @@ class TruthTurn {
 }
 
 /// Seat order: each player asks the person on their left, then passes on.
-/// The answerer either answers honestly or drinks.
+/// The answerer either answers honestly or takes a penalty.
 class TruthOrDrink {
   TruthOrDrink(List<String> players, {Random? random})
       : _turns = TurnOrder(players),
@@ -51,7 +51,7 @@ class TruthOrDrink {
 
   final TurnOrder _turns;
   final ShuffledQueue<String> _questions;
-  final Map<String, int> drinks = {};
+  final Map<String, int> penalties = {};
   final Map<String, int> answers = {};
   TruthTurn? current;
 
@@ -65,8 +65,8 @@ class TruthOrDrink {
     if (a != null) answers[a] = (answers[a] ?? 0) + 1;
   }
 
-  void drank() {
+  void penalized() {
     final a = current?.answerer;
-    if (a != null) drinks[a] = (drinks[a] ?? 0) + 1;
+    if (a != null) penalties[a] = (penalties[a] ?? 0) + 1;
   }
 }

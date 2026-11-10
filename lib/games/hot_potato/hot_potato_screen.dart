@@ -111,7 +111,7 @@ class _HotPotatoScreenState extends State<HotPotatoScreen> {
                 ),
               ],
             _Phase.boom => [
-                Text('Whoever is holding the phone drinks!',
+                Text('Whoever is holding the phone takes a penalty!',
                     textAlign: TextAlign.center, style: PixelFonts.body(pal.text, size: 28)),
                 const SizedBox(height: 14),
                 PixelButton(

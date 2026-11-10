@@ -33,8 +33,8 @@ class GameMode {
 final List<GameMode> gameModes = [
   GameMode(
     id: 'kings_cup',
-    title: "King's Cup",
-    tagline: 'Draw a card, obey the rule. Fourth king drinks the cup.',
+    title: 'Four Kings',
+    tagline: 'Draw a card, obey the rule. Fourth king takes the pot.',
     icon: Sprites.crown,
     builder: (_) => const KingsCupScreen(),
   ),
@@ -62,7 +62,7 @@ final List<GameMode> gameModes = [
   GameMode(
     id: 'horse_racing',
     title: 'Horse Racing',
-    tagline: 'Bet sips and shots on a suit. Watch the aces race.',
+    tagline: 'Bet penalties and dares on a suit. Watch the aces race.',
     icon: Sprites.horse,
     builder: (_) => const HorseRacingScreen(),
   ),
@@ -83,7 +83,7 @@ final List<GameMode> gameModes = [
   GameMode(
     id: 'most_likely',
     title: 'Most Likely To',
-    tagline: 'Secret votes. Most votes drinks.',
+    tagline: 'Secret votes. Most votes takes the penalty.',
     icon: Sprites.ballot,
     builder: (_) => const MostLikelyScreen(),
   ),
@@ -96,8 +96,8 @@ final List<GameMode> gameModes = [
   ),
   GameMode(
     id: 'truth_or_drink',
-    title: 'Truth or Drink',
-    tagline: 'Answer honestly, or drink.',
+    title: 'Truth or Penalty',
+    tagline: 'Answer honestly, or take a penalty.',
     icon: Sprites.lips,
     builder: (_) => const TruthOrDrinkScreen(),
   ),

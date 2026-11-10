@@ -9,7 +9,7 @@
   "categories": [
     {
       "id": "food",
-      "name": "Food & Drink",
+      "name": "Food",
       "emoji": "🍔"
     },
     {
@@ -210,13 +210,13 @@
       "id": "food_m01",
       "category": "food",
       "difficulty": "medium",
-      "text": "Name a cocktail"
+      "text": "Name a smoothie or milkshake flavor"
     },
     {
       "id": "food_m02",
       "category": "food",
       "difficulty": "medium",
-      "text": "Name a beer brand"
+      "text": "Name a soda brand"
     },
     {
       "id": "food_m03",
@@ -342,7 +342,7 @@
       "id": "food_m23",
       "category": "food",
       "difficulty": "medium",
-      "text": "Name a liquor or spirit"
+      "text": "Name a type of tea"
     },
     {
       "id": "food_m24",
@@ -366,7 +366,7 @@
       "id": "food_h01",
       "category": "food",
       "difficulty": "hard",
-      "text": "Name a wine grape variety"
+      "text": "Name a type of apple"
     },
     {
       "id": "food_h02",
@@ -420,19 +420,19 @@
       "id": "food_h10",
       "category": "food",
       "difficulty": "hard",
-      "text": "Name a cocktail that contains gin"
+      "text": "Name a dish that contains basil"
     },
     {
       "id": "food_h11",
       "category": "food",
       "difficulty": "hard",
-      "text": "Name a cocktail that contains rum"
+      "text": "Name a dessert that contains coconut"
     },
     {
       "id": "food_h12",
       "category": "food",
       "difficulty": "hard",
-      "text": "Name a brand of whiskey"
+      "text": "Name a brand of hot sauce"
     },
     {
       "id": "food_h13",
@@ -2322,7 +2322,7 @@
       "id": "brands_h04",
       "category": "brands",
       "difficulty": "hard",
-      "text": "Name a beer that isn't American"
+      "text": "Name a car brand that isn't American"
     },
     {
       "id": "brands_h05",
@@ -2352,7 +2352,7 @@
       "id": "brands_h09",
       "category": "brands",
       "difficulty": "hard",
-      "text": "Name a vodka brand"
+      "text": "Name a sneaker brand"
     },
     {
       "id": "brands_h10",
@@ -2778,7 +2778,7 @@
       "id": "words_m04",
       "category": "words",
       "difficulty": "medium",
-      "text": "Name a word that means 'drunk'"
+      "text": "Name a word that means 'tired'"
     },
     {
       "id": "words_m05",
@@ -3084,7 +3084,7 @@
       "id": "party_e01",
       "category": "party",
       "difficulty": "easy",
-      "text": "Name a drinking game"
+      "text": "Name a party game"
     },
     {
       "id": "party_e02",
@@ -3096,13 +3096,13 @@
       "id": "party_e03",
       "category": "party",
       "difficulty": "easy",
-      "text": "Name a hangover cure"
+      "text": "Name a breakfast food"
     },
     {
       "id": "party_e04",
       "category": "party",
       "difficulty": "easy",
-      "text": "Name a bar snack"
+      "text": "Name a party snack"
     },
     {
       "id": "party_e05",
@@ -3114,7 +3114,7 @@
       "id": "party_e06",
       "category": "party",
       "difficulty": "easy",
-      "text": "Name a shot people take"
+      "text": "Name a board game"
     },
     {
       "id": "party_e07",
@@ -3126,7 +3126,7 @@
       "id": "party_m01",
       "category": "party",
       "difficulty": "medium",
-      "text": "Name a hangover symptom"
+      "text": "Name something that ruins a road trip"
     },
     {
       "id": "party_m02",
@@ -3168,13 +3168,13 @@
       "id": "party_m08",
       "category": "party",
       "difficulty": "medium",
-      "text": "Name a type of glass or cup"
+      "text": "Name a party decoration"
     },
     {
       "id": "party_m09",
       "category": "party",
       "difficulty": "medium",
-      "text": "Name a mixer for alcohol"
+      "text": "Name a pizza topping people argue about"
     },
     {
       "id": "party_m10",
@@ -3186,37 +3186,37 @@
       "id": "party_h01",
       "category": "party",
       "difficulty": "hard",
-      "text": "Name a beer style (like IPA)"
+      "text": "Name a style of dance (like salsa)"
     },
     {
       "id": "party_h02",
       "category": "party",
       "difficulty": "hard",
-      "text": "Name a tequila or mezcal brand"
+      "text": "Name a famous DJ"
     },
     {
       "id": "party_h03",
       "category": "party",
       "difficulty": "hard",
-      "text": "Name a famous bar or nightclub"
+      "text": "Name a famous concert venue or stadium"
     },
     {
       "id": "party_h04",
       "category": "party",
       "difficulty": "hard",
-      "text": "Name a cocktail with fruit in the name"
+      "text": "Name a candy with fruit in the name"
     },
     {
       "id": "party_h05",
       "category": "party",
       "difficulty": "hard",
-      "text": "Name a wine region"
+      "text": "Name a famous theme park"
     },
     {
       "id": "party_h06",
       "category": "party",
       "difficulty": "hard",
-      "text": "Name a drink named after a person"
+      "text": "Name a food named after a person"
     },
     {
       "id": "party_h07",
@@ -3240,7 +3240,7 @@
       "id": "party_h10",
       "category": "party",
       "difficulty": "hard",
-      "text": "Name a brewery"
+      "text": "Name a karaoke classic from before 1990"
     },
     {
       "id": "random_e01",

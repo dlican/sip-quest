@@ -143,8 +143,8 @@ Widget kingsCupDemo(BuildContext context, double t) {
   final flip = seg(t, 0.25, 0.45);
   return Stack(
     children: [
-      at(36, 52, PixelSprite(Sprites.mug, pixel: 5)),
-      at(28, 112, const DemoCaption('CUP')),
+      at(36, 52, PixelSprite(Sprites.crownEmpty, pixel: 5)),
+      at(28, 112, const DemoCaption('POT')),
       at(118, 44, const CardBack(width: 44)),
       at(115, 41, const CardBack(width: 44)),
       at(115 + 90 * fly, 41 - 10 * sin(fly * pi), flipCard(flip, const PlayingCard(13, Suit.hearts), 44)),
@@ -152,7 +152,7 @@ Widget kingsCupDemo(BuildContext context, double t) {
       at(
         0,
         136,
-        SizedBox(width: 280, child: fade(seg(t, 0.5, 0.6), DemoCaption('KING: POUR SOME IN THE CUP', color: pal.text))),
+        SizedBox(width: 280, child: fade(seg(t, 0.5, 0.6), DemoCaption('KING: ADD A PENALTY TO THE POT', color: pal.text))),
       ),
     ],
   );
@@ -289,7 +289,7 @@ Widget horseRacingDemo(BuildContext context, double t) {
       ],
       at(254, 0, PixelSprite(Sprites.flag, pixel: 4)),
       at(220, 140, fade(seg(t, 0.82, 0.88), DemoCaption('SPADES WIN', color: pal.accent))),
-      at(8, 140, DemoCaption('BET SIPS ON A SUIT', color: pal.textDim)),
+      at(8, 140, DemoCaption('BET ON A SUIT', color: pal.textDim)),
     ],
   );
 }
@@ -345,7 +345,7 @@ Widget hotPotatoDemo(BuildContext context, double t) {
         SizedBox(
           width: 280,
           child: DemoCaption(
-            exploded ? 'BOOM! YOU DRINK' : 'SAY ONE, PASS IT',
+            exploded ? 'BOOM! PENALTY' : 'SAY ONE, PASS IT',
             color: exploded ? pal.primary : pal.text,
           ),
         ),
@@ -389,7 +389,7 @@ Widget mostLikelyDemo(BuildContext context, double t) {
       ),
       at(66, 112, fade(point, Text('>>', style: PixelFonts.title(pal.text, size: 12)))),
       at(184, 112, fade(point, Text('<<', style: PixelFonts.title(pal.text, size: 12)))),
-      at(160, 66, popScale(seg(t, 0.7, 0.78), PixelSprite(Sprites.mug, pixel: 3))),
+      at(160, 66, popScale(seg(t, 0.7, 0.78), PixelSprite(Sprites.boom, pixel: 3))),
     ],
   );
 }
@@ -401,7 +401,7 @@ Widget rouletteDemo(BuildContext context, double t) {
     children: [
       at(90, 20, Transform.rotate(angle: spin * pi * 8, child: PixelSprite(Sprites.wheel, pixel: 9))),
       at(131, 8, Text('v', style: PixelFonts.title(pal.text, size: 14))),
-      at(20, 60, fade(seg(t, 0.72, 0.8), popScale(seg(t, 0.72, 0.8), DemoBubble('DRINK 2', color: pal.primary)))),
+      at(20, 60, fade(seg(t, 0.72, 0.8), popScale(seg(t, 0.72, 0.8), DemoBubble('TAKE 2', color: pal.primary)))),
       at(200, 60, fade(seg(t, 0.72, 0.8), popScale(seg(t, 0.72, 0.8), const DemoBubble('LEFT')))),
     ],
   );
@@ -409,7 +409,7 @@ Widget rouletteDemo(BuildContext context, double t) {
 
 Widget truthOrDrinkDemo(BuildContext context, double t) {
   final pal = context.pal;
-  final drink = seg(t, 0.45, 0.6) - seg(t, 0.8, 0.9);
+  final penalty = seg(t, 0.45, 0.6) - seg(t, 0.8, 0.9);
   return Stack(
     children: [
       at(
@@ -440,10 +440,10 @@ Widget truthOrDrinkDemo(BuildContext context, double t) {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           color: t >= 0.35 ? pal.primary : pal.panel,
-          child: Text('DRINK', style: PixelFonts.title(pal.bg, size: 8)),
+          child: Text('PENALTY', style: PixelFonts.title(pal.bg, size: 8)),
         ),
       ),
-      at(200, 40, Transform.rotate(angle: -0.9 * drink, child: PixelSprite(Sprites.mug, pixel: 5))),
+      at(200, 40, Transform.rotate(angle: -0.9 * penalty, child: PixelSprite(Sprites.boom, pixel: 5))),
     ],
   );
 }

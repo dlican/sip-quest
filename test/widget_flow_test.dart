@@ -23,7 +23,7 @@ Future<void> pumpApp(
   for (final n in names) {
     state.addPlayer(n);
   }
-  await tester.pumpWidget(SipQuestApp(state: state, open: open));
+  await tester.pumpWidget(PartyPartyApp(state: state, open: open));
   await tester.pump(const Duration(milliseconds: 500));
 }
 
@@ -44,7 +44,7 @@ Future<void> unmount(WidgetTester tester) async {
 void main() {
   testWidgets('home lists every game and cycles styles', (tester) async {
     await pumpApp(tester);
-    expect(find.text('SIP QUEST'), findsOneWidget);
+    expect(find.text('PARTY PARTY'), findsOneWidget);
     for (final g in gameModes) {
       await tester.scrollUntilVisible(find.text(g.title.toUpperCase()), 200);
       expect(find.text(g.title.toUpperCase()), findsOneWidget);
@@ -101,7 +101,7 @@ void main() {
     expect(find.text('Priya'), findsNothing);
   });
 
-  testWidgets("King's Cup: shuffle, draw, rule shown, turns rotate", (
+  testWidgets("Four Kings: shuffle, draw, rule shown, turns rotate", (
     tester,
   ) async {
     await pumpApp(tester, open: 'kings_cup');
@@ -117,12 +117,12 @@ void main() {
     await unmount(tester);
   });
 
-  testWidgets("King's Cup: rules editor opens", (tester) async {
+  testWidgets("Four Kings: rules editor opens", (tester) async {
     await pumpApp(tester, open: 'kings_cup');
     await tester.pump(const Duration(seconds: 3));
     await tester.tap(find.byIcon(Icons.menu_book));
     await tester.pumpAndSettle();
-    expect(find.text('WATERFALL'), findsOneWidget);
+    expect(find.text('CLAP CHAIN'), findsOneWidget);
     await unmount(tester);
   });
 
@@ -170,7 +170,7 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
     expect(find.text("TIME'S UP!"), findsOneWidget);
     expect(find.text('Deez got 1'), findsOneWidget);
-    expect(find.text('Deez drinks 1 for passing.'), findsOneWidget);
+    expect(find.text('Deez takes 1 for passing.'), findsOneWidget);
     await unmount(tester);
   });
 
@@ -196,13 +196,13 @@ void main() {
   });
 
   testWidgets(
-    'Horse Racing: bets take sips and shots, race lays out in landscape',
+    'Horse Racing: bets take penalties and dares, race lays out in landscape',
     (tester) async {
       await pumpApp(tester, open: 'horse_racing');
-      expect(find.text('2 sips'), findsNWidgets(players.length));
-      await tester.tap(find.text('+').at(1)); // first player's shots
+      expect(find.text('2 penalties'), findsNWidgets(players.length));
+      await tester.tap(find.text('+').at(1)); // first player's dares
       await tester.pump();
-      expect(find.text('1 shot'), findsOneWidget);
+      expect(find.text('1 dare'), findsOneWidget);
       await tapText(tester, 'START RACE');
       // Phone turned sideways.
       tester.view.physicalSize = const Size(2400, 1080);
@@ -243,7 +243,7 @@ void main() {
       await tapText(tester, 'VOTE IN SECRET');
       await tapText(tester, 'Sam');
     }
-    expect(find.text('Sam drinks 4!'), findsOneWidget);
+    expect(find.text('Sam takes 4!'), findsOneWidget);
     await unmount(tester);
   });
 
@@ -256,11 +256,11 @@ void main() {
     await unmount(tester);
   });
 
-  testWidgets('Truth or Drink: drink then next', (tester) async {
+  testWidgets('Truth or Penalty: penalty then next', (tester) async {
     await pumpApp(tester, open: 'truth_or_drink');
     expect(find.text('Deez asks Sam:'), findsOneWidget);
-    await tapText(tester, 'DRINK');
-    expect(find.text('Sam chose to drink!'), findsOneWidget);
+    await tapText(tester, 'PENALTY');
+    expect(find.text('Sam took the penalty!'), findsOneWidget);
     await tapText(tester, 'NEXT');
     expect(find.text('Sam asks Alex:'), findsOneWidget);
     await unmount(tester);
@@ -283,7 +283,7 @@ void main() {
     await tapText(tester, 'SHOW ME');
     await tapText(tester, 'I SAID A NAME');
     expect(find.text('WHOEVER WAS NAMED'), findsOneWidget);
-    await tapText(tester, 'DRINK TO FIND OUT');
+    await tapText(tester, 'TAKE A PENALTY TO FIND OUT');
     expect(find.text('THE QUESTION WAS'), findsOneWidget);
     await unmount(tester);
   });
@@ -351,7 +351,7 @@ void main() {
     tester.view.physicalSize = const Size(1080, 2340);
     tester.view.devicePixelRatio = 2.75;
     addTearDown(tester.view.reset);
-    await tester.pumpWidget(SipQuestApp(state: state));
+    await tester.pumpWidget(PartyPartyApp(state: state));
     await tester.pump(const Duration(milliseconds: 500));
     await tester.tap(find.byIcon(Icons.settings));
     await tester.pumpAndSettle();
@@ -370,12 +370,12 @@ void main() {
     expect(find.text('Volume'), findsOneWidget);
   });
 
-  testWidgets("King's Cup: write-a-rule dialog animates open and closed", (tester) async {
+  testWidgets("Four Kings: write-a-rule dialog animates open and closed", (tester) async {
     await pumpApp(tester, open: 'kings_cup');
     await tester.pump(const Duration(seconds: 3));
     await tester.tap(find.byIcon(Icons.menu_book));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('WATERFALL'));
+    await tester.tap(find.text('CLAP CHAIN'));
     await tester.pump(const Duration(milliseconds: 100));
     // Mid-transition: dialog is on its way in.
     expect(find.text('RULE NAME'), findsOneWidget);
@@ -384,7 +384,7 @@ void main() {
     await tester.tap(find.text('SAVE').last);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
-    await tester.enterText(find.byType(TextField).last, 'Everyone drinks');
+    await tester.enterText(find.byType(TextField).last, 'Everyone claps');
     await tester.tap(find.text('SAVE').last);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));

@@ -472,10 +472,10 @@ class _CharadesScreenState extends State<CharadesScreen> {
               Text(
                 _passed == 0
                     ? 'No passes. Clean round!'
-                    : '$who drink${_player == null ? '' : 's'} $_passed for passing.',
+                    : '$who take${_player == null ? '' : 's'} $_passed for passing.',
                 style: PixelFonts.body(pal.text),
               ),
-              if (_got >= 5) Text('5+ correct: hand out $_got sips!', style: PixelFonts.body(pal.secondary)),
+              if (_got >= 5) Text('5+ correct: hand out $_got penalties!', style: PixelFonts.body(pal.secondary)),
             ],
           ),
         ),

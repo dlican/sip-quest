@@ -3,11 +3,12 @@ import 'dart:math';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sip_quest/games/cards.dart';
 import 'package:sip_quest/games/common.dart';
+import 'package:sip_quest/games/dial/dial.dart';
+import 'package:sip_quest/games/fishbowl/fishbowl.dart';
 import 'package:sip_quest/games/hot_potato/hot_potato.dart';
-import 'package:sip_quest/games/most_likely/most_likely.dart';
+import 'package:sip_quest/games/imposter/imposter.dart';
+import 'package:sip_quest/games/mafia/mafia.dart';
 import 'package:sip_quest/games/ride_the_bus/ride_the_bus.dart';
-import 'package:sip_quest/games/roulette/roulette.dart';
-import 'package:sip_quest/games/truth_or_drink/truth_or_drink.dart';
 
 PlayingCard c(int rank, [Suit suit = Suit.spades]) => PlayingCard(rank, suit);
 
@@ -125,52 +126,126 @@ void main() {
     });
   });
 
-  group('Most Likely To', () {
-    test('tallies votes and reports ties', () {
-      final v = VoteRound(['A', 'B', 'C', 'D']);
-      expect(v.nextVoter, 'A');
-      v.cast('A', 'B');
-      v.cast('B', 'C');
-      v.cast('C', 'B');
-      expect(v.complete, isFalse);
-      v.cast('D', 'C');
-      expect(v.complete, isTrue);
-      expect(v.tally, {'A': 0, 'B': 2, 'C': 2, 'D': 0});
-      expect(v.winners, ['B', 'C']);
-      expect(() => v.cast('A', 'C'), throwsStateError);
-      expect(() => v.cast('Z', 'C'), throwsArgumentError);
+  group('Fishbowl', () {
+    test('teams alternate seats', () {
+      final t = fishbowlTeams(['A', 'B', 'C', 'D', 'E']);
+      expect(t[0].players, ['A', 'C', 'E']);
+      expect(t[1].players, ['B', 'D']);
+      expect(fishbowlTeams([]).every((t) => t.clueGiver == null), isTrue);
+    });
+
+    test('three rounds reuse every slip and the clearing team keeps going', () {
+      final g = Fishbowl(slips: ['a', 'b', 'c'], teams: fishbowlTeams(['A', 'B', 'C', 'D']), random: Random(2));
+      for (final round in FishbowlRound.values) {
+        expect(g.round, round);
+        expect(g.slipsLeft, 3);
+        final seen = <String>{};
+        while (!g.roundOver) {
+          seen.add(g.draw());
+          g.gotIt();
+        }
+        expect(seen, {'a', 'b', 'c'});
+        if (!g.isLastRound) g.nextRound();
+      }
+      expect(g.team.name, 'Team A');
+      expect(g.teams[0].score, 9);
+      expect(g.winner, g.teams[0]);
+      expect(() => g.nextRound(), throwsStateError);
+    });
+
+    test('skip returns the slip and draws a different one', () {
+      final g = Fishbowl(slips: ['a', 'b'], teams: fishbowlTeams([]), random: Random(1));
+      final first = g.draw();
+      expect(g.skip(), isNot(first));
+      expect(g.slipsLeft, 2);
+    });
+
+    test('ending a turn puts the slip back and rotates team and clue giver', () {
+      final g = Fishbowl(slips: ['a', 'b'], teams: fishbowlTeams(['A', 'B', 'C', 'D']), random: Random(1));
+      expect(g.team.clueGiver, 'A');
+      g.draw();
+      g.endTurn();
+      expect(g.slipsLeft, 2);
+      expect(g.team.name, 'Team B');
+      expect(g.team.clueGiver, 'B');
+      g.endTurn();
+      expect(g.team.clueGiver, 'C');
+      expect(g.winner, isNull);
     });
   });
 
-  group('Roulette', () {
-    test('spin lands centred on the chosen slice', () {
-      final r = Roulette(random: Random(3));
-      for (var i = 0; i < 200; i++) {
-        final s = r.spin();
-        expect(r.sliceAt(s.turns), s.index);
-        expect(s.turns, greaterThanOrEqualTo(4));
+  group('Imposter', () {
+    test('right number of imposters, and one never starts', () {
+      for (var seed = 0; seed < 100; seed++) {
+        final r = ImposterRound(playerCount: 7, imposterCount: 2, random: Random(seed));
+        expect(r.imposters.length, 2);
+        expect(r.isImposter(r.starter), isFalse);
+        expect(imposterWords[r.category], contains(r.word));
       }
     });
+    test('a chosen category is respected', () {
+      final r = ImposterRound(playerCount: 4, category: 'Animals', random: Random(1));
+      expect(imposterWords['Animals'], contains(r.word));
+    });
   });
 
-  group('Truth or Penalty', () {
-    test('asker asks the next seat and rotates', () {
-      final g = TruthOrDrink(['A', 'B', 'C'], random: Random(1));
-      final t1 = g.deal();
-      expect([t1.asker, t1.answerer], ['A', 'B']);
-      g.penalized();
-      final t2 = g.deal();
-      expect([t2.asker, t2.answerer], ['B', 'C']);
-      g.answered();
-      final t3 = g.deal();
-      expect([t3.asker, t3.answerer], ['C', 'A']);
-      expect(g.penalties, {'B': 1});
-      expect(g.answers, {'C': 1});
+  group('Dial It In', () {
+    test('scores by distance from the target', () {
+      final r = DialRound(spectrum: spectrums.first, random: Random(4));
+      expect(r.target, inInclusiveRange(8, 92));
+      expect(r.score(r.target.toDouble()), 4);
+      expect(r.score(r.target + 7.0), 3);
+      expect(r.score(r.target - 15.0), 2);
+      expect(r.score(r.target + 17.0), 0);
     });
-    test('works with no players', () {
-      final t = TruthOrDrink([]).deal();
-      expect(t.asker, isNull);
-      expect(t.question, isNotEmpty);
+  });
+
+  group('Mafia', () {
+    const names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+
+    test('deals the right roles', () {
+      final g = MafiaGame(names, random: Random(1));
+      final counts = <MafiaRole, int>{};
+      for (final r in g.roles.values) {
+        counts[r] = (counts[r] ?? 0) + 1;
+      }
+      expect(counts, {MafiaRole.mafia: 2, MafiaRole.doctor: 1, MafiaRole.detective: 1, MafiaRole.villager: 4});
+      expect(MafiaGame(names.take(5).toList(), random: Random(1)).roles.values, isNot(contains(MafiaRole.detective)));
+      expect(() => MafiaGame(['A', 'B', 'C', 'D']), throwsArgumentError);
+    });
+
+    test('night kills unless the doctor saves; detective learns the truth', () {
+      final g = MafiaGame(names, random: Random(3));
+      String who(MafiaRole r) => g.roles.entries.firstWhere((e) => e.value == r).key;
+      final villager = who(MafiaRole.villager);
+      for (final m in g.mafia) {
+        g.act(m, villager);
+      }
+      g.act(who(MafiaRole.doctor), villager);
+      expect(g.act(who(MafiaRole.detective), g.mafia.first), isTrue);
+      expect(g.resolveNight(), isNull);
+      expect(g.alive.length, 8);
+      for (final m in g.mafia) {
+        g.act(m, villager);
+      }
+      expect(g.resolveNight(), villager);
+      expect(g.alive.contains(villager), isFalse);
+      expect(g.night, 3);
+    });
+
+    test('town wins with no mafia left; mafia win at parity', () {
+      final g = MafiaGame(names.take(5).toList(), random: Random(2));
+      expect(g.winner, isNull);
+      g.voteOut(g.mafia.single);
+      expect(g.winner, MafiaSide.town);
+
+      final h = MafiaGame(names.take(5).toList(), random: Random(2));
+      final town = [for (final p in h.players) if (h.roles[p] != MafiaRole.mafia) p];
+      h.voteOut(town[0]);
+      h.voteOut(town[1]);
+      expect(h.winner, isNull);
+      h.voteOut(town[2]);
+      expect(h.winner, MafiaSide.mafia);
     });
   });
 }

@@ -210,12 +210,18 @@ class PixelScaffold extends StatelessWidget {
     this.actions = const [],
     this.showBack = true,
     this.onHelp,
+    this.fullBleed = false,
   });
 
   final String title;
   final Widget body;
   final List<Widget> actions;
   final bool showBack;
+
+  /// The body fills the whole screen with no title bar, so it scrolls under
+  /// the status bar and home indicator. The body pads itself for the safe
+  /// area (see [MediaQuery.paddingOf]) and draws its own buttons.
+  final bool fullBleed;
 
   /// Shows a "?" button that opens the game's how-to-play sheet.
   final VoidCallback? onHelp;
@@ -228,6 +234,9 @@ class PixelScaffold extends StatelessWidget {
       body: Stack(
         children: [
           Positioned.fill(child: CustomPaint(painter: _GridPainter(pal))),
+          if (fullBleed)
+            Positioned.fill(child: body)
+          else
           SafeArea(
             child: Column(
               children: [

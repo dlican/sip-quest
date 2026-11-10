@@ -114,6 +114,57 @@ class Sprites {
     '...SSSSSSSSSS.',
   ]);
 
+  static const fishbowl = Sprite([
+    '..TTTTTTTTT..',
+    '...T.....T...',
+    '..T.W..W..T..',
+    '.T..W.W.W..T.',
+    'TSSSSSSSSSWST',
+    'TSPSSPPPSSSST',
+    'TSSPPPPBPSSST',
+    'TSPSSPPPSSSST',
+    '.TSSSSSSSSST.',
+    '..TSSSSSSST..',
+    '...TTTTTTT...',
+    '..TTTTTTTTT..',
+  ]);
+
+  static const spy = Sprite([
+    '...SSSSS...',
+    '...SSSSS...',
+    '..PPPPPPP..',
+    'SSSSSSSSSSS',
+    '..WWWWWWW..',
+    '.KKKKWKKKK.',
+    '.KKKKWKKKK.',
+    '..WWWWWWW..',
+    '..WWKKKWW..',
+    '...WWWWW...',
+  ]);
+
+  static const dial = Sprite([
+    '....TTTTT....',
+    '..TTSSAPPTT..',
+    '.TSS..A..PPT.',
+    'TS....A....PT',
+    'T.....A.....T',
+    'T....TTT....T',
+    'TTTTTTTTTTTTT',
+  ]);
+
+  static const moon = Sprite([
+    '...AAAA...P',
+    '.AAAA.....',
+    '.AAA....P.',
+    'AAAA......',
+    'AAAA......',
+    'AAAA......',
+    'AAAA......',
+    '.AAAA.....',
+    '.AAAAAA...',
+    '...AAAA...',
+  ]);
+
   static const question = Sprite([
     '..SSSSS..',
     '.SS...SS.',
@@ -258,42 +309,6 @@ class Sprites {
     '.KKKKKKKK.',
     '..KKKKKK..',
     '...KKKK...',
-  ]);
-
-  static const ballot = Sprite([
-    '...TTTTT...',
-    '...TWWWT...',
-    '...TWSWT...',
-    'TTTTWWWTTTT',
-    'TPPPPPPPPPT',
-    'TPPKKKKKPPT',
-    'TPPPPPPPPPT',
-    'TPPPPPPPPPT',
-    'TTTTTTTTTTT',
-  ]);
-
-  static const wheel = Sprite([
-    '....TTT....',
-    '..TTPPATT..',
-    '.TPPPPAAAT.',
-    '.TSPPPAAAT.',
-    'TSSSPKASSST',
-    'TSSSSKSSSST',
-    'TAAASSPPPST',
-    '.TAAAPPPPT.',
-    '.TAAAPPPPT.',
-    '..TTAPPTT..',
-    '....TTT....',
-  ]);
-
-  static const lips = Sprite([
-    '..PP...PP..',
-    '.PPPP.PPPP.',
-    'PPPPPPPPPPP',
-    'PTTTTTTTTTP',
-    'PPPPPPPPPPP',
-    '.PPPPPPPPP.',
-    '...PPPPP...',
   ]);
 
   static const boom = Sprite([

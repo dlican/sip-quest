@@ -152,11 +152,6 @@ class Fx {
     _buzz(HapticFeedback.mediumImpact);
   }
 
-  static void spinTick() {
-    play(Sfx.spin);
-    _buzz(HapticFeedback.selectionClick);
-  }
-
   static void start() {
     play(Sfx.start);
     _buzz(HapticFeedback.mediumImpact);

@@ -235,6 +235,91 @@ Widget charadesDemo(BuildContext context, double t) {
   );
 }
 
+Widget imposterDemo(BuildContext context, double t) {
+  final pal = context.pal;
+  final c = _crowd(pal);
+  const xs = [30.0, 124.0, 218.0];
+  const words = ['PIZZA', '???', 'PIZZA'];
+  final caught = t > 0.7;
+  return Stack(
+    children: [
+      for (var i = 0; i < 3; i++) at(xs[i], 100, DemoPerson(color: c[i])),
+      for (var i = 0; i < 3; i++)
+        at(xs[i] - 6, 56, popScale(seg(t, 0.1 + i * 0.15, 0.18 + i * 0.15) - seg(t, 0.62, 0.68), DemoBubble(words[i]))),
+      if (caught) ...[
+        at(xs[0] + 40, 66, fade(seg(t, 0.7, 0.76), Text('->', style: PixelFonts.title(pal.primary, size: 12)))),
+        at(xs[2] - 26, 66, fade(seg(t, 0.7, 0.76), Text('<-', style: PixelFonts.title(pal.primary, size: 12)))),
+        at(xs[1] + 2, 56, popScale(seg(t, 0.76, 0.84), DemoBubble('FAKER!', color: pal.primary))),
+      ],
+    ],
+  );
+}
+
+Widget dialDemo(BuildContext context, double t) {
+  final pal = context.pal;
+  const left = 30.0, width = 220.0;
+  final needle = 0.2 + 0.45 * seg(t, 0.25, 0.6);
+  return Stack(
+    children: [
+      at(left, 8, Text('COLD', style: PixelFonts.title(pal.text, size: 8))),
+      at(left + width - 26, 8, Text('HOT', style: PixelFonts.title(pal.text, size: 8))),
+      at(left, 26, Container(width: width, height: 50, color: pal.cardBlack)),
+      at(left + width * 0.55, 26, fade(seg(t, 0.68, 0.74), Container(width: width * 0.2, height: 50, color: pal.secondary))),
+      at(left + width * 0.6, 26, fade(seg(t, 0.68, 0.74), Container(width: width * 0.1, height: 50, color: pal.primary))),
+      at(left + width * needle - 3, 22, Container(width: 6, height: 58, color: pal.text)),
+      at(left + 60, 96, fade(seg(t, 0.05, 0.15), DemoBubble('"SOUP"'))),
+      at(left + 150, 96, popScale(seg(t, 0.76, 0.84), DemoBubble('+3', color: pal.secondary))),
+    ],
+  );
+}
+
+Widget mafiaDemo(BuildContext context, double t) {
+  final pal = context.pal;
+  final c = _crowd(pal);
+  const xs = [30.0, 124.0, 218.0];
+  final night = t < 0.5;
+  return Stack(
+    children: [
+      for (var i = 0; i < 3; i++)
+        if (night || i != 2) at(xs[i], 100, Opacity(opacity: night ? 0.45 : 1, child: DemoPerson(color: c[i]))),
+      if (night) at(124, 18, popScale(seg(t, 0.0, 0.1), PixelSprite(Sprites.moon, pixel: 4))),
+      at(0, 8, SizedBox(width: 280, child: DemoCaption(night ? 'NIGHT: SECRET TAPS' : 'DAY: VOTE!', color: night ? pal.text : pal.accent))),
+      if (!night) at(xs[2] - 4, 112, popScale(seg(t, 0.5, 0.58), DemoBubble('OUT', color: pal.primary))),
+      if (!night) at(xs[0] + 40, 70, fade(seg(t, 0.6, 0.66), Text('->', style: PixelFonts.title(pal.primary, size: 12)))),
+      if (!night) at(xs[1] - 2, 56, popScale(seg(t, 0.66, 0.74), DemoBubble('YOU?', color: pal.primary))),
+    ],
+  );
+}
+
+Widget fishbowlDemo(BuildContext context, double t) {
+  final pal = context.pal;
+  // Three slips drop into the bowl, then the three rounds flash by.
+  const labels = ['1: DESCRIBE IT', '2: ONE WORD', '3: ACT IT OUT'];
+  final round = t < 0.4 ? -1 : ((t - 0.4) / 0.2).floor().clamp(0, 2);
+  return Stack(
+    children: [
+      at(104, 54, PixelSprite(Sprites.fishbowl, pixel: 6)),
+      for (var i = 0; i < 3; i++)
+        if (t < 0.12 * i + 0.3)
+          at(
+            112.0 + i * 18,
+            -10 + 70 * seg(t, 0.12 * i, 0.12 * i + 0.25, Curves.easeIn),
+            Container(width: 14, height: 10, color: pal.cardFace),
+          ),
+      at(
+        0,
+        8,
+        SizedBox(
+          width: 280,
+          child: round < 0
+              ? DemoCaption('EVERYONE ADDS SLIPS', color: pal.text)
+              : popScale(seg(t, 0.4 + round * 0.2, 0.46 + round * 0.2), DemoCaption(labels[round], color: pal.accent)),
+        ),
+      ),
+    ],
+  );
+}
+
 Widget paranoiaDemo(BuildContext context, double t) {
   final pal = context.pal;
   final c = _crowd(pal);
@@ -350,100 +435,6 @@ Widget hotPotatoDemo(BuildContext context, double t) {
           ),
         ),
       ),
-    ],
-  );
-}
-
-Widget mostLikelyDemo(BuildContext context, double t) {
-  final pal = context.pal;
-  final c = _crowd(pal);
-  const xs = [30.0, 124.0, 218.0];
-  final count = t < 0.2
-      ? ''
-      : t < 0.32
-      ? '3'
-      : t < 0.44
-      ? '2'
-      : t < 0.56
-      ? '1'
-      : 'POINT!';
-  final point = seg(t, 0.56, 0.62);
-  return Stack(
-    children: [
-      at(
-        0,
-        4,
-        SizedBox(
-          width: 280,
-          child: Center(child: DemoBubble('MOST LIKELY TO SING?', color: pal.accent, size: 16)),
-        ),
-      ),
-      for (var i = 0; i < 3; i++) at(xs[i], 100, DemoPerson(color: c[i])),
-      at(
-        0,
-        36,
-        SizedBox(
-          width: 280,
-          child: Center(child: Text(count, style: PixelFonts.title(pal.primary, size: 14))),
-        ),
-      ),
-      at(66, 112, fade(point, Text('>>', style: PixelFonts.title(pal.text, size: 12)))),
-      at(184, 112, fade(point, Text('<<', style: PixelFonts.title(pal.text, size: 12)))),
-      at(160, 66, popScale(seg(t, 0.7, 0.78), PixelSprite(Sprites.boom, pixel: 3))),
-    ],
-  );
-}
-
-Widget rouletteDemo(BuildContext context, double t) {
-  final pal = context.pal;
-  final spin = seg(t, 0.0, 0.7, Curves.easeOutCubic);
-  return Stack(
-    children: [
-      at(90, 20, Transform.rotate(angle: spin * pi * 8, child: PixelSprite(Sprites.wheel, pixel: 9))),
-      at(131, 8, Text('v', style: PixelFonts.title(pal.text, size: 14))),
-      at(20, 60, fade(seg(t, 0.72, 0.8), popScale(seg(t, 0.72, 0.8), DemoBubble('TAKE 2', color: pal.primary)))),
-      at(200, 60, fade(seg(t, 0.72, 0.8), popScale(seg(t, 0.72, 0.8), const DemoBubble('LEFT')))),
-    ],
-  );
-}
-
-Widget truthOrDrinkDemo(BuildContext context, double t) {
-  final pal = context.pal;
-  final penalty = seg(t, 0.45, 0.6) - seg(t, 0.8, 0.9);
-  return Stack(
-    children: [
-      at(
-        20,
-        10,
-        Container(
-          width: 150,
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: pal.panel,
-            border: Border.all(color: pal.border, width: 3),
-          ),
-          child: Text('TRUTH: WORST DATE EVER?', style: PixelFonts.title(pal.text, size: 8).copyWith(height: 1.5)),
-        ),
-      ),
-      at(
-        20,
-        96,
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          color: t < 0.35 ? pal.secondary : pal.panel,
-          child: Text('ANSWER', style: PixelFonts.title(pal.bg, size: 8)),
-        ),
-      ),
-      at(
-        100,
-        96,
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          color: t >= 0.35 ? pal.primary : pal.panel,
-          child: Text('PENALTY', style: PixelFonts.title(pal.bg, size: 8)),
-        ),
-      ),
-      at(200, 40, Transform.rotate(angle: -0.9 * penalty, child: PixelSprite(Sprites.boom, pixel: 5))),
     ],
   );
 }

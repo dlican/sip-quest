@@ -2,13 +2,14 @@ import 'package:flutter/widgets.dart';
 
 import '../widgets/sprites.dart';
 import 'charades/charades_screen.dart';
+import 'dial/dial_screen.dart';
+import 'fishbowl/fishbowl_screen.dart';
 import 'hot_potato/hot_potato_screen.dart';
-import 'most_likely/most_likely_screen.dart';
 import 'ride_the_bus/ride_the_bus_screen.dart';
-import 'roulette/roulette_screen.dart';
-import 'truth_or_drink/truth_or_drink_screen.dart';
 import 'horse_racing/horse_racing_screen.dart';
+import 'imposter/imposter_screen.dart';
 import 'kings_cup/kings_cup_screen.dart';
+import 'mafia/mafia_screen.dart';
 import 'paranoia/paranoia_screen.dart';
 import 'unique_answer/unique_answer_screen.dart';
 
@@ -53,6 +54,34 @@ final List<GameMode> gameModes = [
     builder: (_) => const CharadesScreen(),
   ),
   GameMode(
+    id: 'imposter',
+    title: 'Imposter',
+    tagline: 'Everyone knows the word but one. Find the faker.',
+    icon: Sprites.spy,
+    builder: (_) => const ImposterScreen(),
+  ),
+  GameMode(
+    id: 'fishbowl',
+    title: 'Fishbowl',
+    tagline: 'Fill a bowl with slips. Describe, one word, then act.',
+    icon: Sprites.fishbowl,
+    builder: (_) => const FishbowlScreen(),
+  ),
+  GameMode(
+    id: 'dial',
+    title: 'Dial It In',
+    tagline: 'One clue, one hidden target. Can your team read your mind?',
+    icon: Sprites.dial,
+    builder: (_) => const DialScreen(),
+  ),
+  GameMode(
+    id: 'mafia',
+    title: 'Mafia',
+    tagline: 'Secret roles, deadly nights, no narrator needed. 5+ players.',
+    icon: Sprites.moon,
+    builder: (_) => const MafiaScreen(),
+  ),
+  GameMode(
     id: 'paranoia',
     title: 'Paranoia',
     tagline: 'A secret question, a name said out loud.',
@@ -79,26 +108,5 @@ final List<GameMode> gameModes = [
     tagline: 'Name one, pass it on. Hidden fuse. Boom.',
     icon: Sprites.bomb,
     builder: (_) => const HotPotatoScreen(),
-  ),
-  GameMode(
-    id: 'most_likely',
-    title: 'Most Likely To',
-    tagline: 'Secret votes. Most votes takes the penalty.',
-    icon: Sprites.ballot,
-    builder: (_) => const MostLikelyScreen(),
-  ),
-  GameMode(
-    id: 'roulette',
-    title: 'Pixel Roulette',
-    tagline: 'Spin the wheel of fate.',
-    icon: Sprites.wheel,
-    builder: (_) => const RouletteScreen(),
-  ),
-  GameMode(
-    id: 'truth_or_drink',
-    title: 'Truth or Penalty',
-    tagline: 'Answer honestly, or take a penalty.',
-    icon: Sprites.lips,
-    builder: (_) => const TruthOrDrinkScreen(),
   ),
 ];

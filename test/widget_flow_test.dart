@@ -5,6 +5,7 @@ import 'package:sip_quest/app_state.dart';
 import 'package:sip_quest/games/registry.dart';
 import 'package:sip_quest/main.dart';
 import 'package:sip_quest/theme/palette.dart';
+import 'package:sip_quest/widgets/pixel_ui.dart';
 
 const players = ['Deez', 'Sam', 'Alex', 'Jo'];
 
@@ -236,44 +237,124 @@ void main() {
     await unmount(tester);
   });
 
-  testWidgets('Most Likely To: everyone votes then results', (tester) async {
-    await pumpApp(tester, open: 'most_likely');
-    await tapText(tester, 'SECRET VOTE INSTEAD');
-    for (var i = 0; i < players.length; i++) {
-      await tapText(tester, 'VOTE IN SECRET');
-      await tapText(tester, 'Sam');
+  testWidgets('Fishbowl: named players fill the bowl and play a turn', (tester) async {
+    await pumpApp(tester, open: 'fishbowl');
+    expect(find.text('Team A: Deez, Alex'), findsOneWidget);
+    await tapText(tester, 'FILL THE BOWL');
+    for (final p in players) {
+      expect(find.text('${p.toUpperCase()}, ADD 3 MORE'), findsOneWidget);
+      for (var i = 0; i < 3; i++) {
+        await tester.enterText(find.byKey(const Key('fishbowl-slip')), '$p slip $i');
+        await tapText(tester, '+');
+      }
+      if (p != players.last) await tapText(tester, "I'M ${players[players.indexOf(p) + 1].toUpperCase()}");
     }
-    expect(find.text('Sam takes 4!'), findsOneWidget);
+    expect(find.text('ROUND 1 OF 3'), findsOneWidget);
+    expect(find.text('Deez gives clues. Only your team guesses.'), findsOneWidget);
+    await tapText(tester, 'START TURN');
+    await tester.tap(find.byKey(const Key('fishbowl-got')));
+    await tester.pump();
+    expect(find.text('GOT 1 · 11 LEFT'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('fishbowl-skip')));
+    await tester.pump(const Duration(seconds: 46));
+    expect(find.text("TIME'S UP!"), findsOneWidget);
+    await tapText(tester, 'PASS TO TEAM B');
+    expect(find.text('Sam gives clues. Only your team guesses.'), findsOneWidget);
     await unmount(tester);
   });
 
-  testWidgets('Pixel Roulette: spin shows a result', (tester) async {
-    await pumpApp(tester, open: 'roulette');
-    await tapText(tester, 'SPIN');
-    await tester.pump(const Duration(seconds: 4));
-    expect(find.text('Spin to find your fate.'), findsNothing);
-    expect(find.text('SPIN'), findsOneWidget);
+  testWidgets('Fishbowl: no names, random slips, clear all three rounds', (tester) async {
+    await pumpApp(tester, open: 'fishbowl', names: []);
+    await tapText(tester, 'FILL THE BOWL');
+    await tapText(tester, 'ADD 5 RANDOM SLIPS');
+    await tapText(tester, 'DONE, START GAME');
+    for (var round = 1; round <= 3; round++) {
+      if (round == 1) await tapText(tester, 'START TURN');
+      for (var i = 0; i < 5; i++) {
+        await tester.tap(find.byKey(const Key('fishbowl-got')));
+        await tester.pump();
+      }
+      if (round < 3) {
+        expect(find.text('BOWL EMPTY!'), findsOneWidget);
+        await tapText(tester, 'KEEP GOING');
+      }
+    }
+    expect(find.text('TEAM A WINS!'), findsOneWidget);
+    expect(find.text('Team B takes a penalty.'), findsOneWidget);
+    await tapText(tester, 'PLAY AGAIN, SAME SLIPS');
+    expect(find.text('ROUND 1 OF 3'), findsOneWidget);
     await unmount(tester);
   });
 
-  testWidgets('Truth or Penalty: penalty then next', (tester) async {
-    await pumpApp(tester, open: 'truth_or_drink');
-    expect(find.text('Deez asks Sam:'), findsOneWidget);
-    await tapText(tester, 'PENALTY');
-    expect(find.text('Sam took the penalty!'), findsOneWidget);
-    await tapText(tester, 'NEXT');
-    expect(find.text('Sam asks Alex:'), findsOneWidget);
+  testWidgets('Imposter: deal to everyone, discuss, reveal', (tester) async {
+    await pumpApp(tester, open: 'imposter');
+    await tapText(tester, 'DEAL THE CARDS');
+    var imposters = 0;
+    for (var i = 0; i < players.length; i++) {
+      expect(find.text(players[i].toUpperCase()), findsOneWidget);
+      await tapText(tester, 'SHOW ME');
+      imposters += find.byKey(const Key('imposter-you')).evaluate().length;
+      expect(find.byKey(const Key('imposter-word')).evaluate().length + find.byKey(const Key('imposter-you')).evaluate().length, 1);
+      await tapText(tester, i == players.length - 1 ? 'HIDE, START CLUES' : 'HIDE AND PASS');
+    }
+    expect(imposters, 1);
+    expect(find.textContaining('STARTS'), findsOneWidget);
+    await tapText(tester, 'REVEAL THE IMPOSTER');
+    expect(find.text('THE IMPOSTER WAS'), findsOneWidget);
     await unmount(tester);
   });
 
-  testWidgets('Most Likely To: point-on-3 countdown works with no names', (tester) async {
-    await pumpApp(tester, open: 'most_likely', names: []);
-    expect(find.text('SECRET VOTE INSTEAD'), findsNothing);
-    await tapText(tester, 'COUNT DOWN');
-    await tester.pump(const Duration(seconds: 3));
-    expect(find.text('POINT!'), findsOneWidget);
-    await tapText(tester, 'NEXT QUESTION');
-    expect(find.text('COUNT DOWN'), findsOneWidget);
+  testWidgets('Imposter: no names uses a player count', (tester) async {
+    await pumpApp(tester, open: 'imposter', names: []);
+    await tapText(tester, '-');
+    await tapText(tester, 'DEAL THE CARDS');
+    expect(find.text('PLAYER 1'), findsOneWidget);
+    await unmount(tester);
+  });
+
+  testWidgets('Dial It In: clue, drag, lock in, score', (tester) async {
+    await pumpApp(tester, open: 'dial');
+    expect(find.text('DEEZ'), findsOneWidget);
+    await tapText(tester, 'SHOW ME');
+    expect(find.text('THE TARGET IS HERE'), findsOneWidget);
+    await tapText(tester, 'HIDE IT, TEAM GUESSES');
+    await tester.drag(find.byKey(const Key('dial-bar')), const Offset(-60, 0));
+    await tester.pump();
+    await tapText(tester, 'LOCK IT IN');
+    expect(find.textContaining(RegExp(r'BULLSEYE|CLOSE|MISSED')), findsOneWidget);
+    expect(find.textContaining('Team score:'), findsOneWidget);
+    await tapText(tester, 'NEXT CLUE GIVER');
+    expect(find.text('SAM'), findsOneWidget);
+    await unmount(tester);
+  });
+
+  testWidgets('Mafia: asks for names with fewer than five', (tester) async {
+    await pumpApp(tester, open: 'mafia');
+    expect(find.text('MAFIA NEEDS 5+ NAMES'), findsOneWidget);
+    await unmount(tester);
+  });
+
+  testWidgets('Mafia: roles, a full night, then the vote', (tester) async {
+    const five = ['Deez', 'Sam', 'Alex', 'Jo', 'Priya'];
+    await pumpApp(tester, open: 'mafia', names: five);
+    await tapText(tester, 'DEAL ROLES');
+    for (var i = 0; i < five.length; i++) {
+      await tapText(tester, 'SHOW ME');
+      expect(find.byKey(const Key('mafia-role')), findsOneWidget);
+      await tapText(tester, i == five.length - 1 ? 'HIDE, NIGHT FALLS' : 'HIDE AND PASS');
+    }
+    for (var i = 0; i < five.length; i++) {
+      expect(find.text(five[i].toUpperCase()), findsOneWidget);
+      await tapText(tester, 'SHOW ME');
+      expect(find.text('NIGHT 1'), findsOneWidget);
+      await tester.tap(find.byType(PixelChip).first);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 700));
+    }
+    expect(find.text('MORNING'), findsOneWidget);
+    await tapText(tester, 'DISCUSS AND VOTE');
+    await tapText(tester, 'NO ONE, SKIP THE VOTE');
+    expect(find.text('PASS THE PHONE TO'), findsOneWidget);
     await unmount(tester);
   });
 

@@ -51,6 +51,50 @@ const Map<String, HowTo> howToPlay = {
     ],
     penalty: 'One penalty per pass. Get 5+ and hand out that many penalties.',
   ),
+  'imposter': HowTo(
+    demo: imposterDemo,
+    period: Duration(milliseconds: 4400),
+    steps: [
+      'Pass the phone around. Everyone sees the same secret word, except the imposter.',
+      'Go around the table twice. Each person says one word linked to the secret.',
+      'Then point at who you think is faking it on 3. Reveal on the phone.',
+      'A caught imposter still wins if they can guess the word.',
+    ],
+    penalty: 'Imposter wins: everyone else takes a penalty. Caught: the imposter does.',
+  ),
+  'dial': HowTo(
+    demo: dialDemo,
+    period: Duration(milliseconds: 4200),
+    steps: [
+      'The clue giver secretly sees a target on a scale, like Cold to Hot.',
+      'They say one thing that sits right at the target ("soup", "a sauna").',
+      'Everyone else talks it over and drags the needle where they think it is.',
+      'Lock it in: 4 points for a bullseye, then 3 and 2 for close calls.',
+    ],
+    penalty: 'Miss completely: the guessers take a penalty. Bullseye: the clue giver hands one out.',
+  ),
+  'mafia': HowTo(
+    demo: mafiaDemo,
+    period: Duration(milliseconds: 4400),
+    steps: [
+      'Needs 5+ names. Pass the phone so everyone sees their secret role.',
+      'At night the phone goes around again. Everyone taps a name, so nobody can tell who has a power.',
+      'Mafia pick a target, the Doctor saves someone, the Detective checks someone.',
+      'By day, discuss and vote someone out. Repeat until one side wins.',
+    ],
+    penalty: 'Town catches every Mafia: the Mafia take a penalty. Mafia match the town: everyone else does.',
+  ),
+  'fishbowl': HowTo(
+    demo: fishbowlDemo,
+    period: Duration(milliseconds: 4800),
+    steps: [
+      'Pass the phone around. Everyone secretly adds a few slips: people, movies, phrases.',
+      'Two teams take turns. The clue giver gets a timer and pulls slips; only their team guesses.',
+      'Round 1: describe it. Round 2: one word only. Round 3: act it out.',
+      'Same slips every round, so remember them! The bowl refills each round.',
+    ],
+    penalty: 'Most slips after three rounds wins. The losing team takes a penalty.',
+  ),
   'paranoia': HowTo(
     demo: paranoiaDemo,
     steps: [
@@ -89,31 +133,6 @@ const Map<String, HowTo> howToPlay = {
       'The ticking speeds up. Nobody knows when it blows.',
     ],
     penalty: 'Holding the phone when it explodes? Penalty.',
-  ),
-  'most_likely': HowTo(
-    demo: mostLikelyDemo,
-    steps: [
-      'Read the question out loud.',
-      'Tap Count down. On "point!", everyone points at someone.',
-      'With names added you can vote in secret instead.',
-    ],
-    penalty: 'One penalty for every finger pointing at you.',
-  ),
-  'roulette': HowTo(
-    demo: rouletteDemo,
-    period: Duration(milliseconds: 3400),
-    steps: ['Pass the phone around. On your turn, spin the wheel.', 'Do what it lands on.'],
-    penalty: 'The wheel decides your fate.',
-  ),
-  'truth_or_drink': HowTo(
-    demo: truthOrDrinkDemo,
-    period: Duration(milliseconds: 3600),
-    steps: [
-      'Read the question to the person on your left.',
-      'They answer honestly, or take a penalty instead.',
-      'Then they ask the next person.',
-    ],
-    penalty: 'Dodge the truth, take the penalty.',
   ),
 };
 

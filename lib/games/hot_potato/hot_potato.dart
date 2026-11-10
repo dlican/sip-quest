@@ -2,7 +2,7 @@ import 'dart:math';
 
 const hotPotatoCategories = [
   'Pizza toppings', 'Car brands', 'Things in a kitchen', 'Disney movies', 'Dog breeds',
-  'Beers', 'Cocktails', 'Countries in Europe', 'Fast food chains', 'Sports teams',
+  'Soda brands', 'Breakfast foods', 'Countries in Europe', 'Fast food chains', 'Sports teams',
   'Things at the beach', 'Board games', 'Breakfast cereals', 'Superheroes', 'Fruits',
   'Clothing brands', 'Things you find in a bathroom', 'Video game characters', 'Pop stars',
   'Words that rhyme with "cat"', 'Things that are yellow', 'Body parts', 'Apps on your phone',

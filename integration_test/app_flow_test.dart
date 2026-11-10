@@ -112,19 +112,6 @@ void main() {
     expect(find.textContaining(RegExp(r'NICE|WRONG')), findsOneWidget);
     await back(tester);
 
-    // Truth or Penalty: one turn.
-    await tap(tester, 'TRUTH OR PENALTY', scroll: true);
-    await tap(tester, 'ANSWER');
-    expect(find.text('Truth told. Respect.'), findsOneWidget);
-    await back(tester);
-
-    // Pixel Roulette: one spin.
-    await tap(tester, 'PIXEL ROULETTE', scroll: true);
-    await tap(tester, 'SPIN');
-    await wait(tester, const Duration(seconds: 4));
-    expect(find.text('Spin to find your fate.'), findsNothing);
-    await back(tester);
-
     expect(find.text('PARTY PARTY'), findsWidgets);
   });
 }

@@ -21,22 +21,23 @@ of drinking language: no "drink", "shots", "booze", "pregame" or "drinking game"
 **Subtitle (30 max):** Pixel party games, one phone
 
 **Promotional text (170 max):**
-Ten pixel-art party games on one phone. Four Kings, Charades, Horse Racing and more. Fully offline, no accounts, no ads.
+Eleven pixel-art party games on one phone. Imposter, Mafia, Fishbowl, Charades and more. Fully offline, no accounts, no ads.
 
 **Description:**
 Party Party turns one phone into a whole night of party games. Pass it around or put it in the middle of the table, no setup and no sign-up. Your group picks the penalties: a dare, a push-up, a silly hat, whatever your table likes.
 
-TEN GAMES
+ELEVEN GAMES
 • Four Kings: draw a card, obey the rule, and hope you don't draw the fourth king
 • One of a Kind: answer fast, but match anyone and you're out
 • Charades: phone on your forehead, tilt to score
+• Imposter: everyone knows the secret word except one faker. Give clues, then vote
+• Dial It In: one clue, one hidden target on a scale. Can your team read your mind?
+• Mafia: secret roles and deadly nights for 5+ players, no narrator needed
+• Fishbowl: everyone fills the bowl with secret slips, then teams describe, one-word and act them out over three rounds
 • Paranoia: a secret question, a name said out loud
 • Horse Racing: bet penalties and dares on a suit and watch the aces race
 • Ride the Bus: four right in a row to get off
 • Hot Potato: name one and pass it on before the hidden fuse blows
-• Most Likely To: secret votes, bar-chart reveals
-• Pixel Roulette: spin the wheel of fate
-• Truth or Penalty: answer honestly, or take the penalty
 
 BUILT FOR THE TABLE
 • Add player names and the phone calls turns, or skip names and just play
@@ -49,7 +50,7 @@ PRIVATE BY DESIGN
 No accounts, no ads, no tracking, no internet needed. Nothing leaves your phone.
 
 **Keywords (100 max):**
-party,games,charades,truth or dare,group,friends,card game,pixel,retro,icebreaker,game night
+party,games,imposter,mafia,charades,fishbowl,group,friends,card game,pixel,retro,game night
 
 **Support URL:** https://github.com/dlican/sip-quest/issues
 **Marketing URL:** https://github.com/dlican/sip-quest
@@ -60,7 +61,7 @@ party,games,charades,truth or dare,group,friends,card game,pixel,retro,icebreake
 - Data collection: **No, we do not collect data from this app.**
 
 ## Age rating questionnaire
-- Mature/Suggestive Themes: **Infrequent/Mild** (truth questions, some prompts)
+- Mature/Suggestive Themes: **Infrequent/Mild** (some Paranoia questions)
 - Profanity or Crude Humor: **Infrequent/Mild**
 - Alcohol, Tobacco, or Drug Use or References: **None**
 - Everything else: **None**. Unrestricted web access: No. Gambling: No (bets are
@@ -72,7 +73,7 @@ party,games,charades,truth or dare,group,friends,card game,pixel,retro,icebreake
 encryption question.
 
 ## App Review notes
-Party Party is an offline party game collection: ten card, word and guessing games
+Party Party is an offline party game collection: eleven card, word, guessing and social deduction games
 played by passing one phone around a group. It has no login, no network access
 and no in-app purchases, so no demo account is needed.
 

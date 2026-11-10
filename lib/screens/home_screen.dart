@@ -48,20 +48,23 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     final app = context.app;
     final pal = app.palette;
+    final safe = MediaQuery.paddingOf(context);
     return PixelScaffold(
       title: '',
       showBack: false,
-      actions: [
-        PixelIconButton(
-          icon: Icons.settings,
-          tooltip: 'Settings',
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
-        ),
-      ],
+      fullBleed: true,
       // Not lazy: the list is short and every tile stays findable in tests.
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
+        padding: EdgeInsets.fromLTRB(16 + safe.left, safe.top + 12, 16 + safe.right, safe.bottom + 32),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: PixelIconButton(
+              icon: Icons.settings,
+              tooltip: 'Settings',
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen())),
+            ),
+          ),
           const Center(child: _BouncingDie()),
           const SizedBox(height: 14),
           Center(

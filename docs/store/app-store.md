@@ -10,7 +10,7 @@ repeated submissions can cost the developer account. Keep every field below free
 of drinking language: no "drink", "shots", "booze", "pregame" or "drinking game".
 
 ## App record
-- **Name:** Party Party
+- **Name:** Party Party: Pixel Games ("Party Party" was taken; the icon still says Party Party)
 - **Bundle ID:** com.funapps.partyParty
 - **SKU:** partyparty-ios
 - **Primary language:** English (U.S.)
